@@ -1,0 +1,815 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PM原型拾取器 - 支持官网</title>
+    <meta name="description" content="PM原型拾取器支持官网，提供服务包获取入口、工具介绍与隐私协议。" />
+  </head>
+  <body>
+    <div id="root"><style>
+  :root {
+    color-scheme: light;
+    --bg: #f5f9ff;
+    --bg-soft: #edf4ff;
+    --surface: rgba(255, 255, 255, 0.72);
+    --surface-strong: rgba(255, 255, 255, 0.92);
+    --border: rgba(15, 23, 42, 0.12);
+    --text: #0b1220;
+    --muted: #526079;
+    --primary: #2f6bff;
+    --primary-strong: #1d4ed8;
+    --primary-soft: rgba(47, 107, 255, 0.12);
+    --success-soft: rgba(16, 185, 129, 0.12);
+    --success-text: #047857;
+    --danger-soft: rgba(244, 63, 94, 0.12);
+    --danger-text: #be123c;
+    --shadow: 0 22px 60px rgba(15, 23, 42, 0.12);
+    --shadow-soft: 0 12px 32px rgba(15, 23, 42, 0.08);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    margin: 0;
+    background:
+      radial-gradient(circle at 16% 10%, rgba(47, 107, 255, 0.18), transparent 48%),
+      radial-gradient(circle at 84% 0%, rgba(59, 130, 246, 0.12), transparent 44%),
+      radial-gradient(circle at 50% 72%, rgba(14, 165, 233, 0.10), transparent 52%),
+      linear-gradient(180deg, var(--bg) 0%, #ffffff 68%, var(--bg-soft) 100%);
+    color: var(--text);
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .site-shell {
+    min-height: 100vh;
+    position: relative;
+    overflow-x: clip;
+  }
+
+  .site-shell::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    background-image:
+      linear-gradient(rgba(15, 23, 42, 0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(15, 23, 42, 0.04) 1px, transparent 1px);
+    background-size: 44px 44px;
+    mask-image: radial-gradient(circle at 50% 18%, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0) 62%);
+    opacity: 0.9;
+  }
+
+  .container {
+    width: min(1120px, calc(100% - 40px));
+    margin: 0 auto;
+  }
+
+  .site-nav {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    backdrop-filter: blur(18px);
+    background: rgba(245, 249, 255, 0.72);
+    border-bottom: 1px solid rgba(15, 23, 42, 0.08);
+  }
+
+  .site-nav-inner {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    gap: 16px;
+    padding: 18px 0;
+  }
+
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+  }
+
+  .brand-mark {
+    width: 38px;
+    height: 38px;
+    border-radius: 12px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, rgba(47, 107, 255, 1) 0%, rgba(14, 165, 233, 1) 100%);
+    box-shadow: 0 18px 32px rgba(47, 107, 255, 0.24);
+    font-size: 18px;
+    color: #ffffff;
+  }
+
+  .nav-links {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 18px;
+    font-size: 14px;
+    color: var(--muted);
+  }
+
+  .nav-links a:hover {
+    color: var(--text);
+  }
+
+  .nav-actions {
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .nav-cta {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 42px;
+    padding: 0 18px;
+    border-radius: 999px;
+    background: linear-gradient(135deg, var(--primary) 0%, rgba(14, 165, 233, 1) 100%);
+    box-shadow: 0 12px 26px rgba(47, 107, 255, 0.22);
+    color: #ffffff;
+    font-size: 14px;
+    font-weight: 800;
+    letter-spacing: 0.02em;
+    transition: transform 0.18s ease, box-shadow 0.18s ease;
+  }
+
+  .nav-cta:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 14px 30px rgba(47, 107, 255, 0.26);
+  }
+
+  .hero {
+    padding: 92px 0 72px;
+    min-height: 620px;
+    display: flex;
+    align-items: center;
+  }
+
+  .hero-inner {
+    width: min(900px, 100%);
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .feature-card,
+  .feature-card,
+  .agreement-card,
+  .workflow-item {
+    border: 1px solid var(--border);
+    background: var(--surface);
+    box-shadow: var(--shadow-soft);
+  }
+
+  .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 14px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.70);
+    border: 1px solid rgba(15, 23, 42, 0.10);
+    color: rgba(15, 23, 42, 0.78);
+    font-size: 13px;
+    font-weight: 800;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .hero-title {
+    margin: 22px 0 16px;
+    font-size: clamp(34px, 5vw, 56px);
+    line-height: 1.04;
+    letter-spacing: -0.03em;
+    background: linear-gradient(90deg, rgba(11, 18, 32, 1) 0%, rgba(29, 78, 216, 1) 46%, rgba(14, 165, 233, 1) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .hero-desc {
+    margin: 0 auto;
+    max-width: 760px;
+    font-size: 17px;
+    line-height: 1.8;
+    color: var(--muted);
+  }
+
+  .hero-actions {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 14px;
+    margin-top: 28px;
+  }
+
+  .primary-btn,
+  .secondary-btn {
+    appearance: none;
+    border: none;
+    margin: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 56px;
+    padding: 0 24px;
+    border-radius: 999px;
+    font-size: 16px;
+    font-weight: 700;
+    transition: transform 0.18s ease, box-shadow 0.18s ease, background 0.18s ease;
+  }
+
+  .primary-btn {
+    min-width: 220px;
+    background: linear-gradient(135deg, var(--primary) 0%, rgba(14, 165, 233, 1) 100%);
+    color: #ffffff;
+    box-shadow: 0 18px 40px rgba(47, 107, 255, 0.26);
+  }
+
+  .primary-btn:hover,
+  .secondary-btn:hover {
+    transform: translateY(-1px);
+  }
+
+  .secondary-btn {
+    border: 1px solid rgba(15, 23, 42, 0.14);
+    background: rgba(255, 255, 255, 0.70);
+    color: var(--text);
+    cursor: pointer;
+  }
+
+  .button-note {
+    margin-top: 16px;
+    font-size: 13px;
+    color: var(--muted);
+  }
+
+  .hero-boundary {
+    width: min(900px, 100%);
+    margin: 26px auto 0;
+    padding: 14px;
+    border-radius: 22px;
+    background: rgba(255, 255, 255, 0.70);
+    border: 1px solid rgba(15, 23, 42, 0.10);
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 10px;
+    box-shadow: var(--shadow-soft);
+  }
+
+  .boundary-item {
+    padding: 14px 14px;
+    border-radius: 18px;
+    background: rgba(47, 107, 255, 0.06);
+    border: 1px solid rgba(47, 107, 255, 0.10);
+    text-align: left;
+  }
+
+  .boundary-item strong {
+    display: block;
+    font-size: 14px;
+    margin-bottom: 6px;
+    color: rgba(15, 23, 42, 0.92);
+  }
+
+  .boundary-item span {
+    display: block;
+    color: var(--muted);
+    font-size: 14px;
+    line-height: 1.7;
+  }
+
+  .section {
+    padding: 76px 0;
+  }
+
+  .section-head {
+    margin-bottom: 24px;
+    text-align: center;
+  }
+
+  .section-kicker {
+    margin: 0 0 10px;
+    font-size: 13px;
+    color: rgba(29, 78, 216, 0.78);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .section-title {
+    margin: 0;
+    font-size: clamp(28px, 4vw, 40px);
+    letter-spacing: -0.02em;
+  }
+
+  .section-desc {
+    margin: 12px 0 0;
+    max-width: 760px;
+    color: var(--muted);
+    font-size: 16px;
+    line-height: 1.8;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .feature-grid,
+  .agreement-grid,
+  .workflow-grid {
+    display: grid;
+    gap: 18px;
+  }
+
+  .feature-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .workflow-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .agreement-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .feature-card,
+  .agreement-card,
+  .workflow-item {
+    border-radius: 24px;
+    padding: 24px;
+  }
+
+  .card-index {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 14px;
+    background: linear-gradient(135deg, rgba(47, 107, 255, 0.16) 0%, rgba(14, 165, 233, 0.18) 100%);
+    color: rgba(29, 78, 216, 0.92);
+    font-weight: 700;
+    margin-bottom: 18px;
+  }
+
+  .card-title {
+    margin: 0 0 12px;
+    font-size: 20px;
+  }
+
+  .card-text {
+    margin: 0;
+    color: var(--muted);
+    font-size: 15px;
+    line-height: 1.8;
+  }
+
+  .agreement-tag {
+    display: inline-flex;
+    align-items: center;
+    min-height: 34px;
+    padding: 0 12px;
+    border-radius: 999px;
+    margin-bottom: 16px;
+    font-size: 13px;
+    font-weight: 700;
+  }
+
+  .agreement-tag.allowed {
+    background: var(--success-soft);
+    color: var(--success-text);
+  }
+
+  .agreement-tag.restricted {
+    background: var(--danger-soft);
+    color: var(--danger-text);
+  }
+
+  .agreement-list {
+    display: grid;
+    gap: 12px;
+    margin-top: 18px;
+    color: var(--muted);
+    font-size: 15px;
+    line-height: 1.8;
+  }
+
+  .agreement-list div,
+  .workflow-note {
+    padding: 12px 14px;
+    border-radius: 16px;
+    background: rgba(15, 23, 42, 0.04);
+  }
+
+  .privacy-emphasis {
+    margin-top: 22px;
+    padding: 18px 20px;
+    border-radius: 20px;
+    border: 1px solid rgba(244, 63, 94, 0.20);
+    background: rgba(244, 63, 94, 0.08);
+    font-size: 16px;
+    line-height: 1.8;
+    color: rgba(15, 23, 42, 0.88);
+  }
+
+  .footer {
+    padding: 0 0 52px;
+  }
+
+  .footer-card {
+    border-radius: 24px;
+    padding: 24px;
+    background: rgba(255, 255, 255, 0.72);
+    border: 1px solid rgba(15, 23, 42, 0.10);
+    color: var(--muted);
+    font-size: 14px;
+    line-height: 1.8;
+    box-shadow: var(--shadow-soft);
+  }
+
+  .guide-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 40;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    background: rgba(10, 18, 34, 0.42);
+    backdrop-filter: blur(14px);
+  }
+
+  .guide-modal.is-visible {
+    display: flex;
+  }
+
+  .guide-dialog {
+    width: min(980px, 100%);
+    border-radius: 28px;
+    overflow: hidden;
+    border: 1px solid rgba(15, 23, 42, 0.10);
+    background: rgba(255, 255, 255, 0.96);
+    box-shadow: 0 34px 80px rgba(15, 23, 42, 0.22);
+  }
+
+  .guide-dialog-inner {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .guide-main {
+    padding: 24px 34px 20px;
+    background:
+      radial-gradient(circle at top, rgba(47, 107, 255, 0.08), transparent 36%),
+      linear-gradient(180deg, rgba(248, 251, 255, 1) 0%, rgba(255, 255, 255, 1) 100%);
+    text-align: center;
+  }
+
+  .guide-side {
+    padding: 24px 34px 34px;
+    border-top: 1px solid rgba(15, 23, 42, 0.06);
+    background: rgba(247, 250, 255, 0.6);
+  }
+
+  .guide-head {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    position: relative;
+    gap: 16px;
+    margin-bottom: 16px;
+  }
+
+  .guide-head-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .guide-kicker {
+    display: inline-flex;
+    align-items: center;
+    min-height: 26px;
+    padding: 0 12px;
+    border-radius: 999px;
+    background: rgba(47, 107, 255, 0.10);
+    color: rgba(29, 78, 216, 0.90);
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .guide-title {
+    margin: 8px 0 6px;
+    font-size: clamp(24px, 4vw, 32px);
+    line-height: 1.12;
+    letter-spacing: -0.03em;
+    color: var(--text);
+  }
+
+  .guide-desc {
+    margin: 0 auto;
+    max-width: 540px;
+    color: var(--muted);
+    font-size: 14px;
+    line-height: 1.7;
+  }
+
+  .guide-close {
+    position: absolute;
+    top: -8px;
+    right: -16px;
+    appearance: none;
+    border: none;
+    width: 36px;
+    height: 36px;
+    border-radius: 999px;
+    background: rgba(15, 23, 42, 0.06);
+    color: rgba(15, 23, 42, 0.72);
+    font-size: 18px;
+    cursor: pointer;
+    flex: none;
+  }
+
+  .guide-close:hover {
+    background: rgba(15, 23, 42, 0.10);
+  }
+
+  .guide-wechat-card {
+    margin-top: 16px;
+    padding: 20px;
+    border-radius: 20px;
+    border: 1px solid rgba(47, 107, 255, 0.14);
+    background: linear-gradient(180deg, rgba(47, 107, 255, 0.04) 0%, rgba(255, 255, 255, 0.96) 100%);
+    box-shadow: var(--shadow-soft);
+    text-align: left;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .guide-priority {
+    position: absolute;
+    top: 16px;
+    left: 16px;
+    display: inline-flex;
+    align-items: center;
+    min-height: 24px;
+    padding: 0 10px;
+    border-radius: 999px;
+    background: rgba(16, 185, 129, 0.12);
+    color: rgba(4, 120, 87, 0.92);
+    font-size: 12px;
+    font-weight: 800;
+  }
+
+  .guide-wechat-layout {
+    display: flex;
+    gap: 24px;
+    align-items: center;
+    justify-content: center;
+    margin-top: 12px;
+  }
+
+  .guide-qr {
+    width: 140px;
+    height: 140px;
+    aspect-ratio: 1;
+    object-fit: cover;
+    display: block;
+    border-radius: 14px;
+    background: #ffffff;
+    border: 1px solid rgba(15, 23, 42, 0.08);
+    box-shadow: 0 10px 24px rgba(15, 23, 42, 0.08);
+    flex: none;
+  }
+
+  .guide-wechat-info {
+    flex: 1;
+    max-width: 320px;
+  }
+
+  .guide-wechat-title {
+    margin: 0 0 8px;
+    font-size: 20px;
+    color: var(--text);
+  }
+
+  .guide-wechat-text {
+    margin: 0;
+    color: var(--muted);
+    font-size: 14px;
+    line-height: 1.7;
+  }
+
+  .guide-highlight {
+    margin-top: 12px;
+    padding: 10px 14px;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.78);
+    border: 1px solid rgba(15, 23, 42, 0.08);
+    color: rgba(15, 23, 42, 0.82);
+    font-size: 13px;
+    line-height: 1.5;
+  }
+
+  .guide-side-header {
+    margin-bottom: 24px;
+  }
+
+  .guide-side-title {
+    margin: 0;
+    font-size: 22px;
+    color: var(--text);
+  }
+
+  .guide-side-desc {
+    margin: 8px 0 0;
+    color: var(--muted);
+    font-size: 15px;
+    line-height: 1.7;
+  }
+
+  .guide-social-list {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 20px;
+  }
+
+  .guide-social-card {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 20px;
+    border-radius: 20px;
+    background: rgba(255, 255, 255, 0.9);
+    border: 1px solid rgba(15, 23, 42, 0.06);
+    text-align: left;
+  }
+
+  .guide-social-card img {
+    width: 100px;
+    height: 100px;
+    aspect-ratio: 1;
+    object-fit: cover;
+    display: block;
+    margin: 0;
+    border-radius: 16px;
+    background: #ffffff;
+    flex: none;
+    box-shadow: 0 10px 24px rgba(15, 23, 42, 0.04);
+  }
+
+  .guide-social-info {
+    flex: 1;
+  }
+
+  .guide-social-label {
+    margin: 0 0 8px;
+    font-size: 18px;
+    color: var(--text);
+  }
+
+  .guide-social-text {
+    margin: 0;
+    color: var(--muted);
+    font-size: 14px;
+    line-height: 1.6;
+  }
+
+  @media (max-width: 960px) {
+    .feature-grid,
+    .workflow-grid,
+    .agreement-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .hero {
+      padding-top: 74px;
+    }
+
+    .guide-dialog-inner {
+      grid-template-columns: 1fr;
+    }
+
+    .guide-side {
+      border-left: none;
+      border-top: 1px solid rgba(15, 23, 42, 0.08);
+    }
+  }
+
+  @media (max-width: 640px) {
+    .container {
+      width: min(100% - 24px, 1120px);
+    }
+
+    .site-nav-inner {
+      grid-template-columns: 1fr;
+      justify-items: start;
+      padding: 14px 0;
+    }
+
+    .nav-links {
+      justify-content: flex-start;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    .feature-card,
+    .agreement-card,
+    .workflow-item {
+      border-radius: 22px;
+    }
+
+    .feature-card,
+    .agreement-card,
+    .workflow-item,
+    .footer-card {
+      padding: 20px;
+    }
+
+    .primary-btn,
+    .secondary-btn {
+      width: 100%;
+    }
+
+    .nav-actions {
+      width: 100%;
+      justify-content: flex-start;
+    }
+
+    .hero-boundary {
+      grid-template-columns: 1fr;
+    }
+
+    .guide-modal {
+      padding: 14px;
+    }
+
+    .guide-main,
+    .guide-side {
+      padding: 22px 20px;
+    }
+
+    .guide-wechat-layout {
+      grid-template-columns: 1fr;
+    }
+  }
+</style><div class="site-shell"><div class="site-nav"><div class="container site-nav-inner"><a class="brand" href="#top"><span class="brand-mark">PM</span><span>PM原型拾取器</span></a><div class="nav-links"><a href="#intro">工具介绍</a><a href="#workflow">使用方式</a><a href="#privacy">隐私协议</a></div><div class="nav-actions"><a class="nav-cta" href="#contact-guide" data-open-guide="true">获取完整工具包</a></div></div></div><main id="top"><section class="hero"><div class="container"><div class="hero-inner"><div class="eyebrow">Professional Tool For PMs</div><h1 class="hero-title">PM原型拾取器</h1><p class="hero-desc">专为产品经理打造的高效工具。一键拾取、智能还原、自由编辑，让原型设计告别机械性的搬运与重构。</p><div class="hero-actions"><a class="primary-btn" href="#contact-guide" data-open-guide="true">获取完整工具包</a></div><div class="button-note">当前完整工具包版本：1.0.026</div><div class="hero-boundary" aria-label="使用边界"><div class="boundary-item"><strong>仅限自有或已授权页面</strong><span>仅可用于 PM 对自己负责、拥有权限或获得明确授权的产品页面进行还原与整理。</span></div><div class="boundary-item"><strong>仅限原型二次编辑</strong><span>工具目标是形成可编辑原型底稿，便于继续梳理结构、交互和需求。</span></div><div class="boundary-item"><strong>不得用于其他用途</strong><span>不得用于竞品抓取、未授权复制、公开传播、商业牟利或违法违规场景。</span></div></div></div></div></section><section class="section" id="intro"><div class="container"><div class="section-head"><div class="section-kicker">Tool Intro</div><h2 class="section-title">工具介绍</h2><p class="section-desc">PM 原型拾取器围绕“授权页面还原 + 原型继续编辑”设计，重点帮助 PM 更快拿到可沟通、可迭代的页面基础稿。</p></div><div class="feature-grid"><article class="feature-card"><div class="card-index">01</div><h3 class="card-title">页面结构快速还原</h3><p class="card-text">辅助 PM 将已授权的业务页面拾取为可继续整理的还原稿，便于后续补充交互、文案和流程。</p></article><article class="feature-card"><div class="card-index">02</div><h3 class="card-title">服务包即取即用</h3><p class="card-text">官网提供微信引导入口，可获取完整工具包、使用说明与后续更新信息，方便在团队内部快速落地使用。</p></article><article class="feature-card"><div class="card-index">03</div><h3 class="card-title">面向二次原型编辑</h3><p class="card-text">目标是提升原型补绘、需求评审和方案沉淀效率，而不是替代正式研发、设计或发布流程。</p></article></div></div></section><section class="section" id="workflow"><div class="container"><div class="section-head"><div class="section-kicker">Workflow</div><h2 class="section-title">使用方式</h2><p class="section-desc">工具本身并不替代产品设计判断，而是帮助 PM 在授权前提下更快完成页面整理、原型补充和沟通准备。</p></div><div class="workflow-grid"><article class="workflow-item"><div class="card-index">1</div><h3 class="card-title">获取服务包</h3><p class="card-text">从官网入口进入引导弹窗，优先添加微信获取完整工具包，再在本地启动后与浏览器插件配合使用。</p></article><article class="workflow-item"><div class="card-index">2</div><h3 class="card-title">拾取自己的产品页面</h3><p class="card-text">仅对自己负责或已获得明确授权的产品页面执行还原，形成可编辑的原型基础稿。</p></article><article class="workflow-item"><div class="card-index">3</div><h3 class="card-title">继续原型整理</h3><p class="card-text">把还原结果用于二次原型编辑、评审材料准备和需求沟通，帮助团队更快推进方案确认。</p></article></div></div></section><section class="section" id="privacy"><div class="container"><div class="section-head"><div class="section-kicker">Privacy Agreement</div><h2 class="section-title">隐私协议</h2><p class="section-desc">使用 PM 原型拾取器即表示你理解并同意以下约束：工具仅用于辅助 PM 对自己的产品页面进行还原，方便二次原型编辑，不得用于其他用途。</p></div><div class="agreement-grid"><article class="agreement-card"><div class="agreement-tag allowed">允许范围</div><h3 class="card-title">仅限内部产品还原与编辑辅助</h3><p class="card-text">工具用于把自有页面或已获授权页面整理为后续可编辑的原型基础稿，服务于需求讨论、流程评审和原型迭代。</p><div class="agreement-list"><div>仅处理自己负责的产品页面，或已明确获得授权的页面。</div><div>仅用于页面还原、结构整理、原型补绘和需求沟通。</div><div>使用者需自行遵守所在组织的合规、安全与数据管理要求。</div></div></article><article class="agreement-card"><div class="agreement-tag restricted">禁止用途</div><h3 class="card-title">不得将工具用于任何其他目的</h3><p class="card-text">严禁将本工具用于未授权页面内容复制、竞品资料抓取、批量数据采集、公开传播、商业牟利或任何违法违规活动。</p><div class="agreement-list"><div>不得处理不属于自己团队、自己产品或未经授权的第三方页面。</div><div>不得借助还原结果规避版权、隐私、账号权限或企业安全限制。</div><div>不得把工具或还原结果用于与原型编辑无关的其他场景。</div></div></article></div><div class="privacy-emphasis">重点提示：PM 原型拾取器是面向 PM 的原型辅助工具，只能用于对自己产品页面进行还原，以便开展二次原型编辑与需求沟通。不得用于其他用途。</div></div></section></main><footer class="footer"><div class="container"><div class="footer-card">PM 原型拾取器官网仅提供服务包获取与使用边界说明。请在获得页面权限、确认内部合规要求后使用本工具，并确保所有还原结果仅服务于原型编辑与产品协作。</div></div></footer><div class="guide-modal" data-guide-modal="true" id="contact-guide"><div class="guide-dialog" role="dialog" aria-modal="true" aria-labelledby="guide-title"><div class="guide-dialog-inner"><div class="guide-main"><div class="guide-head"><div class="guide-head-content"><div class="guide-kicker">Get Full Package</div><h2 class="guide-title" id="guide-title">添加微信，获取完整工具包</h2><p class="guide-desc">完整工具包通过微信统一发放与答疑。添加微信后即可获取完整版本、使用说明和后续更新信息。</p></div><button class="guide-close" type="button" aria-label="关闭弹窗" data-close-guide="true">×</button></div><div class="guide-wechat-card"><div class="guide-wechat-layout"><img class="guide-qr" src="./assets/images/wx.png" alt="微信二维码"/><div class="guide-wechat-info"><h3 class="guide-wechat-title">价格：￥19.90</h3><p class="guide-wechat-text">扫码添加微信后，可获取完整工具包，并持续接收版本更新、使用建议。</p><div class="guide-highlight">建议添加后备注「PM原型拾取器」便于更快识别并发送完整资料。</div></div></div></div></div><aside class="guide-side"><div class="guide-side-header"><h3 class="guide-side-title">同步关注账号</h3><p class="guide-side-desc">抖音和小红书会持续分享产品经理干货、工具方法和实践经验。</p></div><div class="guide-social-list"><div class="guide-social-card"><img src="./assets/images/dy.png" alt="抖音账号二维码"/><div class="guide-social-info"><h4 class="guide-social-label">抖音账号</h4><p class="guide-social-text">持续分享产品经理相关干货、效率技巧与实战经验，建议扫码关注。</p></div></div><div class="guide-social-card"><img src="./assets/images/redbook.png" alt="小红书账号二维码"/><div class="guide-social-info"><h4 class="guide-social-label">小红书账号</h4><p class="guide-social-text">持续更新产品经理成长内容、工具拆解与实际案例，适合日常跟进学习。</p></div></div></div></aside></div></div></div></div><script>
+  (() => {
+    const modal = document.querySelector('[data-guide-modal]');
+    if (!modal) {
+      return;
+    }
+
+    const openers = document.querySelectorAll('[data-open-guide]');
+    const closers = modal.querySelectorAll('[data-close-guide]');
+
+    const openModal = () => {
+      modal.classList.add('is-visible');
+      document.body.style.overflow = 'hidden';
+    };
+
+    const closeModal = () => {
+      modal.classList.remove('is-visible');
+      document.body.style.overflow = '';
+    };
+
+    openers.forEach((node) => {
+      node.addEventListener('click', (event) => {
+        event.preventDefault();
+        openModal();
+      });
+    });
+
+    closers.forEach((node) => {
+      node.addEventListener('click', () => {
+        closeModal();
+      });
+    });
+
+    modal.addEventListener('click', (event) => {
+      if (event.target === modal) {
+        closeModal();
+      }
+    });
+
+    window.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape') {
+        closeModal();
+      }
+    });
+  })();
+</script></div>
+  </body>
+</html>
