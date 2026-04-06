@@ -5,6 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>PM原型拾取器 - 支持官网</title>
     <meta name="description" content="PM原型拾取器支持官网，提供服务包获取入口、工具介绍与隐私协议。" />
+    <script>
+      var _hmt = _hmt || [];
+      (function() {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?16d816c51d10b6f8b09f4b34e615c37a";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+      })();
+    </script>
   </head>
   <body>
     <div id="root"><style>
@@ -455,6 +464,7 @@
   }
 
   .share-cover {
+    position: relative;
     overflow: hidden;
     background: rgba(255, 255, 255, 0.9);
     display: flex;
@@ -468,6 +478,50 @@
     display: block;
     object-fit: contain;
     object-position: center;
+  }
+
+  .share-play-btn {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    cursor: pointer;
+    background: radial-gradient(circle at center, rgba(0, 0, 0, 0.15) 0%, rgba(0, 0, 0, 0) 60%);
+    opacity: 0.9;
+    transition: opacity 0.3s ease;
+  }
+
+  .share-play-btn:hover {
+    opacity: 1;
+  }
+
+  .share-play-pill {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    box-shadow: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(12px);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .share-play-btn:hover .share-play-pill {
+    transform: scale(1.02);
+    background: rgba(255, 255, 255, 0.7);
+    box-shadow: none;
+  }
+
+  .share-play-pill svg {
+    width: 24px;
+    height: 24px;
+    color: var(--primary);
+    transform: translateX(2px);
   }
 
   .share-qr-col {
@@ -662,12 +716,19 @@
     align-items: center;
     justify-content: center;
     padding: 24px;
-    background: rgba(10, 18, 34, 0.42);
-    backdrop-filter: blur(14px);
+    background: rgba(10, 18, 34, 0);
+    backdrop-filter: blur(0px);
+    transition: background 0.3s ease, backdrop-filter 0.3s ease;
+    opacity: 0;
+    pointer-events: none;
   }
 
   .guide-modal.is-visible {
     display: flex;
+    background: rgba(10, 18, 34, 0.42);
+    backdrop-filter: blur(14px);
+    opacity: 1;
+    pointer-events: auto;
   }
 
   .guide-dialog {
@@ -677,6 +738,14 @@
     border: 1px solid rgba(15, 23, 42, 0.10);
     background: rgba(255, 255, 255, 0.96);
     box-shadow: 0 34px 80px rgba(15, 23, 42, 0.22);
+    transform: scale(0.95) translateY(10px);
+    opacity: 0;
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .guide-modal.is-visible .guide-dialog {
+    transform: scale(1) translateY(0);
+    opacity: 1;
   }
 
   .guide-dialog-inner {
@@ -904,6 +973,53 @@
     line-height: 1.6;
   }
 
+  .watch-qr-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+    margin-top: 22px;
+  }
+
+  .watch-qr-card {
+    border-radius: 20px;
+    border: 1px solid rgba(15, 23, 42, 0.10);
+    background: rgba(255, 255, 255, 0.82);
+    padding: 18px;
+    display: grid;
+    grid-template-columns: 168px 1fr;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .watch-qr-img {
+    width: 168px;
+    height: 168px;
+    border-radius: 16px;
+    background: #ffffff;
+    border: 1px solid rgba(15, 23, 42, 0.08);
+    object-fit: cover;
+    display: block;
+  }
+
+  .watch-qr-img.is-redbook {
+    border-radius: 0;
+    object-fit: contain;
+    border: none;
+  }
+
+  .watch-qr-title {
+    margin: 0 0 8px;
+    font-size: 18px;
+    color: rgba(15, 23, 42, 0.92);
+  }
+
+  .watch-qr-desc {
+    margin: 0;
+    font-size: 14px;
+    color: var(--muted);
+    line-height: 1.7;
+  }
+
   @media (max-width: 960px) {
     .feature-grid,
     .workflow-grid,
@@ -936,13 +1052,26 @@
       border-left: none;
       border-top: 1px solid rgba(15, 23, 42, 0.08);
     }
+
+    .watch-qr-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .watch-qr-card {
+      grid-template-columns: 140px 1fr;
+    }
+
+    .watch-qr-img {
+      width: 140px;
+      height: 140px;
+    }
   }
 
   .custom-toast {
     position: fixed;
     top: 24px;
     left: 50%;
-    transform: translateX(-50%) translateY(-20px);
+    transform: translateX(-50%) translateY(-20px) scale(0.95);
     background: rgba(15, 23, 42, 0.85);
     backdrop-filter: blur(8px);
     color: #fff;
@@ -954,7 +1083,7 @@
     z-index: 10000;
     opacity: 0;
     pointer-events: none;
-    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease;
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s ease;
     display: flex;
     align-items: center;
     gap: 8px;
@@ -962,7 +1091,7 @@
 
   .custom-toast.show {
     opacity: 1;
-    transform: translateX(-50%) translateY(0);
+    transform: translateX(-50%) translateY(0) scale(1);
   }
 
   .custom-toast svg {
@@ -1067,7 +1196,7 @@
       grid-template-columns: 1fr;
     }
   }
-</style><div class="site-shell"><div class="site-nav"><div class="container site-nav-inner"><a class="brand" href="#top"><span class="brand-mark">PM</span><span>PM原型拾取器</span></a><div class="nav-links"><a href="#intro">工具介绍</a><a href="#workflow">使用方式</a><a href="#privacy">隐私协议</a><a href="#share" class="highlight-link">PRD生成Skill</a><a href="#share" class="highlight-link">PRD标注提示词</a></div><div class="nav-actions"><a class="nav-cta" href="#contact-guide" data-open-guide="true">获取完整工具包</a></div></div></div><main id="top"><section class="hero"><div class="container"><div class="hero-inner"><div class="eyebrow">Professional Tool For PMs</div><h1 class="hero-title">PM原型拾取器</h1><p class="hero-desc">专为产品经理打造的高效工具。一键拾取、智能还原、自由编辑，让原型设计告别机械性的搬运与重构。</p><div class="hero-actions"><a class="primary-btn" href="#contact-guide" data-open-guide="true">获取完整工具包</a></div><div class="button-note">当前完整工具包版本：1.0.027</div><div class="hero-boundary" aria-label="使用边界"><div class="boundary-item"><strong>仅限自有或已授权页面</strong><span>仅可用于 PM 对自己负责、拥有权限或获得明确授权的产品页面进行还原与整理。</span></div><div class="boundary-item"><strong>仅限原型二次编辑</strong><span>工具目标是形成可编辑原型底稿，便于继续梳理结构、交互和需求。</span></div><div class="boundary-item"><strong>不得用于其他用途</strong><span>不得用于竞品抓取、未授权复制、公开传播、商业牟利或违法违规场景。</span></div></div></div></div></section><section class="section" id="intro"><div class="container"><div class="section-head"><div class="section-kicker">Tool Intro</div><h2 class="section-title">工具介绍</h2><p class="section-desc">PM 原型拾取器围绕“授权页面还原 + 原型继续编辑”设计，重点帮助 PM 更快拿到可沟通、可迭代的页面基础稿。</p></div><div class="feature-grid"><article class="feature-card"><div class="card-index">01</div><h3 class="card-title">页面结构快速还原</h3><p class="card-text">辅助 PM 将已授权的业务页面拾取为可继续整理的还原稿，便于后续补充交互、文案和流程。</p></article><article class="feature-card"><div class="card-index">02</div><h3 class="card-title">服务包即取即用</h3><p class="card-text">官网提供微信引导入口，可获取完整工具包、使用说明与后续更新信息，方便在团队内部快速落地使用。</p></article><article class="feature-card"><div class="card-index">03</div><h3 class="card-title">面向二次原型编辑</h3><p class="card-text">目标是提升原型补绘、需求评审和方案沉淀效率，而不是替代正式研发、设计或发布流程。</p></article></div></div></section><section class="section" id="workflow"><div class="container"><div class="section-head"><div class="section-kicker">Workflow</div><h2 class="section-title">使用方式</h2><p class="section-desc">工具本身并不替代产品设计判断，而是帮助 PM 在授权前提下更快完成页面整理、原型补充和沟通准备。</p></div><div class="workflow-grid"><article class="workflow-item"><div class="card-index">1</div><h3 class="card-title">获取服务包</h3><p class="card-text">从官网入口进入引导弹窗，优先添加微信获取完整工具包，再在本地启动后与浏览器插件配合使用。</p></article><article class="workflow-item"><div class="card-index">2</div><h3 class="card-title">拾取自己的产品页面</h3><p class="card-text">仅对自己负责或已获得明确授权的产品页面执行还原，形成可编辑的原型基础稿。</p></article><article class="workflow-item"><div class="card-index">3</div><h3 class="card-title">继续原型整理</h3><p class="card-text">把还原结果用于二次原型编辑、评审材料准备和需求沟通，帮助团队更快推进方案确认。</p></article></div></div></section><section class="section" id="privacy"><div class="container"><div class="section-head"><div class="section-kicker">Privacy Agreement</div><h2 class="section-title">隐私协议</h2><p class="section-desc">使用 PM 原型拾取器即表示你理解并同意以下约束：工具仅用于辅助 PM 对自己的产品页面进行还原，方便二次原型编辑，不得用于其他用途。</p></div><div class="agreement-grid"><article class="agreement-card"><div class="agreement-tag allowed">允许范围</div><h3 class="card-title">仅限内部产品还原与编辑辅助</h3><p class="card-text">工具用于把自有页面或已获授权页面整理为后续可编辑的原型基础稿，服务于需求讨论、流程评审和原型迭代。</p><div class="agreement-list"><div>仅处理自己负责的产品页面，或已明确获得授权的页面。</div><div>仅用于页面还原、结构整理、原型补绘和需求沟通。</div><div>使用者需自行遵守所在组织的合规、安全与数据管理要求。</div></div></article><article class="agreement-card"><div class="agreement-tag restricted">禁止用途</div><h3 class="card-title">不得将工具用于任何其他目的</h3><p class="card-text">严禁将本工具用于未授权页面内容复制、竞品资料抓取、批量数据采集、公开传播、商业牟利或任何违法违规活动。</p><div class="agreement-list"><div>不得处理不属于自己团队、自己产品或未经授权的第三方页面。</div><div>不得借助还原结果规避版权、隐私、账号权限或企业安全限制。</div><div>不得把工具或还原结果用于与原型编辑无关的其他场景。</div></div></article></div><div class="privacy-emphasis">重点提示：PM 原型拾取器是面向 PM 的原型辅助工具，只能用于对自己产品页面进行还原，以便开展二次原型编辑与需求沟通。不得用于其他用途。</div></div></section><section class="section" id="share"><div class="container"><div class="section-head"><div class="section-kicker">Sharing</div><h2 class="section-title">产品路人乙的分享</h2><p class="section-desc">AI 原型提效、PRD 生成 Skill、像 Axure 一样标注需求。</p></div><div class="share-grid"><article class="share-card"><div class="share-cover" aria-label="视频封面"><img class="share-cover-img" src="./assets/images/ai.png" alt="视频封面"/></div><div class="share-body"><h3 class="share-title">产品经理必看: AI,画原型提效30%的完整流程</h3><p class="share-desc">画原型&gt;生成PRD&gt;原型标注 三步走，用一个需求来完整演示我用AI画原型的全流程。用AI换原型半年了，是真的香！</p><div class="share-action-row"></div></div><div class="share-qr-col" aria-label="观看二维码"><div class="share-qr-row"><div class="share-qr-item"><img class="share-qr-img" src="./assets/images/dy01.png" alt="抖音观看二维码"/><div class="share-qr-label"><strong>抖音</strong><span>扫码观看</span></div></div><div class="share-qr-item"><img class="share-qr-img is-redbook" src="./assets/images/redbook01.png" alt="小红书观看二维码"/><div class="share-qr-label"><strong>小红书</strong><span>扫码观看</span></div></div></div></div></article><article class="share-card"><div class="share-cover" aria-label="视频封面"><img class="share-cover-img" src="./assets/images/skill.png" alt="视频封面"/></div><div class="share-body"><h3 class="share-title">产品经理定制专属PRD生成Skill</h3><p class="share-desc">Skill是AI的技能库，产品经理需要学会定制自己专属Skill，生成符合自己要求的SKill。PRD生成Skill设计思路：读原型-&gt;匹配模板-&gt;生成PRD-&gt;自检核对。让AI按照你的思路，生成高质量、可控、结构化的PRD文档。揉碎了讲，让你也可以写出适用自己工作的PRD生成Skill！</p><div class="share-action-row"><div class="share-action-wrap"><a class="share-action-btn" href="#skill-guide" data-open-guide="true">获取PRD生成Skill</a><span class="btn-tag">免费</span></div></div></div><div class="share-qr-col" aria-label="观看二维码"><div class="share-qr-row"><div class="share-qr-item"><img class="share-qr-img" src="./assets/images/dy02.png" alt="抖音观看二维码"/><div class="share-qr-label"><strong>抖音</strong><span>扫码观看</span></div></div><div class="share-qr-item"><img class="share-qr-img is-redbook" src="./assets/images/redbook02.png" alt="小红书观看二维码"/><div class="share-qr-label"><strong>小红书</strong><span>扫码观看</span></div></div></div></div></article><article class="share-card"><div class="share-cover" aria-label="视频封面"><img class="share-cover-img" src="./assets/images/agent.png" alt="视频封面"/></div><div class="share-body"><h3 class="share-title">AI画原型像Axure一样标注需求</h3><p class="share-desc">10多个版本迭代出来的PRD标注提示词完整共享了。效率直接拉满！✨核心亮点 Axure级标注体验：自动生成交互逻辑、字段说明、异常场景，不用手动补全需求文档 零学习成本：自然语言描述需求，AI自动生成原型+标注，新手也能快速上手 全流程提效：从原型设计→PRD生成→标注交付，一站式完成，大幅缩短评审周期</p><div class="share-action-row"><div class="share-action-wrap"><button class="share-action-btn" type="button" data-copy-action="true">获取PRD标注提示词</button><span class="btn-tag">免费</span></div></div></div><div class="share-qr-col" aria-label="观看二维码"><div class="share-qr-row"><div class="share-qr-item"><img class="share-qr-img" src="./assets/images/dy03.png" alt="抖音观看二维码"/><div class="share-qr-label"><strong>抖音</strong><span>扫码观看</span></div></div><div class="share-qr-item"><img class="share-qr-img is-redbook" src="./assets/images/redbook03.png" alt="小红书观看二维码"/><div class="share-qr-label"><strong>小红书</strong><span>扫码观看</span></div></div></div></div></article></div></div></section></main><footer class="footer"><div class="container"><div class="footer-card">PM 原型拾取器官网仅提供服务包获取与使用边界说明。请在获得页面权限、确认内部合规要求后使用本工具，并确保所有还原结果仅服务于原型编辑与产品协作。</div></div></footer><div class="guide-modal" data-guide-modal="true" id="contact-guide"><div class="guide-dialog" role="dialog" aria-modal="true" aria-labelledby="guide-title"><div class="guide-dialog-inner"><div class="guide-main"><div class="guide-head"><div class="guide-head-content"><div class="guide-kicker">Get Full Package</div><h2 class="guide-title" id="guide-title">添加微信，获取完整工具包</h2><p class="guide-desc">完整工具包通过微信统一发放与答疑。添加微信后即可获取完整版本、使用说明和后续更新信息。</p></div><button class="guide-close" type="button" aria-label="关闭弹窗" data-close-guide="true">×</button></div><div class="guide-wechat-card"><div class="guide-wechat-layout"><img class="guide-qr" src="./assets/images/wx.png" alt="微信二维码"/><div class="guide-wechat-info"><h3 class="guide-wechat-title">价格：￥19.90</h3><p class="guide-wechat-text">扫码添加微信后，可获取完整工具包，并持续接收版本更新、使用建议。</p><div class="guide-highlight">建议添加后备注「PM原型拾取器」便于更快识别并发送完整资料。</div></div></div></div></div><aside class="guide-side"><div class="guide-side-header"><h3 class="guide-side-title">同步关注账号</h3><p class="guide-side-desc">抖音和小红书会持续分享产品经理干货、工具方法和实践经验。</p></div><div class="guide-social-list"><div class="guide-social-card"><img src="./assets/images/dy.png" alt="抖音账号二维码"/><div class="guide-social-info"><h4 class="guide-social-label">抖音账号</h4><p class="guide-social-text">持续分享产品经理相关干货、效率技巧与实战经验，建议扫码关注。</p></div></div><div class="guide-social-card"><img src="./assets/images/redbook.png" alt="小红书账号二维码"/><div class="guide-social-info"><h4 class="guide-social-label">小红书账号</h4><p class="guide-social-text">持续更新产品经理成长内容、工具拆解与实际案例，适合日常跟进学习。</p></div></div></div></aside></div></div></div><div class="guide-modal" data-guide-modal="true" id="skill-guide"><div class="guide-dialog" role="dialog" aria-modal="true" aria-labelledby="skill-guide-title" style="max-width:640px"><div class="guide-dialog-inner" style="grid-template-columns:1fr"><div class="guide-main" style="padding:40px"><div class="guide-head"><div class="guide-head-content"><div class="guide-kicker">Free PRD Skill</div><h2 class="guide-title" id="skill-guide-title">免费获取 PRD生成Skill</h2><p class="guide-desc">扫码添加微信，备注「PRD Skill」，可免费获取完整版 PRD 生成 Skill。</p></div><button class="guide-close" type="button" aria-label="关闭弹窗" data-close-guide="true">×</button></div><div class="guide-wechat-card" style="max-width:480px;margin:24px auto 0"><div class="guide-wechat-layout" style="gap:32px"><img class="guide-qr" src="./assets/images/wx.png" alt="微信二维码" style="width:160px;height:160px"/><div class="guide-wechat-info" style="max-width:none"><h3 class="guide-wechat-title">免费获取</h3><p class="guide-wechat-text">扫码加微信可免费获取完整版 PRD 生成 Skill。</p><div class="guide-highlight">请在添加后主动发送备注「PRD Skill」。</div></div></div></div></div></div></div></div></div><script>
+</style><div class="site-shell"><div class="site-nav"><div class="container site-nav-inner"><a class="brand" href="#top"><span class="brand-mark">PM</span><span>PM原型拾取器</span></a><div class="nav-links"><a href="#intro">工具介绍</a><a href="#workflow">使用方式</a><a href="#privacy">隐私协议</a><a href="#share" class="highlight-link">PRD生成Skill</a><a href="#share" class="highlight-link">PRD标注提示词</a></div><div class="nav-actions"><a class="nav-cta" href="#contact-guide" data-open-guide="true">获取完整工具包</a></div></div></div><main id="top"><section class="hero"><div class="container"><div class="hero-inner"><div class="eyebrow">Professional Tool For PMs</div><h1 class="hero-title">PM原型拾取器</h1><p class="hero-desc">专为产品经理打造的高效工具。一键拾取、智能还原、自由编辑，让原型设计告别机械性的搬运与重构。</p><div class="hero-actions"><a class="primary-btn" href="#contact-guide" data-open-guide="true">获取完整工具包</a></div><div class="button-note">当前完整工具包版本：1.0.033</div><div class="hero-boundary" aria-label="使用边界"><div class="boundary-item"><strong>仅限自有或已授权页面</strong><span>仅可用于 PM 对自己负责、拥有权限或获得明确授权的产品页面进行还原与整理。</span></div><div class="boundary-item"><strong>仅限原型二次编辑</strong><span>工具目标是形成可编辑原型底稿，便于继续梳理结构、交互和需求。</span></div><div class="boundary-item"><strong>不得用于其他用途</strong><span>不得用于竞品抓取、未授权复制、公开传播、商业牟利或违法违规场景。</span></div></div></div></div></section><section class="section" id="intro"><div class="container"><div class="section-head"><div class="section-kicker">Tool Intro</div><h2 class="section-title">工具介绍</h2><p class="section-desc">PM 原型拾取器围绕“授权页面还原 + 原型继续编辑”设计，重点帮助 PM 更快拿到可沟通、可迭代的页面基础稿。</p></div><div class="feature-grid"><article class="feature-card"><div class="card-index">01</div><h3 class="card-title">页面结构快速还原</h3><p class="card-text">辅助 PM 将已授权的业务页面拾取为可继续整理的还原稿，便于后续补充交互、文案和流程。</p></article><article class="feature-card"><div class="card-index">02</div><h3 class="card-title">服务包即取即用</h3><p class="card-text">官网提供微信引导入口，可获取完整工具包、使用说明与后续更新信息，方便在团队内部快速落地使用。</p></article><article class="feature-card"><div class="card-index">03</div><h3 class="card-title">面向二次原型编辑</h3><p class="card-text">目标是提升原型补绘、需求评审和方案沉淀效率，而不是替代正式研发、设计或发布流程。</p></article></div></div></section><section class="section" id="workflow"><div class="container"><div class="section-head"><div class="section-kicker">Workflow</div><h2 class="section-title">使用方式</h2><p class="section-desc">工具本身并不替代产品设计判断，而是帮助 PM 在授权前提下更快完成页面整理、原型补充和沟通准备。</p></div><div class="workflow-grid"><article class="workflow-item"><div class="card-index">1</div><h3 class="card-title">获取服务包</h3><p class="card-text">从官网入口进入引导弹窗，优先添加微信获取完整工具包，再在本地启动后与浏览器插件配合使用。</p></article><article class="workflow-item"><div class="card-index">2</div><h3 class="card-title">拾取自己的产品页面</h3><p class="card-text">仅对自己负责或已获得明确授权的产品页面执行还原，形成可编辑的原型基础稿。</p></article><article class="workflow-item"><div class="card-index">3</div><h3 class="card-title">继续原型整理</h3><p class="card-text">把还原结果用于二次原型编辑、评审材料准备和需求沟通，帮助团队更快推进方案确认。</p></article></div></div></section><section class="section" id="privacy"><div class="container"><div class="section-head"><div class="section-kicker">Privacy Agreement</div><h2 class="section-title">隐私协议</h2><p class="section-desc">使用 PM 原型拾取器即表示你理解并同意以下约束：工具仅用于辅助 PM 对自己的产品页面进行还原，方便二次原型编辑，不得用于其他用途。</p></div><div class="agreement-grid"><article class="agreement-card"><div class="agreement-tag allowed">允许范围</div><h3 class="card-title">仅限内部产品还原与编辑辅助</h3><p class="card-text">工具用于把自有页面或已获授权页面整理为后续可编辑的原型基础稿，服务于需求讨论、流程评审和原型迭代。</p><div class="agreement-list"><div>仅处理自己负责的产品页面，或已明确获得授权的页面。</div><div>仅用于页面还原、结构整理、原型补绘和需求沟通。</div><div>使用者需自行遵守所在组织的合规、安全与数据管理要求。</div></div></article><article class="agreement-card"><div class="agreement-tag restricted">禁止用途</div><h3 class="card-title">不得将工具用于任何其他目的</h3><p class="card-text">严禁将本工具用于未授权页面内容复制、竞品资料抓取、批量数据采集、公开传播、商业牟利或任何违法违规活动。</p><div class="agreement-list"><div>不得处理不属于自己团队、自己产品或未经授权的第三方页面。</div><div>不得借助还原结果规避版权、隐私、账号权限或企业安全限制。</div><div>不得把工具或还原结果用于与原型编辑无关的其他场景。</div></div></article></div><div class="privacy-emphasis">重点提示：PM 原型拾取器是面向 PM 的原型辅助工具，只能用于对自己产品页面进行还原，以便开展二次原型编辑与需求沟通。不得用于其他用途。</div></div></section><section class="section" id="share"><div class="container"><div class="section-head"><div class="section-kicker">Sharing</div><h2 class="section-title">产品路人乙的分享</h2><p class="section-desc">AI 原型提效、PRD 生成 Skill、像 Axure 一样标注需求。</p></div><div class="share-grid"><article class="share-card"><div class="share-cover" aria-label="视频封面"><img class="share-cover-img" src="./assets/images/ai.png" alt="视频封面"/><a class="share-play-btn" href="#watch-guide" data-open-guide="true" data-watch-title="产品经理必看: AI画原型提效30%的完整流程" data-watch-dy="./assets/images/dy01.png" data-watch-redbook="./assets/images/redbook01.png" aria-label="播放视频"><span class="share-play-pill" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8.25 5.6c0-1.08 1.17-1.75 2.11-1.2l10.2 6.4c.9.56.9 1.84 0 2.4l-10.2 6.4c-.94.59-2.11-.1-2.11-1.2V5.6Z"></path></svg></span></a></div><div class="share-body"><h3 class="share-title">产品经理必看: AI画原型提效30%的完整流程</h3><p class="share-desc">画原型&gt;生成PRD&gt;原型标注 三步走，用一个需求来完整演示我用AI画原型的全流程。用AI换原型半年了，是真的香！</p><div class="share-action-row"></div></div><div class="share-qr-col" aria-label="观看二维码"><div class="share-qr-row"><div class="share-qr-item"><img class="share-qr-img" src="./assets/images/dy01.png" alt="抖音观看二维码"/><div class="share-qr-label"><strong>抖音</strong><span>扫码观看</span></div></div><div class="share-qr-item"><img class="share-qr-img is-redbook" src="./assets/images/redbook01.png" alt="小红书观看二维码"/><div class="share-qr-label"><strong>小红书</strong><span>扫码观看</span></div></div></div></div></article><article class="share-card"><div class="share-cover" aria-label="视频封面"><img class="share-cover-img" src="./assets/images/skill.png" alt="视频封面"/><a class="share-play-btn" href="#watch-guide" data-open-guide="true" data-watch-title="产品经理定制专属PRD生成Skill" data-watch-dy="./assets/images/dy02.png" data-watch-redbook="./assets/images/redbook02.png" aria-label="播放视频"><span class="share-play-pill" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8.25 5.6c0-1.08 1.17-1.75 2.11-1.2l10.2 6.4c.9.56.9 1.84 0 2.4l-10.2 6.4c-.94.59-2.11-.1-2.11-1.2V5.6Z"></path></svg></span></a></div><div class="share-body"><h3 class="share-title">产品经理定制专属PRD生成Skill</h3><p class="share-desc">Skill是AI的技能库，产品经理需要学会定制自己专属Skill，生成符合自己要求的SKill。PRD生成Skill设计思路：读原型-&gt;匹配模板-&gt;生成PRD-&gt;自检核对。让AI按照你的思路，生成高质量、可控、结构化的PRD文档。揉碎了讲，让你也可以写出适用自己工作的PRD生成Skill！</p><div class="share-action-row"><div class="share-action-wrap"><a class="share-action-btn" href="#skill-guide" data-open-guide="true">获取PRD生成Skill</a><span class="btn-tag">免费</span></div></div></div><div class="share-qr-col" aria-label="观看二维码"><div class="share-qr-row"><div class="share-qr-item"><img class="share-qr-img" src="./assets/images/dy02.png" alt="抖音观看二维码"/><div class="share-qr-label"><strong>抖音</strong><span>扫码观看</span></div></div><div class="share-qr-item"><img class="share-qr-img is-redbook" src="./assets/images/redbook02.png" alt="小红书观看二维码"/><div class="share-qr-label"><strong>小红书</strong><span>扫码观看</span></div></div></div></div></article><article class="share-card"><div class="share-cover" aria-label="视频封面"><img class="share-cover-img" src="./assets/images/agent.png" alt="视频封面"/><a class="share-play-btn" href="#watch-guide" data-open-guide="true" data-watch-title="AI画原型像Axure一样标注需求" data-watch-dy="./assets/images/dy03.png" data-watch-redbook="./assets/images/redbook03.png" aria-label="播放视频"><span class="share-play-pill" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8.25 5.6c0-1.08 1.17-1.75 2.11-1.2l10.2 6.4c.9.56.9 1.84 0 2.4l-10.2 6.4c-.94.59-2.11-.1-2.11-1.2V5.6Z"></path></svg></span></a></div><div class="share-body"><h3 class="share-title">AI画原型像Axure一样标注需求</h3><p class="share-desc">10多个版本迭代出来的PRD标注提示词完整共享了。效率直接拉满！✨核心亮点 Axure级标注体验：自动生成交互逻辑、字段说明、异常场景，不用手动补全需求文档 零学习成本：自然语言描述需求，AI自动生成原型+标注，新手也能快速上手 全流程提效：从原型设计→PRD生成→标注交付，一站式完成，大幅缩短评审周期</p><div class="share-action-row"><div class="share-action-wrap"><button class="share-action-btn" type="button" data-copy-action="true">获取PRD标注提示词</button><span class="btn-tag">免费</span></div></div></div><div class="share-qr-col" aria-label="观看二维码"><div class="share-qr-row"><div class="share-qr-item"><img class="share-qr-img" src="./assets/images/dy03.png" alt="抖音观看二维码"/><div class="share-qr-label"><strong>抖音</strong><span>扫码观看</span></div></div><div class="share-qr-item"><img class="share-qr-img is-redbook" src="./assets/images/redbook03.png" alt="小红书观看二维码"/><div class="share-qr-label"><strong>小红书</strong><span>扫码观看</span></div></div></div></div></article></div></div></section></main><footer class="footer"><div class="container"><div class="footer-card">PM 原型拾取器官网仅提供服务包获取与使用边界说明。请在获得页面权限、确认内部合规要求后使用本工具，并确保所有还原结果仅服务于原型编辑与产品协作。</div></div></footer><div class="guide-modal" data-guide-modal="true" id="contact-guide"><div class="guide-dialog" role="dialog" aria-modal="true" aria-labelledby="guide-title"><div class="guide-dialog-inner"><div class="guide-main"><div class="guide-head"><div class="guide-head-content"><div class="guide-kicker">Get Full Package</div><h2 class="guide-title" id="guide-title">添加微信，获取完整工具包</h2><p class="guide-desc">完整工具包通过微信统一发放与答疑。添加微信后即可获取完整版本、使用说明和后续更新信息。</p></div><button class="guide-close" type="button" aria-label="关闭弹窗" data-close-guide="true">×</button></div><div class="guide-wechat-card"><div class="guide-wechat-layout"><img class="guide-qr" src="./assets/images/wx.png" alt="微信二维码"/><div class="guide-wechat-info"><h3 class="guide-wechat-title">价格：￥19.90</h3><p class="guide-wechat-text">扫码添加微信后，可获取完整工具包，并持续接收版本更新、使用建议。</p><div class="guide-highlight">建议添加后备注「PM原型拾取器」便于更快识别并发送完整资料。</div></div></div></div></div><aside class="guide-side"><div class="guide-side-header"><h3 class="guide-side-title">同步关注账号</h3><p class="guide-side-desc">抖音和小红书会持续分享产品经理干货、工具方法和实践经验。</p></div><div class="guide-social-list"><div class="guide-social-card"><img src="./assets/images/dy.png" alt="抖音账号二维码"/><div class="guide-social-info"><h4 class="guide-social-label">抖音账号</h4><p class="guide-social-text">持续分享产品经理相关干货、效率技巧与实战经验，建议扫码关注。</p></div></div><div class="guide-social-card"><img src="./assets/images/redbook.png" alt="小红书账号二维码"/><div class="guide-social-info"><h4 class="guide-social-label">小红书账号</h4><p class="guide-social-text">持续更新产品经理成长内容、工具拆解与实际案例，适合日常跟进学习。</p></div></div></div></aside></div></div></div><div class="guide-modal" data-guide-modal="true" id="skill-guide"><div class="guide-dialog" role="dialog" aria-modal="true" aria-labelledby="skill-guide-title" style="max-width:640px"><div class="guide-dialog-inner" style="grid-template-columns:1fr"><div class="guide-main" style="padding:40px"><div class="guide-head"><div class="guide-head-content"><div class="guide-kicker">Free PRD Skill</div><h2 class="guide-title" id="skill-guide-title">免费获取 PRD生成Skill</h2><p class="guide-desc">扫码添加微信，备注「PRD Skill」，可免费获取完整版 PRD 生成 Skill。</p></div><button class="guide-close" type="button" aria-label="关闭弹窗" data-close-guide="true">×</button></div><div class="guide-wechat-card" style="max-width:480px;margin:24px auto 0"><div class="guide-wechat-layout" style="gap:32px"><img class="guide-qr" src="./assets/images/wx.png" alt="微信二维码" style="width:160px;height:160px"/><div class="guide-wechat-info" style="max-width:none"><h3 class="guide-wechat-title">免费获取</h3><p class="guide-wechat-text">扫码加微信可免费获取完整版 PRD 生成 Skill。</p><div class="guide-highlight">请在添加后主动发送备注「PRD Skill」。</div></div></div></div></div></div></div></div><div class="guide-modal" data-guide-modal="true" id="watch-guide"><div class="guide-dialog" role="dialog" aria-modal="true" aria-labelledby="watch-guide-title" style="max-width:860px"><div class="guide-dialog-inner" style="grid-template-columns:1fr"><div class="guide-main" style="padding:34px 34px 30px"><div class="guide-head"><div class="guide-head-content"><div class="guide-kicker">Watch Video</div><h2 class="guide-title" id="watch-guide-title">扫码观看</h2><p class="guide-desc">选择抖音或小红书，扫码即可观看对应内容。</p></div><button class="guide-close" type="button" aria-label="关闭弹窗" data-close-guide="true">×</button></div><div class="watch-qr-grid" aria-label="扫码观看二维码"><div class="watch-qr-card"><img class="watch-qr-img" id="watch-dy-img" src="./assets/images/dy.png" alt="抖音观看二维码"/><div><h3 class="watch-qr-title">抖音</h3><p class="watch-qr-desc">打开抖音扫码观看，建议保存后再扫码更清晰。</p></div></div><div class="watch-qr-card"><img class="watch-qr-img is-redbook" id="watch-redbook-img" src="./assets/images/redbook.png" alt="小红书观看二维码"/><div><h3 class="watch-qr-title">小红书</h3><p class="watch-qr-desc">打开小红书扫码观看，获取同主题更多内容。</p></div></div></div></div></div></div></div></div><script>
   (() => {
     const modal = document.querySelector('[data-guide-modal]');
     if (!modal) {
@@ -1086,6 +1215,27 @@
           const specificModal = document.querySelector(targetId);
           if (specificModal) {
             targetModal = specificModal;
+          }
+        }
+
+        if (targetModal && targetModal.id === 'watch-guide') {
+          const watchTitle = node.getAttribute('data-watch-title') || '';
+          const watchDy = node.getAttribute('data-watch-dy') || '';
+          const watchRedbook = node.getAttribute('data-watch-redbook') || '';
+
+          const titleEl = targetModal.querySelector('#watch-guide-title');
+          if (titleEl) {
+            titleEl.textContent = watchTitle ? '扫码观看：' + watchTitle : '扫码观看';
+          }
+
+          const dyImg = targetModal.querySelector('#watch-dy-img');
+          if (dyImg && watchDy) {
+            dyImg.setAttribute('src', watchDy);
+          }
+
+          const redbookImg = targetModal.querySelector('#watch-redbook-img');
+          if (redbookImg && watchRedbook) {
+            redbookImg.setAttribute('src', watchRedbook);
           }
         }
         
