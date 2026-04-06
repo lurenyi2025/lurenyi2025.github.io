@@ -33,6 +33,11 @@
     box-sizing: border-box;
   }
 
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 80px;
+  }
+
   body {
     margin: 0;
     background:
@@ -120,8 +125,27 @@
     color: var(--muted);
   }
 
+  .nav-links a {
+    padding: 6px 10px;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+  }
+
   .nav-links a:hover {
     color: var(--text);
+    background: rgba(15, 23, 42, 0.04);
+  }
+
+  .nav-links a.highlight-link {
+    color: rgba(47, 107, 255, 0.9);
+    font-weight: 600;
+    background: rgba(47, 107, 255, 0.06);
+    border: 1px solid rgba(47, 107, 255, 0.12);
+  }
+
+  .nav-links a.highlight-link:hover {
+    background: rgba(47, 107, 255, 0.1);
+    color: rgba(47, 107, 255, 1);
   }
 
   .nav-actions {
@@ -411,6 +435,199 @@
     background: rgba(15, 23, 42, 0.04);
   }
 
+  .share-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+
+  .share-card {
+    border: 1px solid var(--border);
+    background: var(--surface);
+    box-shadow: var(--shadow-soft);
+    border-radius: 24px;
+    display: grid;
+    grid-template-columns: 320px 1fr 240px;
+    align-items: stretch;
+    padding: 0;
+    gap: 0;
+    overflow: hidden;
+  }
+
+  .share-cover {
+    overflow: hidden;
+    background: rgba(255, 255, 255, 0.9);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .share-cover-img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: contain;
+    object-position: center;
+  }
+
+  .share-qr-col {
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 12px;
+    border-left: 1px solid var(--border);
+    background: rgba(248, 250, 252, 0.5);
+  }
+
+  .share-body {
+    padding: 24px 32px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    flex: 1;
+    justify-content: center;
+    border: none;
+  }
+
+  .share-title {
+    margin: 0;
+    font-size: 20px;
+    letter-spacing: -0.01em;
+    color: var(--text);
+  }
+
+  .share-desc {
+    margin: 0;
+    color: var(--muted);
+    font-size: 15px;
+    line-height: 1.7;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .share-action-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-top: auto;
+    padding-top: 12px;
+  }
+
+  .share-action-wrap {
+    position: relative;
+    display: inline-block;
+  }
+
+  .share-action-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 180px;
+    min-height: 36px;
+    padding: 0 16px;
+    border-radius: 999px;
+    border: none;
+    cursor: pointer;
+    background: linear-gradient(135deg, var(--primary) 0%, rgba(14, 165, 233, 1) 100%);
+    box-shadow: 0 10px 24px rgba(47, 107, 255, 0.18);
+    color: #ffffff;
+    font-size: 14px;
+    font-weight: 800;
+    letter-spacing: 0.01em;
+    text-decoration: none;
+    transition: transform 0.2s, box-shadow 0.2s, background 0.2s;
+  }
+  
+  .share-action-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 12px 28px rgba(47, 107, 255, 0.22);
+  }
+
+  .share-action-wrap .btn-tag {
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 20px;
+    padding: 0 6px;
+    border-radius: 8px 8px 8px 0;
+    background: #ff4d4f;
+    color: #ffffff;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.02em;
+    box-shadow: 0 4px 8px rgba(255, 77, 79, 0.3);
+    z-index: 2;
+    transform-origin: bottom left;
+    animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+  }
+
+  @keyframes popIn {
+    0% { transform: scale(0.5); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
+  }
+
+  .share-qr-row {
+    display: flex;
+    gap: 12px;
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .share-qr-item {
+    width: 100%;
+    padding: 12px;
+    border-radius: 16px;
+    background: rgba(255, 255, 255, 0.9);
+    border: 1px solid rgba(15, 23, 42, 0.08);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    box-shadow: 0 2px 8px rgba(15, 23, 42, 0.02);
+  }
+
+  .share-qr-img {
+    width: 72px;
+    height: 72px;
+    aspect-ratio: 1;
+    border-radius: 12px;
+    background: #ffffff;
+    border: 1px solid rgba(15, 23, 42, 0.06);
+    display: block;
+    object-fit: cover;
+    flex: none;
+  }
+
+  .share-qr-img.is-redbook {
+    border-radius: 0;
+    object-fit: contain;
+    border: none;
+  }
+
+  .share-qr-label {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    flex: 1;
+  }
+
+  .share-qr-label strong {
+    font-size: 14px;
+    color: rgba(15, 23, 42, 0.92);
+  }
+
+  .share-qr-label span {
+    font-size: 12px;
+    color: var(--muted);
+    line-height: 1.5;
+  }
+
   .privacy-emphasis {
     margin-top: 22px;
     padding: 18px 20px;
@@ -694,6 +911,19 @@
       grid-template-columns: 1fr;
     }
 
+    .share-card {
+      grid-template-columns: 1fr;
+    }
+
+    .share-qr-col {
+      border-left: none;
+      border-top: 1px solid var(--border);
+    }
+
+    .share-qr-row {
+      flex-direction: row;
+    }
+
     .hero {
       padding-top: 74px;
     }
@@ -706,6 +936,39 @@
       border-left: none;
       border-top: 1px solid rgba(15, 23, 42, 0.08);
     }
+  }
+
+  .custom-toast {
+    position: fixed;
+    top: 24px;
+    left: 50%;
+    transform: translateX(-50%) translateY(-20px);
+    background: rgba(15, 23, 42, 0.85);
+    backdrop-filter: blur(8px);
+    color: #fff;
+    padding: 12px 24px;
+    border-radius: 999px;
+    font-size: 15px;
+    font-weight: 500;
+    box-shadow: 0 10px 30px rgba(15, 23, 42, 0.15);
+    z-index: 10000;
+    opacity: 0;
+    pointer-events: none;
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .custom-toast.show {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+
+  .custom-toast svg {
+    width: 18px;
+    height: 18px;
+    color: #10b981;
   }
 
   @media (max-width: 640px) {
@@ -731,11 +994,50 @@
       border-radius: 22px;
     }
 
+    .share-card {
+      border-radius: 22px;
+      grid-template-columns: 1fr;
+    }
+
+    .share-qr-col {
+      border-left: none;
+      border-top: 1px solid var(--border);
+      padding: 20px;
+    }
+
+    .share-qr-row {
+      flex-direction: row;
+    }
+
+    .share-body {
+      padding: 20px;
+    }
+
     .feature-card,
     .agreement-card,
     .workflow-item,
     .footer-card {
       padding: 20px;
+    }
+
+    .share-body {
+      gap: 12px;
+    }
+
+    .share-cover {
+      aspect-ratio: 16 / 9;
+    }
+
+    .share-qr-col {
+    }
+
+    .share-qr-row {
+      flex-direction: row;
+      flex-wrap: wrap;
+    }
+
+    .share-qr-item {
+      width: calc(50% - 5px);
     }
 
     .primary-btn,
@@ -765,7 +1067,7 @@
       grid-template-columns: 1fr;
     }
   }
-</style><div class="site-shell"><div class="site-nav"><div class="container site-nav-inner"><a class="brand" href="#top"><span class="brand-mark">PM</span><span>PM原型拾取器</span></a><div class="nav-links"><a href="#intro">工具介绍</a><a href="#workflow">使用方式</a><a href="#privacy">隐私协议</a></div><div class="nav-actions"><a class="nav-cta" href="#contact-guide" data-open-guide="true">获取完整工具包</a></div></div></div><main id="top"><section class="hero"><div class="container"><div class="hero-inner"><div class="eyebrow">Professional Tool For PMs</div><h1 class="hero-title">PM原型拾取器</h1><p class="hero-desc">专为产品经理打造的高效工具。一键拾取、智能还原、自由编辑，让原型设计告别机械性的搬运与重构。</p><div class="hero-actions"><a class="primary-btn" href="#contact-guide" data-open-guide="true">获取完整工具包</a></div><div class="button-note">当前完整工具包版本：1.0.026</div><div class="hero-boundary" aria-label="使用边界"><div class="boundary-item"><strong>仅限自有或已授权页面</strong><span>仅可用于 PM 对自己负责、拥有权限或获得明确授权的产品页面进行还原与整理。</span></div><div class="boundary-item"><strong>仅限原型二次编辑</strong><span>工具目标是形成可编辑原型底稿，便于继续梳理结构、交互和需求。</span></div><div class="boundary-item"><strong>不得用于其他用途</strong><span>不得用于竞品抓取、未授权复制、公开传播、商业牟利或违法违规场景。</span></div></div></div></div></section><section class="section" id="intro"><div class="container"><div class="section-head"><div class="section-kicker">Tool Intro</div><h2 class="section-title">工具介绍</h2><p class="section-desc">PM 原型拾取器围绕“授权页面还原 + 原型继续编辑”设计，重点帮助 PM 更快拿到可沟通、可迭代的页面基础稿。</p></div><div class="feature-grid"><article class="feature-card"><div class="card-index">01</div><h3 class="card-title">页面结构快速还原</h3><p class="card-text">辅助 PM 将已授权的业务页面拾取为可继续整理的还原稿，便于后续补充交互、文案和流程。</p></article><article class="feature-card"><div class="card-index">02</div><h3 class="card-title">服务包即取即用</h3><p class="card-text">官网提供微信引导入口，可获取完整工具包、使用说明与后续更新信息，方便在团队内部快速落地使用。</p></article><article class="feature-card"><div class="card-index">03</div><h3 class="card-title">面向二次原型编辑</h3><p class="card-text">目标是提升原型补绘、需求评审和方案沉淀效率，而不是替代正式研发、设计或发布流程。</p></article></div></div></section><section class="section" id="workflow"><div class="container"><div class="section-head"><div class="section-kicker">Workflow</div><h2 class="section-title">使用方式</h2><p class="section-desc">工具本身并不替代产品设计判断，而是帮助 PM 在授权前提下更快完成页面整理、原型补充和沟通准备。</p></div><div class="workflow-grid"><article class="workflow-item"><div class="card-index">1</div><h3 class="card-title">获取服务包</h3><p class="card-text">从官网入口进入引导弹窗，优先添加微信获取完整工具包，再在本地启动后与浏览器插件配合使用。</p></article><article class="workflow-item"><div class="card-index">2</div><h3 class="card-title">拾取自己的产品页面</h3><p class="card-text">仅对自己负责或已获得明确授权的产品页面执行还原，形成可编辑的原型基础稿。</p></article><article class="workflow-item"><div class="card-index">3</div><h3 class="card-title">继续原型整理</h3><p class="card-text">把还原结果用于二次原型编辑、评审材料准备和需求沟通，帮助团队更快推进方案确认。</p></article></div></div></section><section class="section" id="privacy"><div class="container"><div class="section-head"><div class="section-kicker">Privacy Agreement</div><h2 class="section-title">隐私协议</h2><p class="section-desc">使用 PM 原型拾取器即表示你理解并同意以下约束：工具仅用于辅助 PM 对自己的产品页面进行还原，方便二次原型编辑，不得用于其他用途。</p></div><div class="agreement-grid"><article class="agreement-card"><div class="agreement-tag allowed">允许范围</div><h3 class="card-title">仅限内部产品还原与编辑辅助</h3><p class="card-text">工具用于把自有页面或已获授权页面整理为后续可编辑的原型基础稿，服务于需求讨论、流程评审和原型迭代。</p><div class="agreement-list"><div>仅处理自己负责的产品页面，或已明确获得授权的页面。</div><div>仅用于页面还原、结构整理、原型补绘和需求沟通。</div><div>使用者需自行遵守所在组织的合规、安全与数据管理要求。</div></div></article><article class="agreement-card"><div class="agreement-tag restricted">禁止用途</div><h3 class="card-title">不得将工具用于任何其他目的</h3><p class="card-text">严禁将本工具用于未授权页面内容复制、竞品资料抓取、批量数据采集、公开传播、商业牟利或任何违法违规活动。</p><div class="agreement-list"><div>不得处理不属于自己团队、自己产品或未经授权的第三方页面。</div><div>不得借助还原结果规避版权、隐私、账号权限或企业安全限制。</div><div>不得把工具或还原结果用于与原型编辑无关的其他场景。</div></div></article></div><div class="privacy-emphasis">重点提示：PM 原型拾取器是面向 PM 的原型辅助工具，只能用于对自己产品页面进行还原，以便开展二次原型编辑与需求沟通。不得用于其他用途。</div></div></section></main><footer class="footer"><div class="container"><div class="footer-card">PM 原型拾取器官网仅提供服务包获取与使用边界说明。请在获得页面权限、确认内部合规要求后使用本工具，并确保所有还原结果仅服务于原型编辑与产品协作。</div></div></footer><div class="guide-modal" data-guide-modal="true" id="contact-guide"><div class="guide-dialog" role="dialog" aria-modal="true" aria-labelledby="guide-title"><div class="guide-dialog-inner"><div class="guide-main"><div class="guide-head"><div class="guide-head-content"><div class="guide-kicker">Get Full Package</div><h2 class="guide-title" id="guide-title">添加微信，获取完整工具包</h2><p class="guide-desc">完整工具包通过微信统一发放，添加微信后获取完整版本、使用说明和后续更新信息。</p></div><button class="guide-close" type="button" aria-label="关闭弹窗" data-close-guide="true">×</button></div><div class="guide-wechat-card"><div class="guide-wechat-layout"><img class="guide-qr" src="./assets/images/wx.png" alt="微信二维码"/><div class="guide-wechat-info"><h3 class="guide-wechat-title">价格：￥19.90</h3><p class="guide-wechat-text">扫码添加微信，获取完整工具包，并持续接收版本更新、使用建议。</p><div class="guide-highlight">建议添加后备注「PM原型拾取器」便于更快识别并发送完整资料。</div></div></div></div></div><aside class="guide-side"><div class="guide-side-header"><h3 class="guide-side-title">同步关注账号</h3><p class="guide-side-desc">抖音和小红书会持续分享产品经理干货、工具方法和实践经验。</p></div><div class="guide-social-list"><div class="guide-social-card"><img src="./assets/images/dy.png" alt="抖音账号二维码"/><div class="guide-social-info"><h4 class="guide-social-label">抖音账号</h4><p class="guide-social-text">持续分享产品经理相关干货、效率技巧与实战经验，建议扫码关注。</p></div></div><div class="guide-social-card"><img src="./assets/images/redbook.png" alt="小红书账号二维码"/><div class="guide-social-info"><h4 class="guide-social-label">小红书账号</h4><p class="guide-social-text">持续更新产品经理成长内容、工具拆解与实际案例，适合日常跟进学习。</p></div></div></div></aside></div></div></div></div><script>
+</style><div class="site-shell"><div class="site-nav"><div class="container site-nav-inner"><a class="brand" href="#top"><span class="brand-mark">PM</span><span>PM原型拾取器</span></a><div class="nav-links"><a href="#intro">工具介绍</a><a href="#workflow">使用方式</a><a href="#privacy">隐私协议</a><a href="#share" class="highlight-link">PRD生成Skill</a><a href="#share" class="highlight-link">PRD标注提示词</a></div><div class="nav-actions"><a class="nav-cta" href="#contact-guide" data-open-guide="true">获取完整工具包</a></div></div></div><main id="top"><section class="hero"><div class="container"><div class="hero-inner"><div class="eyebrow">Professional Tool For PMs</div><h1 class="hero-title">PM原型拾取器</h1><p class="hero-desc">专为产品经理打造的高效工具。一键拾取、智能还原、自由编辑，让原型设计告别机械性的搬运与重构。</p><div class="hero-actions"><a class="primary-btn" href="#contact-guide" data-open-guide="true">获取完整工具包</a></div><div class="button-note">当前完整工具包版本：1.0.027</div><div class="hero-boundary" aria-label="使用边界"><div class="boundary-item"><strong>仅限自有或已授权页面</strong><span>仅可用于 PM 对自己负责、拥有权限或获得明确授权的产品页面进行还原与整理。</span></div><div class="boundary-item"><strong>仅限原型二次编辑</strong><span>工具目标是形成可编辑原型底稿，便于继续梳理结构、交互和需求。</span></div><div class="boundary-item"><strong>不得用于其他用途</strong><span>不得用于竞品抓取、未授权复制、公开传播、商业牟利或违法违规场景。</span></div></div></div></div></section><section class="section" id="intro"><div class="container"><div class="section-head"><div class="section-kicker">Tool Intro</div><h2 class="section-title">工具介绍</h2><p class="section-desc">PM 原型拾取器围绕“授权页面还原 + 原型继续编辑”设计，重点帮助 PM 更快拿到可沟通、可迭代的页面基础稿。</p></div><div class="feature-grid"><article class="feature-card"><div class="card-index">01</div><h3 class="card-title">页面结构快速还原</h3><p class="card-text">辅助 PM 将已授权的业务页面拾取为可继续整理的还原稿，便于后续补充交互、文案和流程。</p></article><article class="feature-card"><div class="card-index">02</div><h3 class="card-title">服务包即取即用</h3><p class="card-text">官网提供微信引导入口，可获取完整工具包、使用说明与后续更新信息，方便在团队内部快速落地使用。</p></article><article class="feature-card"><div class="card-index">03</div><h3 class="card-title">面向二次原型编辑</h3><p class="card-text">目标是提升原型补绘、需求评审和方案沉淀效率，而不是替代正式研发、设计或发布流程。</p></article></div></div></section><section class="section" id="workflow"><div class="container"><div class="section-head"><div class="section-kicker">Workflow</div><h2 class="section-title">使用方式</h2><p class="section-desc">工具本身并不替代产品设计判断，而是帮助 PM 在授权前提下更快完成页面整理、原型补充和沟通准备。</p></div><div class="workflow-grid"><article class="workflow-item"><div class="card-index">1</div><h3 class="card-title">获取服务包</h3><p class="card-text">从官网入口进入引导弹窗，优先添加微信获取完整工具包，再在本地启动后与浏览器插件配合使用。</p></article><article class="workflow-item"><div class="card-index">2</div><h3 class="card-title">拾取自己的产品页面</h3><p class="card-text">仅对自己负责或已获得明确授权的产品页面执行还原，形成可编辑的原型基础稿。</p></article><article class="workflow-item"><div class="card-index">3</div><h3 class="card-title">继续原型整理</h3><p class="card-text">把还原结果用于二次原型编辑、评审材料准备和需求沟通，帮助团队更快推进方案确认。</p></article></div></div></section><section class="section" id="privacy"><div class="container"><div class="section-head"><div class="section-kicker">Privacy Agreement</div><h2 class="section-title">隐私协议</h2><p class="section-desc">使用 PM 原型拾取器即表示你理解并同意以下约束：工具仅用于辅助 PM 对自己的产品页面进行还原，方便二次原型编辑，不得用于其他用途。</p></div><div class="agreement-grid"><article class="agreement-card"><div class="agreement-tag allowed">允许范围</div><h3 class="card-title">仅限内部产品还原与编辑辅助</h3><p class="card-text">工具用于把自有页面或已获授权页面整理为后续可编辑的原型基础稿，服务于需求讨论、流程评审和原型迭代。</p><div class="agreement-list"><div>仅处理自己负责的产品页面，或已明确获得授权的页面。</div><div>仅用于页面还原、结构整理、原型补绘和需求沟通。</div><div>使用者需自行遵守所在组织的合规、安全与数据管理要求。</div></div></article><article class="agreement-card"><div class="agreement-tag restricted">禁止用途</div><h3 class="card-title">不得将工具用于任何其他目的</h3><p class="card-text">严禁将本工具用于未授权页面内容复制、竞品资料抓取、批量数据采集、公开传播、商业牟利或任何违法违规活动。</p><div class="agreement-list"><div>不得处理不属于自己团队、自己产品或未经授权的第三方页面。</div><div>不得借助还原结果规避版权、隐私、账号权限或企业安全限制。</div><div>不得把工具或还原结果用于与原型编辑无关的其他场景。</div></div></article></div><div class="privacy-emphasis">重点提示：PM 原型拾取器是面向 PM 的原型辅助工具，只能用于对自己产品页面进行还原，以便开展二次原型编辑与需求沟通。不得用于其他用途。</div></div></section><section class="section" id="share"><div class="container"><div class="section-head"><div class="section-kicker">Sharing</div><h2 class="section-title">产品路人乙的分享</h2><p class="section-desc">AI 原型提效、PRD 生成 Skill、像 Axure 一样标注需求。</p></div><div class="share-grid"><article class="share-card"><div class="share-cover" aria-label="视频封面"><img class="share-cover-img" src="./assets/images/ai.png" alt="视频封面"/></div><div class="share-body"><h3 class="share-title">产品经理必看: AI,画原型提效30%的完整流程</h3><p class="share-desc">画原型&gt;生成PRD&gt;原型标注 三步走，用一个需求来完整演示我用AI画原型的全流程。用AI换原型半年了，是真的香！</p><div class="share-action-row"></div></div><div class="share-qr-col" aria-label="观看二维码"><div class="share-qr-row"><div class="share-qr-item"><img class="share-qr-img" src="./assets/images/dy01.png" alt="抖音观看二维码"/><div class="share-qr-label"><strong>抖音</strong><span>扫码观看</span></div></div><div class="share-qr-item"><img class="share-qr-img is-redbook" src="./assets/images/redbook01.png" alt="小红书观看二维码"/><div class="share-qr-label"><strong>小红书</strong><span>扫码观看</span></div></div></div></div></article><article class="share-card"><div class="share-cover" aria-label="视频封面"><img class="share-cover-img" src="./assets/images/skill.png" alt="视频封面"/></div><div class="share-body"><h3 class="share-title">产品经理定制专属PRD生成Skill</h3><p class="share-desc">Skill是AI的技能库，产品经理需要学会定制自己专属Skill，生成符合自己要求的SKill。PRD生成Skill设计思路：读原型-&gt;匹配模板-&gt;生成PRD-&gt;自检核对。让AI按照你的思路，生成高质量、可控、结构化的PRD文档。揉碎了讲，让你也可以写出适用自己工作的PRD生成Skill！</p><div class="share-action-row"><div class="share-action-wrap"><a class="share-action-btn" href="#skill-guide" data-open-guide="true">获取PRD生成Skill</a><span class="btn-tag">免费</span></div></div></div><div class="share-qr-col" aria-label="观看二维码"><div class="share-qr-row"><div class="share-qr-item"><img class="share-qr-img" src="./assets/images/dy02.png" alt="抖音观看二维码"/><div class="share-qr-label"><strong>抖音</strong><span>扫码观看</span></div></div><div class="share-qr-item"><img class="share-qr-img is-redbook" src="./assets/images/redbook02.png" alt="小红书观看二维码"/><div class="share-qr-label"><strong>小红书</strong><span>扫码观看</span></div></div></div></div></article><article class="share-card"><div class="share-cover" aria-label="视频封面"><img class="share-cover-img" src="./assets/images/agent.png" alt="视频封面"/></div><div class="share-body"><h3 class="share-title">AI画原型像Axure一样标注需求</h3><p class="share-desc">10多个版本迭代出来的PRD标注提示词完整共享了。效率直接拉满！✨核心亮点 Axure级标注体验：自动生成交互逻辑、字段说明、异常场景，不用手动补全需求文档 零学习成本：自然语言描述需求，AI自动生成原型+标注，新手也能快速上手 全流程提效：从原型设计→PRD生成→标注交付，一站式完成，大幅缩短评审周期</p><div class="share-action-row"><div class="share-action-wrap"><button class="share-action-btn" type="button" data-copy-action="true">获取PRD标注提示词</button><span class="btn-tag">免费</span></div></div></div><div class="share-qr-col" aria-label="观看二维码"><div class="share-qr-row"><div class="share-qr-item"><img class="share-qr-img" src="./assets/images/dy03.png" alt="抖音观看二维码"/><div class="share-qr-label"><strong>抖音</strong><span>扫码观看</span></div></div><div class="share-qr-item"><img class="share-qr-img is-redbook" src="./assets/images/redbook03.png" alt="小红书观看二维码"/><div class="share-qr-label"><strong>小红书</strong><span>扫码观看</span></div></div></div></div></article></div></div></section></main><footer class="footer"><div class="container"><div class="footer-card">PM 原型拾取器官网仅提供服务包获取与使用边界说明。请在获得页面权限、确认内部合规要求后使用本工具，并确保所有还原结果仅服务于原型编辑与产品协作。</div></div></footer><div class="guide-modal" data-guide-modal="true" id="contact-guide"><div class="guide-dialog" role="dialog" aria-modal="true" aria-labelledby="guide-title"><div class="guide-dialog-inner"><div class="guide-main"><div class="guide-head"><div class="guide-head-content"><div class="guide-kicker">Get Full Package</div><h2 class="guide-title" id="guide-title">添加微信，获取完整工具包</h2><p class="guide-desc">完整工具包通过微信统一发放与答疑。添加微信后即可获取完整版本、使用说明和后续更新信息。</p></div><button class="guide-close" type="button" aria-label="关闭弹窗" data-close-guide="true">×</button></div><div class="guide-wechat-card"><div class="guide-wechat-layout"><img class="guide-qr" src="./assets/images/wx.png" alt="微信二维码"/><div class="guide-wechat-info"><h3 class="guide-wechat-title">价格：￥19.90</h3><p class="guide-wechat-text">扫码添加微信后，可获取完整工具包，并持续接收版本更新、使用建议。</p><div class="guide-highlight">建议添加后备注「PM原型拾取器」便于更快识别并发送完整资料。</div></div></div></div></div><aside class="guide-side"><div class="guide-side-header"><h3 class="guide-side-title">同步关注账号</h3><p class="guide-side-desc">抖音和小红书会持续分享产品经理干货、工具方法和实践经验。</p></div><div class="guide-social-list"><div class="guide-social-card"><img src="./assets/images/dy.png" alt="抖音账号二维码"/><div class="guide-social-info"><h4 class="guide-social-label">抖音账号</h4><p class="guide-social-text">持续分享产品经理相关干货、效率技巧与实战经验，建议扫码关注。</p></div></div><div class="guide-social-card"><img src="./assets/images/redbook.png" alt="小红书账号二维码"/><div class="guide-social-info"><h4 class="guide-social-label">小红书账号</h4><p class="guide-social-text">持续更新产品经理成长内容、工具拆解与实际案例，适合日常跟进学习。</p></div></div></div></aside></div></div></div><div class="guide-modal" data-guide-modal="true" id="skill-guide"><div class="guide-dialog" role="dialog" aria-modal="true" aria-labelledby="skill-guide-title" style="max-width:640px"><div class="guide-dialog-inner" style="grid-template-columns:1fr"><div class="guide-main" style="padding:40px"><div class="guide-head"><div class="guide-head-content"><div class="guide-kicker">Free PRD Skill</div><h2 class="guide-title" id="skill-guide-title">免费获取 PRD生成Skill</h2><p class="guide-desc">扫码添加微信，备注「PRD Skill」，可免费获取完整版 PRD 生成 Skill。</p></div><button class="guide-close" type="button" aria-label="关闭弹窗" data-close-guide="true">×</button></div><div class="guide-wechat-card" style="max-width:480px;margin:24px auto 0"><div class="guide-wechat-layout" style="gap:32px"><img class="guide-qr" src="./assets/images/wx.png" alt="微信二维码" style="width:160px;height:160px"/><div class="guide-wechat-info" style="max-width:none"><h3 class="guide-wechat-title">免费获取</h3><p class="guide-wechat-text">扫码加微信可免费获取完整版 PRD 生成 Skill。</p><div class="guide-highlight">请在添加后主动发送备注「PRD Skill」。</div></div></div></div></div></div></div></div></div><script>
   (() => {
     const modal = document.querySelector('[data-guide-modal]');
     if (!modal) {
@@ -773,41 +1075,91 @@
     }
 
     const openers = document.querySelectorAll('[data-open-guide]');
-    const closers = modal.querySelectorAll('[data-close-guide]');
-
-    const openModal = () => {
-      modal.classList.add('is-visible');
-      document.body.style.overflow = 'hidden';
-    };
-
-    const closeModal = () => {
-      modal.classList.remove('is-visible');
-      document.body.style.overflow = '';
-    };
 
     openers.forEach((node) => {
       node.addEventListener('click', (event) => {
         event.preventDefault();
-        openModal();
+        
+        const targetId = node.getAttribute('href');
+        let targetModal = modal;
+        if (targetId && targetId !== '#') {
+          const specificModal = document.querySelector(targetId);
+          if (specificModal) {
+            targetModal = specificModal;
+          }
+        }
+        
+        targetModal.classList.add('is-visible');
+        document.body.style.overflow = 'hidden';
       });
     });
 
-    closers.forEach((node) => {
-      node.addEventListener('click', () => {
-        closeModal();
+    const allModals = document.querySelectorAll('.guide-modal');
+    allModals.forEach(m => {
+      const closers = m.querySelectorAll('[data-close-guide]');
+      closers.forEach((node) => {
+        node.addEventListener('click', () => {
+          m.classList.remove('is-visible');
+          document.body.style.overflow = '';
+        });
       });
-    });
 
-    modal.addEventListener('click', (event) => {
-      if (event.target === modal) {
-        closeModal();
-      }
+      m.addEventListener('click', (event) => {
+        if (event.target === m) {
+          m.classList.remove('is-visible');
+          document.body.style.overflow = '';
+        }
+      });
     });
 
     window.addEventListener('keydown', (event) => {
       if (event.key === 'Escape') {
-        closeModal();
+        allModals.forEach(m => {
+          m.classList.remove('is-visible');
+        });
+        document.body.style.overflow = '';
       }
+    });
+
+    const copyButtons = document.querySelectorAll('[data-copy-action]');
+    copyButtons.forEach(button => {
+      button.addEventListener('click', async (event) => {
+        event.preventDefault();
+        try {
+          const response = await fetch('./prd-mark.md');
+          if (!response.ok) throw new Error('Network response was not ok');
+          const text = await response.text();
+          await navigator.clipboard.writeText(text);
+          
+          const originalText = button.textContent;
+          button.textContent = '已复制！';
+          button.style.background = 'linear-gradient(135deg, var(--success-text) 0%, #10b981 100%)';
+          
+          // Custom toast notification
+          let toast = document.getElementById('custom-toast');
+          if (!toast) {
+            toast = document.createElement('div');
+            toast.id = 'custom-toast';
+            toast.className = 'custom-toast';
+            toast.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg> 完整PRD提示词已经写入剪贴板`;
+            document.body.appendChild(toast);
+          }
+          
+          // Trigger animation
+          requestAnimationFrame(() => {
+            toast.classList.add('show');
+          });
+          
+          setTimeout(() => {
+            toast.classList.remove('show');
+            button.textContent = originalText;
+            button.style.background = '';
+          }, 3000);
+        } catch (err) {
+          console.error('Failed to copy content:', err);
+          alert('复制失败，请重试');
+        }
+      });
     });
   })();
 </script></div>
