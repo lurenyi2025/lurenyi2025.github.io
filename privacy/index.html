@@ -1,0 +1,623 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PM原型拾取器隐私政策</title>
+  <meta name="description" content="PM原型拾取器 Chrome 扩展隐私政策，说明扩展如何处理网站内容、localhost 本地服务和用户数据。">
+  <style>
+    :root {
+      color-scheme: light;
+      --bg: #eef6ff;
+      --bg-soft: #f8fbff;
+      --text: #111827;
+      --muted: #5f6b7a;
+      --faint: #8492a6;
+      --line: rgba(37, 99, 235, 0.14);
+      --card: rgba(255, 255, 255, 0.88);
+      --card-solid: #ffffff;
+      --blue: #1e63f0;
+      --blue-deep: #1746bd;
+      --green: #14a56b;
+      --red: #e54868;
+      --shadow: 0 24px 70px rgba(30, 99, 240, 0.13);
+      --radius: 18px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      min-width: 320px;
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+      line-height: 1.7;
+      background:
+        linear-gradient(rgba(30, 99, 240, 0.055) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(30, 99, 240, 0.055) 1px, transparent 1px),
+        radial-gradient(circle at 50% 0%, rgba(83, 145, 255, 0.24), transparent 38rem),
+        linear-gradient(180deg, #eaf3ff 0%, #f9fcff 46%, #eef8ff 100%);
+      background-size: 32px 32px, 32px 32px, auto, auto;
+    }
+
+    a {
+      color: var(--blue);
+      text-decoration: none;
+    }
+
+    a:hover {
+      color: var(--blue-deep);
+    }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      border-bottom: 1px solid rgba(30, 99, 240, 0.11);
+      background: rgba(245, 250, 255, 0.86);
+      backdrop-filter: blur(18px);
+    }
+
+    .nav {
+      width: min(1120px, calc(100% - 40px));
+      height: 64px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 800;
+      color: var(--text);
+      white-space: nowrap;
+    }
+
+    .mark {
+      width: 28px;
+      height: 28px;
+      border-radius: 9px;
+      display: grid;
+      place-items: center;
+      color: #ffffff;
+      font-size: 13px;
+      font-weight: 900;
+      background: linear-gradient(135deg, #2f7cff 0%, #1ec6b6 100%);
+      box-shadow: 0 9px 22px rgba(30, 99, 240, 0.24);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 22px;
+      font-size: 14px;
+      color: var(--muted);
+    }
+
+    .nav-links a {
+      color: var(--muted);
+    }
+
+    .nav-links a.is-active {
+      color: var(--blue);
+      font-weight: 700;
+    }
+
+    main {
+      width: min(1120px, calc(100% - 40px));
+      margin: 0 auto;
+      padding: 74px 0 88px;
+    }
+
+    .hero {
+      text-align: center;
+      padding: 18px 0 34px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      min-height: 28px;
+      padding: 4px 12px;
+      border: 1px solid rgba(30, 99, 240, 0.16);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.76);
+      color: var(--blue);
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      margin: 18px 0 14px;
+      color: var(--blue-deep);
+      font-size: clamp(34px, 6vw, 58px);
+      line-height: 1.08;
+      letter-spacing: 0;
+    }
+
+    .lead {
+      max-width: 760px;
+      margin: 0 auto;
+      color: #405066;
+      font-size: 18px;
+    }
+
+    .meta {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 24px;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      min-height: 34px;
+      padding: 7px 13px;
+      border-radius: 999px;
+      border: 1px solid rgba(30, 99, 240, 0.14);
+      background: rgba(255, 255, 255, 0.72);
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .summary {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+      margin: 34px auto 72px;
+      padding: 14px;
+      border-radius: 22px;
+      border: 1px solid rgba(30, 99, 240, 0.13);
+      background: rgba(255, 255, 255, 0.52);
+      box-shadow: var(--shadow);
+    }
+
+    .summary-card,
+    .policy-card,
+    .notice,
+    .toc {
+      border: 1px solid var(--line);
+      background: var(--card);
+      box-shadow: 0 18px 46px rgba(15, 23, 42, 0.06);
+    }
+
+    .summary-card {
+      min-height: 116px;
+      padding: 18px;
+      border-radius: var(--radius);
+    }
+
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      min-height: 24px;
+      margin-bottom: 10px;
+      padding: 3px 9px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    .tag.safe {
+      color: #067249;
+      background: #dff8ec;
+    }
+
+    .tag.info {
+      color: #195bd9;
+      background: #e5efff;
+    }
+
+    .tag.limit {
+      color: #bd3154;
+      background: #ffe7ee;
+    }
+
+    .summary-card h2 {
+      margin: 0 0 6px;
+      font-size: 17px;
+      line-height: 1.45;
+    }
+
+    .summary-card p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: 260px minmax(0, 1fr);
+      gap: 28px;
+      align-items: start;
+    }
+
+    .toc {
+      position: sticky;
+      top: 88px;
+      padding: 18px;
+      border-radius: var(--radius);
+    }
+
+    .toc-title {
+      margin: 0 0 12px;
+      color: var(--text);
+      font-size: 15px;
+      font-weight: 850;
+    }
+
+    .toc a {
+      display: block;
+      padding: 8px 0;
+      color: var(--muted);
+      font-size: 14px;
+      border-top: 1px solid rgba(30, 99, 240, 0.08);
+    }
+
+    .toc a:first-of-type {
+      border-top: 0;
+    }
+
+    .policy-stack {
+      display: grid;
+      gap: 18px;
+    }
+
+    .policy-card {
+      padding: 30px;
+      border-radius: 22px;
+    }
+
+    .section-kicker {
+      color: var(--blue);
+      font-size: 12px;
+      font-weight: 900;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .policy-card h2 {
+      margin: 8px 0 14px;
+      font-size: 25px;
+      line-height: 1.28;
+    }
+
+    .policy-card p {
+      margin: 0 0 12px;
+      color: #405066;
+    }
+
+    .policy-card ul {
+      margin: 12px 0 0;
+      padding: 0;
+      list-style: none;
+      display: grid;
+      gap: 8px;
+    }
+
+    .policy-card li {
+      position: relative;
+      padding-left: 24px;
+      color: #405066;
+    }
+
+    .policy-card li::before {
+      content: "";
+      position: absolute;
+      left: 2px;
+      top: 0.75em;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--blue);
+      box-shadow: 0 0 0 4px rgba(30, 99, 240, 0.10);
+    }
+
+    .policy-card li.negative::before {
+      background: var(--red);
+      box-shadow: 0 0 0 4px rgba(229, 72, 104, 0.10);
+    }
+
+    .policy-card li.positive::before {
+      background: var(--green);
+      box-shadow: 0 0 0 4px rgba(20, 165, 107, 0.12);
+    }
+
+    .statement-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 16px;
+    }
+
+    .mini-card {
+      border-radius: 14px;
+      padding: 15px;
+      background: rgba(245, 249, 255, 0.88);
+      border: 1px solid rgba(30, 99, 240, 0.09);
+    }
+
+    .mini-card strong {
+      display: block;
+      margin-bottom: 5px;
+      color: var(--text);
+    }
+
+    .mini-card span {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    code {
+      padding: 2px 6px;
+      border-radius: 8px;
+      color: #1746bd;
+      background: #e9f1ff;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: 0.94em;
+    }
+
+    .notice {
+      margin-top: 28px;
+      padding: 18px 22px;
+      border-color: rgba(20, 165, 107, 0.24);
+      border-radius: 18px;
+      background: rgba(238, 252, 245, 0.82);
+      color: #245e48;
+    }
+
+    footer {
+      margin-top: 54px;
+      padding: 20px;
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.72);
+      color: var(--faint);
+      text-align: center;
+      font-size: 13px;
+    }
+
+    @media (max-width: 880px) {
+      .nav {
+        height: auto;
+        padding: 14px 0;
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .nav-links {
+        flex-wrap: wrap;
+        gap: 10px 16px;
+      }
+
+      main {
+        padding-top: 44px;
+      }
+
+      .summary,
+      .layout,
+      .statement-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .toc {
+        position: static;
+      }
+    }
+
+    @media (max-width: 560px) {
+      .nav,
+      main {
+        width: min(100% - 28px, 1120px);
+      }
+
+      h1 {
+        font-size: 34px;
+      }
+
+      .lead {
+        font-size: 16px;
+      }
+
+      .policy-card {
+        padding: 22px;
+      }
+
+      .summary {
+        padding: 10px;
+        margin-bottom: 42px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <nav class="nav" aria-label="页面导航">
+      <a class="brand" href="#top" aria-label="PM原型拾取器隐私政策">
+        <span class="mark">PM</span>
+        <span>PM原型拾取器</span>
+      </a>
+      <div class="nav-links">
+        <a href="#data">处理的数据</a>
+        <a href="#purpose">使用目的</a>
+        <a href="#transfer">传输与存储</a>
+        <a href="#limited-use" class="is-active">隐私政策</a>
+      </div>
+    </nav>
+  </header>
+
+  <main id="top">
+    <section class="hero" aria-labelledby="page-title">
+      <div class="eyebrow">Privacy Policy</div>
+      <h1 id="page-title">PM原型拾取器隐私政策</h1>
+      <p class="lead">本页面说明 PM原型拾取器 Chrome 扩展在用户主动使用“一键同步到AI”功能时，如何处理当前网页内容、本地服务连接和扩展运行状态。</p>
+      <div class="meta" aria-label="政策元信息">
+        <span class="pill">生效日期：2026-05-06</span>
+        <span class="pill">适用产品：Chrome 扩展</span>
+        <span class="pill">数据处理位置：用户本机</span>
+      </div>
+    </section>
+
+    <section class="summary" aria-label="隐私承诺摘要">
+      <article class="summary-card">
+        <span class="tag safe">用户主动触发</span>
+        <h2>仅在用户点击后处理当前页面</h2>
+        <p>扩展不会在用户未主动发起同步时抓取页面内容。</p>
+      </article>
+      <article class="summary-card">
+        <span class="tag info">本地处理</span>
+        <h2>页面数据发送到 localhost 服务</h2>
+        <p>抓取结果用于在用户本机生成可预览的原型工程。</p>
+      </article>
+      <article class="summary-card">
+        <span class="tag limit">不出售数据</span>
+        <h2>不用于广告、画像或贷款评估</h2>
+        <p>用户数据不会被出售，也不会转交第三方用于无关目的。</p>
+      </article>
+    </section>
+
+    <div class="layout">
+      <aside class="toc" aria-label="隐私政策目录">
+        <p class="toc-title">政策目录</p>
+        <a href="#data">1. 我们处理的数据</a>
+        <a href="#not-collect">2. 我们不收集的数据</a>
+        <a href="#purpose">3. 数据用途</a>
+        <a href="#transfer">4. 传输与存储</a>
+        <a href="#sharing">5. 数据共享</a>
+        <a href="#remote-code">6. 远程代码</a>
+        <a href="#control">7. 用户控制</a>
+        <a href="#limited-use">8. Limited Use 声明</a>
+        <a href="#contact">9. 联系方式</a>
+      </aside>
+
+      <div class="policy-stack">
+        <section id="data" class="policy-card">
+          <span class="section-kicker">Data Processed</span>
+          <h2>1. 我们处理的数据</h2>
+          <p>当用户主动点击扩展中的“一键同步到AI”按钮时，扩展会处理当前活动网页中与原型还原相关的内容。</p>
+          <ul>
+            <li>当前网页的可见截图。</li>
+            <li>页面 DOM 结构、文本内容、样式信息和布局信息。</li>
+            <li>图片、字体、CSS 等资源引用，以及生成原型工程所需的资源线索。</li>
+            <li>当前页面标题、URL、扩展同步阶段、进度信息、错误状态和本地预览地址。</li>
+          </ul>
+        </section>
+
+        <section id="not-collect" class="policy-card">
+          <span class="section-kicker">Not Collected</span>
+          <h2>2. 我们不收集的数据</h2>
+          <p>PM原型拾取器的设计目标是页面原型还原，不是用户跟踪、广告投放或身份识别。</p>
+          <ul>
+            <li class="negative">不主动收集姓名、邮箱、电话号码、身份证件号码等个人身份信息。</li>
+            <li class="negative">不收集健康信息、财务和付款信息、身份验证信息或个人通讯内容。</li>
+            <li class="negative">不收集用户浏览历史列表、点击记录、鼠标轨迹、滚屏记录或跨站行为数据。</li>
+            <li class="negative">不收集 GPS 坐标或用户设备附近事物的位置信息。</li>
+          </ul>
+        </section>
+
+        <section id="purpose" class="policy-card">
+          <span class="section-kicker">Purpose</span>
+          <h2>3. 数据用途</h2>
+          <p>扩展处理网站内容的单一用途是：将用户当前选择的网页转换为可预览、可继续由 AI 编辑的本地原型工程。</p>
+          <div class="statement-grid">
+            <div class="mini-card">
+              <strong>页面还原</strong>
+              <span>抓取页面结构、视觉证据和资源信息，用于生成本地原型。</span>
+            </div>
+            <div class="mini-card">
+              <strong>同步进度展示</strong>
+              <span>在扩展弹窗中显示本地服务连接、同步阶段和预览地址。</span>
+            </div>
+            <div class="mini-card">
+              <strong>AI 编辑上下文</strong>
+              <span>为用户后续的 AI 原型编辑提供必要的页面上下文。</span>
+            </div>
+            <div class="mini-card">
+              <strong>本地预览</strong>
+              <span>同步完成后打开用户本机生成的预览页面。</span>
+            </div>
+          </div>
+        </section>
+
+        <section id="transfer" class="policy-card">
+          <span class="section-kicker">Localhost</span>
+          <h2>4. 数据传输与存储</h2>
+          <p>扩展会把用户主动触发抓取后的页面数据发送到用户本机运行的 <code>localhost</code> 配套服务处理。该服务用于在用户本机生成原型工程和预览页面。</p>
+          <ul>
+            <li>扩展不会把页面抓取数据上传到第三方云端服务器。</li>
+            <li>扩展使用 Chrome 本地存储保存运行状态，例如服务端口、当前阶段、进度信息和预览地址。</li>
+            <li>这些运行状态保存在用户本机浏览器中，可通过浏览器设置或移除扩展清除。</li>
+          </ul>
+        </section>
+
+        <section id="sharing" class="policy-card">
+          <span class="section-kicker">Sharing</span>
+          <h2>5. 数据共享</h2>
+          <p>我们不会出售用户数据，不会将用户数据用于广告，也不会把用户数据转交第三方用于与扩展核心功能无关的用途。</p>
+          <ul>
+            <li class="positive">不会出于已获批准用途之外的用途向第三方出售或传输用户数据。</li>
+            <li class="positive">不会为实现与产品单一用途无关的目的而使用或转移用户数据。</li>
+            <li class="positive">不会为确定信用度或实现贷款而使用或转移用户数据。</li>
+          </ul>
+        </section>
+
+        <section id="remote-code" class="policy-card">
+          <span class="section-kicker">Remote Code</span>
+          <h2>6. 远程代码</h2>
+          <p>PM原型拾取器 Chrome 扩展不加载或执行远程托管代码。所有扩展脚本均包含在提交到 Chrome Web Store 的扩展安装包中。</p>
+          <p>扩展可能打开官方网站或服务说明页面，用于查看产品说明或获取配套本地服务，但不会从该网站加载或执行远程代码来改变扩展行为。</p>
+        </section>
+
+        <section id="control" class="policy-card">
+          <span class="section-kicker">User Control</span>
+          <h2>7. 用户控制</h2>
+          <p>用户可以通过以下方式控制扩展的数据处理：</p>
+          <ul>
+            <li>仅在需要时点击扩展并主动发起同步。</li>
+            <li>停止或关闭本机配套服务，阻止扩展继续连接 <code>localhost</code> 服务。</li>
+            <li>在 Chrome 中停用或移除扩展。</li>
+            <li>清除浏览器扩展本地存储，删除保存的运行状态。</li>
+          </ul>
+        </section>
+
+        <section id="limited-use" class="policy-card">
+          <span class="section-kicker">Limited Use</span>
+          <h2>8. Limited Use 声明</h2>
+          <p>PM原型拾取器对用户数据的使用符合 Chrome Web Store User Data Policy，包括 Limited Use 要求。</p>
+          <ul>
+            <li class="positive">用户数据仅用于提供或改进扩展的单一核心功能。</li>
+            <li class="positive">不会将用户数据用于广告、营销画像或与原型还原无关的分析。</li>
+            <li class="positive">不会出售用户数据，也不会将用户数据转交第三方用于无关目的。</li>
+          </ul>
+          <div class="notice">重点提示：PM原型拾取器是面向 PM 的网页原型辅助工具，只处理用户主动选择的当前页面内容，并将抓取结果发送到用户本机服务进行处理。</div>
+        </section>
+
+        <section id="contact" class="policy-card">
+          <span class="section-kicker">Contact</span>
+          <h2>9. 联系方式与政策更新</h2>
+          <p>如有隐私相关问题，请通过官方网站联系：<a href="https://lurenyi.me" rel="noopener">https://lurenyi.me</a>。</p>
+          <p>如果扩展的数据处理方式发生变化，我们会更新本隐私政策，并在需要时同步更新 Chrome Web Store 的隐私披露信息。</p>
+        </section>
+      </div>
+    </div>
+
+    <footer>
+      PM原型拾取器隐私政策。此页面不包含弹窗、二维码、付款入口或第三方追踪脚本。
+    </footer>
+  </main>
+</body>
+</html>
