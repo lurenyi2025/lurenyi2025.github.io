@@ -1,0 +1,868 @@
+<!doctype html>
+<!-- @name ProtoLink 产品经理 Vibecoding 课程主页 -->
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ProtoLink 产品经理 VibeCoding 课程</title>
+    <meta
+      name="description"
+      content="ProtoLink 产品经理 VibeCoding 课程，提供 ProtoLink 源码、PRD 生成 Skill、需求标注 Skill 与二次创造方法。"
+    />
+    <style>
+      :root {
+        color-scheme: light;
+        --bg: #f6f9ff;
+        --bg-soft: #eef5ff;
+        --surface: rgba(255, 255, 255, 0.76);
+        --surface-strong: rgba(255, 255, 255, 0.94);
+        --border: rgba(15, 23, 42, 0.12);
+        --text: #0b1220;
+        --muted: #526079;
+        --primary: #2f6bff;
+        --primary-strong: #1d4ed8;
+        --green: #008f5d;
+        --green-soft: rgba(0, 143, 93, 0.1);
+        --gold: #c9821a;
+        --violet: #6a58c8;
+        --shadow: 0 22px 60px rgba(15, 23, 42, 0.12);
+        --shadow-soft: 0 12px 32px rgba(15, 23, 42, 0.08);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
+        scroll-padding-top: 86px;
+      }
+
+      body {
+        margin: 0;
+        color: var(--text);
+        background:
+          linear-gradient(rgba(15, 23, 42, 0.035) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(15, 23, 42, 0.035) 1px, transparent 1px),
+          linear-gradient(180deg, var(--bg) 0%, #ffffff 56%, var(--bg-soft) 100%);
+        background-size: 44px 44px, 44px 44px, auto;
+        font-family:
+          Inter, "PingFang SC", "Microsoft YaHei", -apple-system, BlinkMacSystemFont,
+          "Segoe UI", sans-serif;
+        overflow-x: hidden;
+      }
+
+      body.modal-open {
+        overflow: hidden;
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      button,
+      a {
+        font: inherit;
+      }
+
+      button {
+        cursor: pointer;
+      }
+
+      .site-shell {
+        min-height: 100vh;
+        overflow-x: clip;
+      }
+
+      .container {
+        width: min(1120px, calc(100% - 40px));
+        margin: 0 auto;
+      }
+
+      .site-nav {
+        position: sticky;
+        top: 0;
+        z-index: 8;
+        border-bottom: 1px solid rgba(15, 23, 42, 0.08);
+        background: rgba(246, 249, 255, 0.78);
+        backdrop-filter: blur(18px);
+      }
+
+      .site-nav-inner {
+        display: grid;
+        grid-template-columns: 1fr auto 1fr;
+        align-items: center;
+        gap: 16px;
+        padding: 16px 0;
+      }
+
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        font-size: 16px;
+        font-weight: 900;
+      }
+
+      .brand-mark {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 38px;
+        height: 38px;
+        border-radius: 8px;
+        color: #ffffff;
+        background: linear-gradient(135deg, var(--primary) 0%, var(--green) 100%);
+        box-shadow: 0 14px 28px rgba(47, 107, 255, 0.22);
+        font-size: 14px;
+        font-weight: 950;
+      }
+
+      .nav-links {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        color: var(--muted);
+        font-size: 14px;
+        font-weight: 800;
+      }
+
+      .nav-links a {
+        padding: 8px 10px;
+        border-radius: 8px;
+      }
+
+      .nav-links a:hover {
+        color: var(--text);
+        background: rgba(15, 23, 42, 0.05);
+      }
+
+      .nav-actions {
+        display: flex;
+        justify-content: flex-end;
+      }
+
+      .nav-cta,
+      .primary-btn,
+      .secondary-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 999px;
+        font-weight: 900;
+        transition:
+          transform 0.18s ease,
+          box-shadow 0.18s ease,
+          background 0.18s ease;
+      }
+
+      .nav-cta {
+        min-height: 42px;
+        padding: 0 18px;
+        border: 0;
+        color: #ffffff;
+        background: linear-gradient(135deg, var(--primary) 0%, #0ea5e9 100%);
+        box-shadow: 0 12px 26px rgba(47, 107, 255, 0.22);
+      }
+
+      .nav-cta:hover,
+      .primary-btn:hover,
+      .secondary-btn:hover {
+        transform: translateY(-1px);
+      }
+
+      .hero {
+        padding: 86px 0 58px;
+      }
+
+      .hero-inner {
+        width: min(900px, 100%);
+        margin: 0 auto;
+        text-align: center;
+      }
+
+      .eyebrow,
+      .section-kicker {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        border-radius: 999px;
+        font-size: 13px;
+        font-weight: 900;
+      }
+
+      .eyebrow {
+        padding: 8px 14px;
+        border: 1px solid rgba(15, 23, 42, 0.1);
+        color: rgba(15, 23, 42, 0.78);
+        background: rgba(255, 255, 255, 0.72);
+      }
+
+      .hero-title {
+        margin: 22px 0 16px;
+        font-size: clamp(36px, 5vw, 60px);
+        line-height: 1.08;
+        letter-spacing: 0;
+        background: linear-gradient(90deg, #0b1220 0%, var(--primary-strong) 48%, var(--green) 100%);
+        background-clip: text;
+        -webkit-background-clip: text;
+        color: transparent;
+        text-wrap: balance;
+        overflow-wrap: anywhere;
+        word-break: break-word;
+      }
+
+      .hero-desc {
+        max-width: 780px;
+        margin: 0 auto;
+        color: var(--muted);
+        font-size: 17px;
+        line-height: 1.82;
+      }
+
+      .hero-actions {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 14px;
+        margin-top: 28px;
+      }
+
+      .hero-actions .primary-btn {
+        min-width: 260px;
+      }
+
+      .primary-btn,
+      .secondary-btn {
+        min-height: 54px;
+        padding: 0 24px;
+      }
+
+      .primary-btn {
+        border: 0;
+        color: #ffffff;
+        background: linear-gradient(135deg, var(--primary) 0%, #0ea5e9 100%);
+        box-shadow: 0 16px 34px rgba(47, 107, 255, 0.22);
+      }
+
+      .secondary-btn {
+        border: 1px solid var(--border);
+        color: var(--text);
+        background: var(--surface-strong);
+      }
+
+      .hero-note {
+        margin-top: 14px;
+        color: #6b768c;
+        font-size: 13px;
+        font-weight: 750;
+      }
+
+      .hero-boundary {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 14px;
+        margin-top: 42px;
+      }
+
+      .boundary-item,
+      .feature-card,
+      .module-card,
+      .direction-card {
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        background: var(--surface);
+        box-shadow: var(--shadow-soft);
+        backdrop-filter: blur(18px);
+      }
+
+      .boundary-item {
+        padding: 18px;
+        text-align: left;
+      }
+
+      .boundary-item strong,
+      .boundary-item span {
+        display: block;
+      }
+
+      .boundary-item strong {
+        font-size: 16px;
+        line-height: 1.45;
+      }
+
+      .boundary-item span {
+        margin-top: 8px;
+        color: var(--muted);
+        font-size: 14px;
+        line-height: 1.65;
+      }
+
+      .section {
+        padding: 72px 0;
+      }
+
+      .section-head {
+        max-width: 760px;
+        margin-bottom: 28px;
+      }
+
+      .section-head.center {
+        margin-right: auto;
+        margin-left: auto;
+        text-align: center;
+      }
+
+      .section-kicker {
+        color: var(--primary-strong);
+      }
+
+      .section-title {
+        margin: 10px 0 12px;
+        font-size: clamp(30px, 4vw, 46px);
+        line-height: 1.16;
+        letter-spacing: 0;
+      }
+
+      .section-desc {
+        margin: 0;
+        color: var(--muted);
+        font-size: 16px;
+        line-height: 1.78;
+      }
+
+      .feature-grid {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 14px;
+      }
+
+      .feature-card,
+      .module-card,
+      .direction-card {
+        min-height: 220px;
+        padding: 22px;
+      }
+
+      .card-index {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 36px;
+        height: 28px;
+        padding: 0 10px;
+        border-radius: 999px;
+        color: var(--primary-strong);
+        background: rgba(47, 107, 255, 0.1);
+        font-size: 13px;
+        font-weight: 950;
+      }
+
+      .feature-card:nth-child(2) .card-index,
+      .module-card:nth-child(2) .card-index {
+        color: var(--green);
+        background: var(--green-soft);
+      }
+
+      .feature-card:nth-child(3) .card-index,
+      .module-card:nth-child(3) .card-index {
+        color: var(--gold);
+        background: rgba(201, 130, 26, 0.12);
+      }
+
+      .feature-card:nth-child(4) .card-index,
+      .module-card:nth-child(4) .card-index {
+        color: var(--violet);
+        background: rgba(106, 88, 200, 0.12);
+      }
+
+      .card-title {
+        margin: 18px 0 10px;
+        font-size: 20px;
+        line-height: 1.35;
+      }
+
+      .card-text {
+        margin: 0;
+        color: var(--muted);
+        font-size: 15px;
+        line-height: 1.76;
+      }
+
+      .direction-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 14px;
+      }
+
+      .module-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 14px;
+      }
+
+      .module-card {
+        min-height: 190px;
+      }
+
+      .direction-card span {
+        color: var(--gold);
+        font-size: 13px;
+        font-weight: 950;
+      }
+
+      .final-cta {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 22px;
+        margin-top: 18px;
+        padding: 24px;
+        border: 1px solid rgba(0, 143, 93, 0.18);
+        border-radius: 8px;
+        background: rgba(232, 248, 241, 0.8);
+      }
+
+      .final-cta h3 {
+        margin: 0 0 8px;
+        font-size: 24px;
+      }
+
+      .final-cta p {
+        margin: 0;
+        color: #3f5f54;
+        line-height: 1.65;
+      }
+
+      .footer {
+        padding: 24px 0 42px;
+      }
+
+      .footer-card {
+        padding: 18px;
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        color: var(--muted);
+        background: rgba(255, 255, 255, 0.62);
+        font-size: 14px;
+        line-height: 1.7;
+        text-align: center;
+      }
+
+      .modal-backdrop {
+        position: fixed;
+        inset: 0;
+        z-index: 20;
+        display: none;
+        place-items: center;
+        padding: 20px;
+        background: rgba(15, 23, 42, 0.55);
+        backdrop-filter: blur(10px);
+      }
+
+      .modal-backdrop.is-open,
+      .modal-backdrop:target {
+        display: grid;
+      }
+
+      .wechat-modal {
+        position: relative;
+        display: grid;
+        justify-items: center;
+        width: min(420px, 100%);
+        padding: 30px;
+        border-radius: 8px;
+        background: #ffffff;
+        box-shadow: var(--shadow);
+        text-align: center;
+      }
+
+      .modal-close {
+        position: absolute;
+        top: 12px;
+        right: 12px;
+        display: grid;
+        place-items: center;
+        width: 34px;
+        height: 34px;
+        border: 0;
+        border-radius: 8px;
+        color: #475569;
+        background: #f1f5f9;
+        font-size: 24px;
+        line-height: 1;
+      }
+
+      .qr-code {
+        display: block;
+        width: min(210px, 70vw);
+        height: min(210px, 70vw);
+        border: 8px solid #ffffff;
+        border-radius: 8px;
+        object-fit: contain;
+        box-shadow: 0 8px 24px rgba(23, 32, 51, 0.12);
+      }
+
+      .modal-copy {
+        display: grid;
+        justify-items: center;
+      }
+
+      .modal-copy span {
+        color: var(--primary-strong);
+        font-size: 13px;
+        font-weight: 950;
+      }
+
+      .modal-copy h2 {
+        margin: 10px 0;
+        font-size: 28px;
+        line-height: 1.2;
+      }
+
+      .modal-copy p {
+        max-width: 330px;
+        margin: 0 0 18px;
+        color: var(--muted);
+        line-height: 1.72;
+      }
+
+      .qr-card {
+        display: grid;
+        justify-items: center;
+        gap: 10px;
+        width: 100%;
+        margin-top: 18px;
+        padding: 18px;
+        border-radius: 8px;
+        color: var(--text);
+        background: #f7fafc;
+      }
+
+      .qr-card strong {
+        font-size: 18px;
+      }
+
+      .modal-note {
+        display: inline-flex;
+        padding: 9px 12px;
+        border-radius: 8px;
+        color: #075c45;
+        background: var(--green-soft);
+        font-size: 13px;
+        font-weight: 900;
+      }
+
+      @media (max-width: 1020px) {
+        .site-nav-inner {
+          grid-template-columns: 1fr;
+        }
+
+        .nav-links,
+        .nav-actions {
+          justify-content: flex-start;
+        }
+
+        .hero-boundary,
+        .feature-grid,
+        .direction-grid {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+      }
+
+      @media (max-width: 720px) {
+        .container {
+          width: min(calc(100vw - 32px), 358px);
+          margin-left: 16px;
+          margin-right: 0;
+        }
+
+        .site-nav-inner {
+          padding: 14px 0;
+        }
+
+        .nav-links {
+          display: grid;
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+          gap: 6px;
+          width: 100%;
+        }
+
+        .nav-links a {
+          display: grid;
+          place-items: center;
+          min-height: 36px;
+          border: 1px solid rgba(15, 23, 42, 0.08);
+          background: rgba(255, 255, 255, 0.54);
+          text-align: center;
+        }
+
+        .nav-cta,
+        .primary-btn,
+        .secondary-btn {
+          width: 100%;
+        }
+
+        .hero {
+          padding: 54px 0 42px;
+        }
+
+        .hero-title {
+          font-size: 34px;
+          max-width: 100%;
+        }
+
+        .hero-desc,
+        .hero-note,
+        .section-desc,
+        .card-text {
+          overflow-wrap: anywhere;
+        }
+
+        .hero-boundary,
+        .feature-grid,
+        .module-grid,
+        .direction-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .section {
+          padding: 54px 0;
+        }
+
+        .feature-card,
+        .module-card,
+        .direction-card {
+          min-height: auto;
+        }
+
+        .final-cta {
+          align-items: stretch;
+          flex-direction: column;
+        }
+
+        .wechat-modal {
+          justify-items: center;
+          text-align: center;
+        }
+
+        .modal-copy {
+          padding-right: 0;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="site-shell">
+      <header class="site-nav">
+        <div class="container site-nav-inner">
+          <a class="brand" href="#top">
+            <span class="brand-mark">PL</span>
+            <span>ProtoLink</span>
+          </a>
+          <nav class="nav-links" aria-label="页面导航">
+            <a href="#course">课程介绍</a>
+            <a href="#product">ProtoLink 介绍</a>
+            <a href="#direction">发展方向</a>
+          </nav>
+          <div class="nav-actions">
+            <a class="nav-cta" href="#contact-guide">了解课程</a>
+          </div>
+        </div>
+      </header>
+
+      <main id="top">
+        <section class="hero" id="course">
+          <div class="container">
+            <div class="hero-inner">
+              <div class="eyebrow">Product Manager VibeCoding Course</div>
+              <h1 class="hero-title">用 ProtoLink 源码学习产品经理如何和 AI 一起做工具</h1>
+              <p class="hero-desc">
+                课程围绕 ProtoLink 完整源码实战，讲清楚产品经理如何描述需求、组织上下文、驱动 AI IDE 生成方案、推进原型和 PRD，并把工作流沉淀成可复用 Skill。
+              </p>
+              <div class="hero-actions">
+                <a class="primary-btn" href="#contact-guide">了解课程</a>
+              </div>
+              <div class="hero-note">随课获得 ProtoLink 源码、PRD 生成 Skill、需求标注 Skill，可学习、复用并进行二次创造。</div>
+
+              <div class="hero-boundary" aria-label="课程交付内容">
+                <div class="boundary-item">
+                  <strong>VibeCoding 方法</strong>
+                  <span>把业务意图拆成 AI 可执行上下文，建立产品经理自己的协作流程。</span>
+                </div>
+                <div class="boundary-item">
+                  <strong>ProtoLink 源码</strong>
+                  <span>围绕真实工具源码，理解产品定位、架构边界和迭代取舍。</span>
+                </div>
+                <div class="boundary-item">
+                  <strong>配套 Skill</strong>
+                  <span>获得 PRD 生成 Skill 和需求标注 Skill，直接用于日常工作流。</span>
+                </div>
+                <div class="boundary-item">
+                  <strong>二次创造</strong>
+                  <span>基于源码继续改造内部工具、课程练习或新的产品化方向。</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="section" id="product">
+          <div class="container">
+            <div class="section-head center">
+              <div class="section-kicker">ProtoLink Intro</div>
+              <h2 class="section-title">让产品经理把需求、标注、迭代和发布串成一条工作流</h2>
+              <p class="section-desc">
+                ProtoLink 支持 PRD 生成、需求标注、迭代管理和原型发布。它不托管模型，也不替代团队流程，而是让产品经理在 AI IDE 中把需求文档、页面标注、迭代范围和预览链接组织成一条更稳定的工作流。
+              </p>
+            </div>
+
+            <div class="feature-grid">
+              <article class="feature-card">
+                <div class="card-index">01</div>
+                <h3 class="card-title">PRD 生成</h3>
+                <p class="card-text">基于页面实现、规格说明和业务范围，生成结构清晰、便于团队协作的 PRD。</p>
+              </article>
+              <article class="feature-card">
+                <div class="card-index">02</div>
+                <h3 class="card-title">需求标注</h3>
+                <p class="card-text">把需求模块挂到页面 marker 和 sidecar registry 上，让页面和需求说明保持可追踪。</p>
+              </article>
+              <article class="feature-card">
+                <div class="card-index">03</div>
+                <h3 class="card-title">迭代管理</h3>
+                <p class="card-text">按 iteration 组织页面范围、需求文本、发布记录和稳定 slug，支持持续改名与更新。</p>
+              </article>
+              <article class="feature-card">
+                <div class="card-index">04</div>
+                <h3 class="card-title">原型发布</h3>
+                <p class="card-text">把本地原型预览发布为可访问链接，支持 local publish、SSH publish 和发布状态查询。</p>
+              </article>
+            </div>
+          </div>
+        </section>
+
+        <section class="section">
+          <div class="container">
+            <div class="section-head center">
+              <div class="section-kicker">Modules</div>
+              <h2 class="section-title">四个模块，对应产品经理的真实工作场景</h2>
+            </div>
+
+            <div class="module-grid">
+              <article class="module-card">
+                <div class="card-index">Module 01</div>
+                <h3 class="card-title">产品经理 VibeCoding 方法</h3>
+                <p class="card-text">学习如何把业务意图拆成 AI 可执行上下文，让 IDE Agent 从协作者变成可验收的生产力。</p>
+              </article>
+              <article class="module-card">
+                <div class="card-index">Module 02</div>
+                <h3 class="card-title">ProtoLink 产品拆解</h3>
+                <p class="card-text">从产品定位、PRD 生成、需求标注、迭代管理和原型发布，理解工具型产品的真实决策。</p>
+              </article>
+              <article class="module-card">
+                <div class="card-index">Module 03</div>
+                <h3 class="card-title">源码阅读与二次创造</h3>
+                <p class="card-text">围绕 CLI、本地服务、preview shell、存储和发布链路，建立能改、能扩、能上线的工程感。</p>
+              </article>
+              <article class="module-card">
+                <div class="card-index">Module 04</div>
+                <h3 class="card-title">Skill 工作流实战</h3>
+                <p class="card-text">使用 PRD 生成和需求标注 Skill，把需求文档、页面 marker 和有效 registry 串成闭环。</p>
+              </article>
+            </div>
+          </div>
+        </section>
+
+        <section class="section" id="direction">
+          <div class="container">
+            <div class="section-head center">
+              <div class="section-kicker">Roadmap</div>
+              <h2 class="section-title">未来让产品经理更轻松地完成方案、交接和复盘</h2>
+              <p class="section-desc">
+                在 PRD 生成、需求标注、迭代管理和原型发布之外，ProtoLink 会继续补齐方案设计、研发测试协同和项目经验沉淀，让产品工作从想法到落地更连贯。
+              </p>
+            </div>
+
+            <div class="direction-grid">
+              <article class="direction-card">
+                <span>研发测试协同</span>
+                <h3 class="card-title">交接信息更完整</h3>
+                <p class="card-text">把实现范围、页面位置、验收标准和测试场景整理在一起，减少反复解释和遗漏。</p>
+              </article>
+              <article class="direction-card">
+                <span>产品方案设计</span>
+                <h3 class="card-title">从想法到可选方案</h3>
+                <p class="card-text">结合项目背景和专业方法，快速整理多个产品方案，帮助你更快比较、取舍和决策。</p>
+              </article>
+              <article class="direction-card">
+                <span>项目经验沉淀</span>
+                <h3 class="card-title">让过往产出可复用</h3>
+                <p class="card-text">把 PRD、标注、发布记录和决策原因沉淀下来，后续做新需求时可以继续参考和复用。</p>
+              </article>
+            </div>
+
+            <div class="final-cta">
+              <div>
+                <h3>想跟着真实项目学一遍产品经理 VibeCoding？</h3>
+                <p>扫码添加微信，备注“ProtoLink 课程”，了解课程安排、源码交付和 Skill 资料。</p>
+              </div>
+              <a class="primary-btn" href="#contact-guide">了解课程</a>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <footer class="footer">
+        <div class="container">
+          <div class="footer-card">
+            ProtoLink 课程页用于介绍产品经理 VibeCoding 实战课程和 ProtoLink 能力边界。核心能力以 PRD 生成、需求标注、迭代管理和原型发布为主。
+          </div>
+        </div>
+      </footer>
+
+      <div class="modal-backdrop" id="contact-guide" data-modal aria-hidden="true">
+        <section class="wechat-modal" role="dialog" aria-modal="true" aria-label="微信了解课程">
+          <a class="modal-close" href="#top" aria-label="关闭">×</a>
+          <div class="modal-copy">
+            <span>微信了解课程</span>
+            <h2>ProtoLink 产品经理 VibeCoding 课程</h2>
+            <p>扫码添加微信，备注“ProtoLink 课程”，可以咨询课程安排、源码交付、PRD 生成 Skill 和需求标注 Skill。</p>
+            <div class="qr-card">
+              <img class="qr-code" src="./assets/images/wx.png" alt="微信二维码" />
+              <strong>微信扫码咨询</strong>
+              <div class="modal-note">添加时备注“ProtoLink 课程”</div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+
+    <script>
+      const modal = document.querySelector("[data-modal]");
+
+      const syncModalState = () => {
+        const isOpen = window.location.hash === "#contact-guide";
+        modal.setAttribute("aria-hidden", isOpen ? "false" : "true");
+        document.body.classList.toggle("modal-open", isOpen);
+      };
+
+      window.addEventListener("hashchange", syncModalState);
+      syncModalState();
+
+      modal.addEventListener("click", (event) => {
+        if (event.target === modal) {
+          window.location.hash = "#top";
+        }
+      });
+
+      document.addEventListener("keydown", (event) => {
+        if (event.key === "Escape" && window.location.hash === "#contact-guide") {
+          window.location.hash = "#top";
+        }
+      });
+    </script>
+  </body>
+</html>
