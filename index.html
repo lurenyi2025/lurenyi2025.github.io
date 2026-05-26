@@ -3,11 +3,14 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>PM原型拾取器 - 支持官网</title>
-    <meta name="description" content="PM原型拾取器支持官网，提供服务包获取入口、工具介绍与隐私协议。" />
+    <title>ProtoLink 产品经理 VibeCoding 课程</title>
+    <meta
+      name="description"
+      content="ProtoLink 产品经理 VibeCoding 课程介绍，并提供 PM 原型拾取器工具包辅助入口。"
+    />
     <script>
       var _hmt = _hmt || [];
-      (function() {
+      (function () {
         var hm = document.createElement("script");
         hm.src = "https://hm.baidu.com/hm.js?16d816c51d10b6f8b09f4b34e615c37a";
         var s = document.getElementsByTagName("script")[0];
@@ -16,1302 +19,2291 @@
     </script>
   </head>
   <body>
-    <div id="root"><style>
-  :root {
-    color-scheme: light;
-    --bg: #f5f9ff;
-    --bg-soft: #edf4ff;
-    --surface: rgba(255, 255, 255, 0.72);
-    --surface-strong: rgba(255, 255, 255, 0.92);
-    --border: rgba(15, 23, 42, 0.12);
-    --text: #0b1220;
-    --muted: #526079;
-    --primary: #2f6bff;
-    --primary-strong: #1d4ed8;
-    --primary-soft: rgba(47, 107, 255, 0.12);
-    --success-soft: rgba(16, 185, 129, 0.12);
-    --success-text: #047857;
-    --danger-soft: rgba(244, 63, 94, 0.12);
-    --danger-text: #be123c;
-    --shadow: 0 22px 60px rgba(15, 23, 42, 0.12);
-    --shadow-soft: 0 12px 32px rgba(15, 23, 42, 0.08);
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  }
-
-  * {
-    box-sizing: border-box;
-  }
-
-  html {
-    scroll-behavior: smooth;
-    scroll-padding-top: 80px;
-  }
-
-  body {
-    margin: 0;
-    background:
-      radial-gradient(circle at 16% 10%, rgba(47, 107, 255, 0.18), transparent 48%),
-      radial-gradient(circle at 84% 0%, rgba(59, 130, 246, 0.12), transparent 44%),
-      radial-gradient(circle at 50% 72%, rgba(14, 165, 233, 0.10), transparent 52%),
-      linear-gradient(180deg, var(--bg) 0%, #ffffff 68%, var(--bg-soft) 100%);
-    color: var(--text);
-  }
-
-  a {
-    color: inherit;
-    text-decoration: none;
-  }
-
-  .site-shell {
-    min-height: 100vh;
-    position: relative;
-    overflow-x: clip;
-  }
-
-  .site-shell::before {
-    content: "";
-    position: fixed;
-    inset: 0;
-    pointer-events: none;
-    background-image:
-      linear-gradient(rgba(15, 23, 42, 0.04) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(15, 23, 42, 0.04) 1px, transparent 1px);
-    background-size: 44px 44px;
-    mask-image: radial-gradient(circle at 50% 18%, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0) 62%);
-    opacity: 0.9;
-  }
-
-  .container {
-    width: min(1120px, calc(100% - 40px));
-    margin: 0 auto;
-  }
-
-  .site-nav {
-    position: sticky;
-    top: 0;
-    z-index: 10;
-    backdrop-filter: blur(18px);
-    background: rgba(245, 249, 255, 0.72);
-    border-bottom: 1px solid rgba(15, 23, 42, 0.08);
-  }
-
-  .site-nav-inner {
-    display: grid;
-    grid-template-columns: 1fr auto 1fr;
-    align-items: center;
-    gap: 16px;
-    padding: 18px 0;
-  }
-
-  .brand {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    font-size: 15px;
-    font-weight: 700;
-    letter-spacing: 0.02em;
-  }
-
-  .brand-mark {
-    width: 38px;
-    height: 38px;
-    border-radius: 12px;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    background: linear-gradient(135deg, rgba(47, 107, 255, 1) 0%, rgba(14, 165, 233, 1) 100%);
-    box-shadow: 0 18px 32px rgba(47, 107, 255, 0.24);
-    font-size: 18px;
-    color: #ffffff;
-  }
-
-  .nav-links {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 18px;
-    font-size: 14px;
-    color: var(--muted);
-  }
-
-  .nav-links a {
-    padding: 6px 10px;
-    border-radius: 8px;
-    transition: all 0.2s ease;
-  }
-
-  .nav-links a:hover {
-    color: var(--text);
-    background: rgba(15, 23, 42, 0.04);
-  }
-
-  .nav-links a.highlight-link {
-    color: rgba(47, 107, 255, 0.9);
-    font-weight: 600;
-    background: rgba(47, 107, 255, 0.06);
-    border: 1px solid rgba(47, 107, 255, 0.12);
-  }
-
-  .nav-links a.highlight-link:hover {
-    background: rgba(47, 107, 255, 0.1);
-    color: rgba(47, 107, 255, 1);
-  }
-
-  .nav-actions {
-    display: flex;
-    justify-content: flex-end;
-  }
-
-  .nav-cta {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    height: 42px;
-    padding: 0 18px;
-    border-radius: 999px;
-    background: linear-gradient(135deg, var(--primary) 0%, rgba(14, 165, 233, 1) 100%);
-    box-shadow: 0 12px 26px rgba(47, 107, 255, 0.22);
-    color: #ffffff;
-    font-size: 14px;
-    font-weight: 800;
-    letter-spacing: 0.02em;
-    transition: transform 0.18s ease, box-shadow 0.18s ease;
-  }
-
-  .nav-cta:hover {
-    transform: translateY(-1px);
-    box-shadow: 0 14px 30px rgba(47, 107, 255, 0.26);
-  }
-
-  .hero {
-    padding: 92px 0 72px;
-    min-height: 620px;
-    display: flex;
-    align-items: center;
-  }
-
-  .hero-inner {
-    width: min(900px, 100%);
-    margin: 0 auto;
-    text-align: center;
-  }
-
-  .feature-card,
-  .feature-card,
-  .agreement-card,
-  .workflow-item {
-    border: 1px solid var(--border);
-    background: var(--surface);
-    box-shadow: var(--shadow-soft);
-  }
-
-  .eyebrow {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    padding: 8px 14px;
-    border-radius: 999px;
-    background: rgba(255, 255, 255, 0.70);
-    border: 1px solid rgba(15, 23, 42, 0.10);
-    color: rgba(15, 23, 42, 0.78);
-    font-size: 13px;
-    font-weight: 800;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-  }
-
-  .hero-title {
-    margin: 22px 0 16px;
-    font-size: clamp(34px, 5vw, 56px);
-    line-height: 1.04;
-    letter-spacing: -0.03em;
-    background: linear-gradient(90deg, rgba(11, 18, 32, 1) 0%, rgba(29, 78, 216, 1) 46%, rgba(14, 165, 233, 1) 100%);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-  }
-
-  .hero-desc {
-    margin: 0 auto;
-    max-width: 760px;
-    font-size: 17px;
-    line-height: 1.8;
-    color: var(--muted);
-  }
-
-  .hero-actions {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 14px;
-    margin-top: 28px;
-  }
-
-  .primary-btn,
-  .secondary-btn {
-    appearance: none;
-    border: none;
-    margin: 0;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 56px;
-    padding: 0 24px;
-    border-radius: 999px;
-    font-size: 16px;
-    font-weight: 700;
-    transition: transform 0.18s ease, box-shadow 0.18s ease, background 0.18s ease;
-  }
-
-  .primary-btn {
-    min-width: 220px;
-    background: linear-gradient(135deg, var(--primary) 0%, rgba(14, 165, 233, 1) 100%);
-    color: #ffffff;
-    box-shadow: 0 18px 40px rgba(47, 107, 255, 0.26);
-  }
-
-  .primary-btn:hover,
-  .secondary-btn:hover {
-    transform: translateY(-1px);
-  }
-
-  .secondary-btn {
-    border: 1px solid rgba(15, 23, 42, 0.14);
-    background: rgba(255, 255, 255, 0.70);
-    color: var(--text);
-    cursor: pointer;
-  }
-
-  .button-note {
-    margin-top: 16px;
-    font-size: 13px;
-    color: var(--muted);
-  }
-
-  .hero-boundary {
-    width: min(900px, 100%);
-    margin: 26px auto 0;
-    padding: 14px;
-    border-radius: 22px;
-    background: rgba(255, 255, 255, 0.70);
-    border: 1px solid rgba(15, 23, 42, 0.10);
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 10px;
-    box-shadow: var(--shadow-soft);
-  }
-
-  .boundary-item {
-    padding: 14px 14px;
-    border-radius: 18px;
-    background: rgba(47, 107, 255, 0.06);
-    border: 1px solid rgba(47, 107, 255, 0.10);
-    text-align: left;
-  }
-
-  .boundary-item strong {
-    display: block;
-    font-size: 14px;
-    margin-bottom: 6px;
-    color: rgba(15, 23, 42, 0.92);
-  }
-
-  .boundary-item span {
-    display: block;
-    color: var(--muted);
-    font-size: 14px;
-    line-height: 1.7;
-  }
-
-  .section {
-    padding: 76px 0;
-  }
-
-  .section-head {
-    margin-bottom: 24px;
-    text-align: center;
-  }
-
-  .section-kicker {
-    margin: 0 0 10px;
-    font-size: 13px;
-    color: rgba(29, 78, 216, 0.78);
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-  }
-
-  .section-title {
-    margin: 0;
-    font-size: clamp(28px, 4vw, 40px);
-    letter-spacing: -0.02em;
-  }
-
-  .section-desc {
-    margin: 12px 0 0;
-    max-width: 760px;
-    color: var(--muted);
-    font-size: 16px;
-    line-height: 1.8;
-    margin-left: auto;
-    margin-right: auto;
-  }
-
-  .feature-grid,
-  .agreement-grid,
-  .workflow-grid {
-    display: grid;
-    gap: 18px;
-  }
-
-  .feature-grid {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-  }
-
-  .workflow-grid {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-  }
-
-  .agreement-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
-  .feature-card,
-  .agreement-card,
-  .workflow-item {
-    border-radius: 24px;
-    padding: 24px;
-  }
-
-  .card-index {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 40px;
-    height: 40px;
-    border-radius: 14px;
-    background: linear-gradient(135deg, rgba(47, 107, 255, 0.16) 0%, rgba(14, 165, 233, 0.18) 100%);
-    color: rgba(29, 78, 216, 0.92);
-    font-weight: 700;
-    margin-bottom: 18px;
-  }
-
-  .card-title {
-    margin: 0 0 12px;
-    font-size: 20px;
-  }
-
-  .card-text {
-    margin: 0;
-    color: var(--muted);
-    font-size: 15px;
-    line-height: 1.8;
-  }
-
-  .agreement-tag {
-    display: inline-flex;
-    align-items: center;
-    min-height: 34px;
-    padding: 0 12px;
-    border-radius: 999px;
-    margin-bottom: 16px;
-    font-size: 13px;
-    font-weight: 700;
-  }
-
-  .agreement-tag.allowed {
-    background: var(--success-soft);
-    color: var(--success-text);
-  }
-
-  .agreement-tag.restricted {
-    background: var(--danger-soft);
-    color: var(--danger-text);
-  }
-
-  .agreement-list {
-    display: grid;
-    gap: 12px;
-    margin-top: 18px;
-    color: var(--muted);
-    font-size: 15px;
-    line-height: 1.8;
-  }
-
-  .agreement-list div,
-  .workflow-note {
-    padding: 12px 14px;
-    border-radius: 16px;
-    background: rgba(15, 23, 42, 0.04);
-  }
-
-  .share-grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 18px;
-  }
-
-  .share-card {
-    border: 1px solid var(--border);
-    background: var(--surface);
-    box-shadow: var(--shadow-soft);
-    border-radius: 24px;
-    display: grid;
-    grid-template-columns: 320px 1fr 240px;
-    align-items: stretch;
-    padding: 0;
-    gap: 0;
-    overflow: hidden;
-  }
-
-  .share-cover {
-    position: relative;
-    overflow: hidden;
-    background: rgba(255, 255, 255, 0.9);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .share-cover-img {
-    width: 100%;
-    height: 100%;
-    display: block;
-    object-fit: contain;
-    object-position: center;
-  }
-
-  .share-play-btn {
-    position: absolute;
-    inset: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-decoration: none;
-    cursor: pointer;
-    background: radial-gradient(circle at center, rgba(0, 0, 0, 0.15) 0%, rgba(0, 0, 0, 0) 60%);
-    opacity: 0.9;
-    transition: opacity 0.3s ease;
-  }
-
-  .share-play-btn:hover {
-    opacity: 1;
-  }
-
-  .share-play-pill {
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
-    background: rgba(255, 255, 255, 0.6);
-    border: 1px solid rgba(255, 255, 255, 0.6);
-    box-shadow: none;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    backdrop-filter: blur(12px);
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  }
-
-  .share-play-btn:hover .share-play-pill {
-    transform: scale(1.02);
-    background: rgba(255, 255, 255, 0.7);
-    box-shadow: none;
-  }
-
-  .share-play-pill svg {
-    width: 24px;
-    height: 24px;
-    color: var(--primary);
-    transform: translateX(2px);
-  }
-
-  .share-qr-col {
-    padding: 16px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    gap: 12px;
-    border-left: 1px solid var(--border);
-    background: rgba(248, 250, 252, 0.5);
-  }
-
-  .share-body {
-    padding: 24px 32px;
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    flex: 1;
-    justify-content: center;
-    border: none;
-  }
-
-  .share-title {
-    margin: 0;
-    font-size: 20px;
-    letter-spacing: -0.01em;
-    color: var(--text);
-  }
-
-  .share-desc {
-    margin: 0;
-    color: var(--muted);
-    font-size: 15px;
-    line-height: 1.7;
-    display: -webkit-box;
-    -webkit-line-clamp: 3;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-  }
-
-  .share-action-row {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    flex-wrap: wrap;
-    margin-top: auto;
-    padding-top: 12px;
-  }
-
-  .share-action-wrap {
-    position: relative;
-    display: inline-block;
-  }
-
-  .share-action-btn {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 180px;
-    min-height: 36px;
-    padding: 0 16px;
-    border-radius: 999px;
-    border: none;
-    cursor: pointer;
-    background: linear-gradient(135deg, var(--primary) 0%, rgba(14, 165, 233, 1) 100%);
-    box-shadow: 0 10px 24px rgba(47, 107, 255, 0.18);
-    color: #ffffff;
-    font-size: 14px;
-    font-weight: 800;
-    letter-spacing: 0.01em;
-    text-decoration: none;
-    transition: transform 0.2s, box-shadow 0.2s, background 0.2s;
-  }
-  
-  .share-action-btn:hover {
-    transform: translateY(-1px);
-    box-shadow: 0 12px 28px rgba(47, 107, 255, 0.22);
-  }
-
-  .share-action-wrap .btn-tag {
-    position: absolute;
-    top: -10px;
-    right: -10px;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    height: 20px;
-    padding: 0 6px;
-    border-radius: 8px 8px 8px 0;
-    background: #ff4d4f;
-    color: #ffffff;
-    font-size: 11px;
-    font-weight: 800;
-    letter-spacing: 0.02em;
-    box-shadow: 0 4px 8px rgba(255, 77, 79, 0.3);
-    z-index: 2;
-    transform-origin: bottom left;
-    animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
-  }
-
-  @keyframes popIn {
-    0% { transform: scale(0.5); opacity: 0; }
-    100% { transform: scale(1); opacity: 1; }
-  }
-
-  .share-qr-row {
-    display: flex;
-    gap: 12px;
-    align-items: stretch;
-    flex-direction: column;
-  }
-
-  .share-qr-item {
-    width: 100%;
-    padding: 12px;
-    border-radius: 16px;
-    background: rgba(255, 255, 255, 0.9);
-    border: 1px solid rgba(15, 23, 42, 0.08);
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    box-shadow: 0 2px 8px rgba(15, 23, 42, 0.02);
-  }
-
-  .share-qr-img {
-    width: 72px;
-    height: 72px;
-    aspect-ratio: 1;
-    border-radius: 12px;
-    background: #ffffff;
-    border: 1px solid rgba(15, 23, 42, 0.06);
-    display: block;
-    object-fit: cover;
-    flex: none;
-  }
-
-  .share-qr-img.is-redbook {
-    border-radius: 0;
-    object-fit: contain;
-    border: none;
-  }
-
-  .share-qr-label {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-    flex: 1;
-  }
-
-  .share-qr-label strong {
-    font-size: 14px;
-    color: rgba(15, 23, 42, 0.92);
-  }
-
-  .share-qr-label span {
-    font-size: 12px;
-    color: var(--muted);
-    line-height: 1.5;
-  }
-
-  .privacy-emphasis {
-    margin-top: 22px;
-    padding: 18px 20px;
-    border-radius: 20px;
-    border: 1px solid rgba(244, 63, 94, 0.20);
-    background: rgba(244, 63, 94, 0.08);
-    font-size: 16px;
-    line-height: 1.8;
-    color: rgba(15, 23, 42, 0.88);
-  }
-
-  .footer {
-    padding: 0 0 52px;
-  }
-
-  .footer-card {
-    border-radius: 24px;
-    padding: 24px;
-    background: rgba(255, 255, 255, 0.72);
-    border: 1px solid rgba(15, 23, 42, 0.10);
-    color: var(--muted);
-    font-size: 14px;
-    line-height: 1.8;
-    box-shadow: var(--shadow-soft);
-  }
-
-  .guide-modal {
-    position: fixed;
-    inset: 0;
-    z-index: 40;
-    display: none;
-    align-items: center;
-    justify-content: center;
-    padding: 24px;
-    background: rgba(10, 18, 34, 0);
-    backdrop-filter: blur(0px);
-    transition: background 0.3s ease, backdrop-filter 0.3s ease;
-    opacity: 0;
-    pointer-events: none;
-  }
-
-  .guide-modal.is-visible {
-    display: flex;
-    background: rgba(10, 18, 34, 0.42);
-    backdrop-filter: blur(14px);
-    opacity: 1;
-    pointer-events: auto;
-  }
-
-  .guide-dialog {
-    width: min(980px, 100%);
-    border-radius: 28px;
-    overflow: hidden;
-    border: 1px solid rgba(15, 23, 42, 0.10);
-    background: rgba(255, 255, 255, 0.96);
-    box-shadow: 0 34px 80px rgba(15, 23, 42, 0.22);
-    transform: scale(0.95) translateY(10px);
-    opacity: 0;
-    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-  }
-
-  .guide-modal.is-visible .guide-dialog {
-    transform: scale(1) translateY(0);
-    opacity: 1;
-  }
-
-  .guide-dialog-inner {
-    display: flex;
-    flex-direction: column;
-  }
-
-  .guide-main {
-    padding: 24px 34px 20px;
-    background:
-      radial-gradient(circle at top, rgba(47, 107, 255, 0.08), transparent 36%),
-      linear-gradient(180deg, rgba(248, 251, 255, 1) 0%, rgba(255, 255, 255, 1) 100%);
-    text-align: center;
-  }
-
-  .guide-side {
-    padding: 24px 34px 34px;
-    border-top: 1px solid rgba(15, 23, 42, 0.06);
-    background: rgba(247, 250, 255, 0.6);
-  }
-
-  .guide-head {
-    display: flex;
-    align-items: flex-start;
-    justify-content: center;
-    position: relative;
-    gap: 16px;
-    margin-bottom: 16px;
-  }
-
-  .guide-head-content {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .guide-kicker {
-    display: inline-flex;
-    align-items: center;
-    min-height: 26px;
-    padding: 0 12px;
-    border-radius: 999px;
-    background: rgba(47, 107, 255, 0.10);
-    color: rgba(29, 78, 216, 0.90);
-    font-size: 12px;
-    font-weight: 800;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-  }
-
-  .guide-title {
-    margin: 8px 0 6px;
-    font-size: clamp(24px, 4vw, 32px);
-    line-height: 1.12;
-    letter-spacing: -0.03em;
-    color: var(--text);
-  }
-
-  .guide-desc {
-    margin: 0 auto;
-    max-width: 540px;
-    color: var(--muted);
-    font-size: 14px;
-    line-height: 1.7;
-  }
-
-  .guide-close {
-    position: absolute;
-    top: -8px;
-    right: -16px;
-    appearance: none;
-    border: none;
-    width: 36px;
-    height: 36px;
-    border-radius: 999px;
-    background: rgba(15, 23, 42, 0.06);
-    color: rgba(15, 23, 42, 0.72);
-    font-size: 18px;
-    cursor: pointer;
-    flex: none;
-  }
-
-  .guide-close:hover {
-    background: rgba(15, 23, 42, 0.10);
-  }
-
-  .guide-wechat-card {
-    margin-top: 16px;
-    padding: 20px;
-    border-radius: 20px;
-    border: 1px solid rgba(47, 107, 255, 0.14);
-    background: linear-gradient(180deg, rgba(47, 107, 255, 0.04) 0%, rgba(255, 255, 255, 0.96) 100%);
-    box-shadow: var(--shadow-soft);
-    text-align: left;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .guide-priority {
-    position: absolute;
-    top: 16px;
-    left: 16px;
-    display: inline-flex;
-    align-items: center;
-    min-height: 24px;
-    padding: 0 10px;
-    border-radius: 999px;
-    background: rgba(16, 185, 129, 0.12);
-    color: rgba(4, 120, 87, 0.92);
-    font-size: 12px;
-    font-weight: 800;
-  }
-
-  .guide-wechat-layout {
-    display: flex;
-    gap: 24px;
-    align-items: center;
-    justify-content: center;
-    margin-top: 12px;
-  }
-
-  .guide-qr {
-    width: 140px;
-    height: 140px;
-    aspect-ratio: 1;
-    object-fit: cover;
-    display: block;
-    border-radius: 14px;
-    background: #ffffff;
-    border: 1px solid rgba(15, 23, 42, 0.08);
-    box-shadow: 0 10px 24px rgba(15, 23, 42, 0.08);
-    flex: none;
-  }
-
-  .guide-wechat-info {
-    flex: 1;
-    max-width: 320px;
-  }
-
-  .guide-wechat-title {
-    margin: 0 0 8px;
-    font-size: 20px;
-    color: var(--text);
-  }
-
-  .guide-wechat-text {
-    margin: 0;
-    color: var(--muted);
-    font-size: 14px;
-    line-height: 1.7;
-  }
-
-  .guide-highlight {
-    margin-top: 12px;
-    padding: 10px 14px;
-    border-radius: 12px;
-    background: rgba(255, 255, 255, 0.78);
-    border: 1px solid rgba(15, 23, 42, 0.08);
-    color: rgba(15, 23, 42, 0.82);
-    font-size: 13px;
-    line-height: 1.5;
-  }
-
-  .guide-side-header {
-    margin-bottom: 24px;
-  }
-
-  .guide-side-title {
-    margin: 0;
-    font-size: 22px;
-    color: var(--text);
-  }
-
-  .guide-side-desc {
-    margin: 8px 0 0;
-    color: var(--muted);
-    font-size: 15px;
-    line-height: 1.7;
-  }
-
-  .guide-social-list {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 20px;
-  }
-
-  .guide-social-card {
-    display: flex;
-    align-items: center;
-    gap: 20px;
-    padding: 20px;
-    border-radius: 20px;
-    background: rgba(255, 255, 255, 0.9);
-    border: 1px solid rgba(15, 23, 42, 0.06);
-    text-align: left;
-  }
-
-  .guide-social-card img {
-    width: 100px;
-    height: 100px;
-    aspect-ratio: 1;
-    object-fit: cover;
-    display: block;
-    margin: 0;
-    border-radius: 16px;
-    background: #ffffff;
-    flex: none;
-    box-shadow: 0 10px 24px rgba(15, 23, 42, 0.04);
-  }
-
-  .guide-social-info {
-    flex: 1;
-  }
-
-  .guide-social-label {
-    margin: 0 0 8px;
-    font-size: 18px;
-    color: var(--text);
-  }
-
-  .guide-social-text {
-    margin: 0;
-    color: var(--muted);
-    font-size: 14px;
-    line-height: 1.6;
-  }
-
-  .watch-qr-grid {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 16px;
-    margin-top: 22px;
-  }
-
-  .watch-qr-card {
-    border-radius: 20px;
-    border: 1px solid rgba(15, 23, 42, 0.10);
-    background: rgba(255, 255, 255, 0.82);
-    padding: 18px;
-    display: grid;
-    grid-template-columns: 168px 1fr;
-    align-items: center;
-    gap: 16px;
-  }
-
-  .watch-qr-img {
-    width: 168px;
-    height: 168px;
-    border-radius: 16px;
-    background: #ffffff;
-    border: 1px solid rgba(15, 23, 42, 0.08);
-    object-fit: cover;
-    display: block;
-  }
-
-  .watch-qr-img.is-redbook {
-    border-radius: 0;
-    object-fit: contain;
-    border: none;
-  }
-
-  .watch-qr-title {
-    margin: 0 0 8px;
-    font-size: 18px;
-    color: rgba(15, 23, 42, 0.92);
-  }
-
-  .watch-qr-desc {
-    margin: 0;
-    font-size: 14px;
-    color: var(--muted);
-    line-height: 1.7;
-  }
-
-  @media (max-width: 960px) {
-    .feature-grid,
-    .workflow-grid,
-    .agreement-grid {
-      grid-template-columns: 1fr;
-    }
-
-    .share-card {
-      grid-template-columns: 1fr;
-    }
-
-    .share-qr-col {
-      border-left: none;
-      border-top: 1px solid var(--border);
-    }
-
-    .share-qr-row {
-      flex-direction: row;
-    }
-
-    .hero {
-      padding-top: 74px;
-    }
-
-    .guide-dialog-inner {
-      grid-template-columns: 1fr;
-    }
-
-    .guide-side {
-      border-left: none;
-      border-top: 1px solid rgba(15, 23, 42, 0.08);
-    }
-
-    .watch-qr-grid {
-      grid-template-columns: 1fr;
-    }
-
-    .watch-qr-card {
-      grid-template-columns: 140px 1fr;
-    }
-
-    .watch-qr-img {
-      width: 140px;
-      height: 140px;
-    }
-  }
-
-  .custom-toast {
-    position: fixed;
-    top: 24px;
-    left: 50%;
-    transform: translateX(-50%) translateY(-20px) scale(0.95);
-    background: rgba(15, 23, 42, 0.85);
-    backdrop-filter: blur(8px);
-    color: #fff;
-    padding: 12px 24px;
-    border-radius: 999px;
-    font-size: 15px;
-    font-weight: 500;
-    box-shadow: 0 10px 30px rgba(15, 23, 42, 0.15);
-    z-index: 10000;
-    opacity: 0;
-    pointer-events: none;
-    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s ease;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-
-  .custom-toast.show {
-    opacity: 1;
-    transform: translateX(-50%) translateY(0) scale(1);
-  }
-
-  .custom-toast svg {
-    width: 18px;
-    height: 18px;
-    color: #10b981;
-  }
-
-  @media (max-width: 640px) {
-    .container {
-      width: min(100% - 24px, 1120px);
-    }
-
-    .site-nav-inner {
-      grid-template-columns: 1fr;
-      justify-items: start;
-      padding: 14px 0;
-    }
-
-    .nav-links {
-      justify-content: flex-start;
-      gap: 14px;
-      flex-wrap: wrap;
-    }
-
-    .feature-card,
-    .agreement-card,
-    .workflow-item {
-      border-radius: 22px;
-    }
-
-    .share-card {
-      border-radius: 22px;
-      grid-template-columns: 1fr;
-    }
-
-    .share-qr-col {
-      border-left: none;
-      border-top: 1px solid var(--border);
-      padding: 20px;
-    }
-
-    .share-qr-row {
-      flex-direction: row;
-    }
-
-    .share-body {
-      padding: 20px;
-    }
-
-    .feature-card,
-    .agreement-card,
-    .workflow-item,
-    .footer-card {
-      padding: 20px;
-    }
-
-    .share-body {
-      gap: 12px;
-    }
-
-    .share-cover {
-      aspect-ratio: 16 / 9;
-    }
-
-    .share-qr-col {
-    }
-
-    .share-qr-row {
-      flex-direction: row;
-      flex-wrap: wrap;
-    }
-
-    .share-qr-item {
-      width: calc(50% - 5px);
-    }
-
-    .primary-btn,
-    .secondary-btn {
-      width: 100%;
-    }
-
-    .nav-actions {
-      width: 100%;
-      justify-content: flex-start;
-    }
-
-    .hero-boundary {
-      grid-template-columns: 1fr;
-    }
-
-    .guide-modal {
-      padding: 14px;
-    }
-
-    .guide-main,
-    .guide-side {
-      padding: 22px 20px;
-    }
-
-    .guide-wechat-layout {
-      grid-template-columns: 1fr;
-    }
-  }
-</style><div class="site-shell"><div class="site-nav"><div class="container site-nav-inner"><a class="brand" href="#top"><span class="brand-mark">PM</span><span>PM原型拾取器</span></a><div class="nav-links"><a href="#intro">工具介绍</a><a href="#workflow">使用方式</a><a href="#privacy">隐私协议</a><a href="#share" class="highlight-link">PRD生成Skill</a><a href="#share" class="highlight-link">PRD标注提示词</a></div><div class="nav-actions"><a class="nav-cta" href="#contact-guide" data-open-guide="true">获取完整工具包</a></div></div></div><main id="top"><section class="hero"><div class="container"><div class="hero-inner"><div class="eyebrow">Professional Tool For PMs</div><h1 class="hero-title">PM原型拾取器</h1><p class="hero-desc">专为产品经理打造的高效工具。一键拾取、智能还原、自由编辑，让原型设计告别机械性的搬运与重构。</p><div class="hero-actions"><a class="primary-btn" href="#contact-guide" data-open-guide="true">获取完整工具包</a></div><div class="button-note">当前完整工具包版本：1.0.033</div><div class="hero-boundary" aria-label="使用边界"><div class="boundary-item"><strong>仅限自有或已授权页面</strong><span>仅可用于 PM 对自己负责、拥有权限或获得明确授权的产品页面进行还原与整理。</span></div><div class="boundary-item"><strong>仅限原型二次编辑</strong><span>工具目标是形成可编辑原型底稿，便于继续梳理结构、交互和需求。</span></div><div class="boundary-item"><strong>不得用于其他用途</strong><span>不得用于竞品抓取、未授权复制、公开传播、商业牟利或违法违规场景。</span></div></div></div></div></section><section class="section" id="intro"><div class="container"><div class="section-head"><div class="section-kicker">Tool Intro</div><h2 class="section-title">工具介绍</h2><p class="section-desc">PM 原型拾取器围绕“授权页面还原 + 原型继续编辑”设计，重点帮助 PM 更快拿到可沟通、可迭代的页面基础稿。</p></div><div class="feature-grid"><article class="feature-card"><div class="card-index">01</div><h3 class="card-title">页面结构快速还原</h3><p class="card-text">辅助 PM 将已授权的业务页面拾取为可继续整理的还原稿，便于后续补充交互、文案和流程。</p></article><article class="feature-card"><div class="card-index">02</div><h3 class="card-title">服务包即取即用</h3><p class="card-text">官网提供微信引导入口，可获取完整工具包、使用说明与后续更新信息，方便在团队内部快速落地使用。</p></article><article class="feature-card"><div class="card-index">03</div><h3 class="card-title">面向二次原型编辑</h3><p class="card-text">目标是提升原型补绘、需求评审和方案沉淀效率，而不是替代正式研发、设计或发布流程。</p></article></div></div></section><section class="section" id="workflow"><div class="container"><div class="section-head"><div class="section-kicker">Workflow</div><h2 class="section-title">使用方式</h2><p class="section-desc">工具本身并不替代产品设计判断，而是帮助 PM 在授权前提下更快完成页面整理、原型补充和沟通准备。</p></div><div class="workflow-grid"><article class="workflow-item"><div class="card-index">1</div><h3 class="card-title">获取服务包</h3><p class="card-text">从官网入口进入引导弹窗，优先添加微信获取完整工具包，再在本地启动后与浏览器插件配合使用。</p></article><article class="workflow-item"><div class="card-index">2</div><h3 class="card-title">拾取自己的产品页面</h3><p class="card-text">仅对自己负责或已获得明确授权的产品页面执行还原，形成可编辑的原型基础稿。</p></article><article class="workflow-item"><div class="card-index">3</div><h3 class="card-title">继续原型整理</h3><p class="card-text">把还原结果用于二次原型编辑、评审材料准备和需求沟通，帮助团队更快推进方案确认。</p></article></div></div></section><section class="section" id="privacy"><div class="container"><div class="section-head"><div class="section-kicker">Privacy Agreement</div><h2 class="section-title">隐私协议</h2><p class="section-desc">使用 PM 原型拾取器即表示你理解并同意以下约束：工具仅用于辅助 PM 对自己的产品页面进行还原，方便二次原型编辑，不得用于其他用途。</p></div><div class="agreement-grid"><article class="agreement-card"><div class="agreement-tag allowed">允许范围</div><h3 class="card-title">仅限内部产品还原与编辑辅助</h3><p class="card-text">工具用于把自有页面或已获授权页面整理为后续可编辑的原型基础稿，服务于需求讨论、流程评审和原型迭代。</p><div class="agreement-list"><div>仅处理自己负责的产品页面，或已明确获得授权的页面。</div><div>仅用于页面还原、结构整理、原型补绘和需求沟通。</div><div>使用者需自行遵守所在组织的合规、安全与数据管理要求。</div></div></article><article class="agreement-card"><div class="agreement-tag restricted">禁止用途</div><h3 class="card-title">不得将工具用于任何其他目的</h3><p class="card-text">严禁将本工具用于未授权页面内容复制、竞品资料抓取、批量数据采集、公开传播、商业牟利或任何违法违规活动。</p><div class="agreement-list"><div>不得处理不属于自己团队、自己产品或未经授权的第三方页面。</div><div>不得借助还原结果规避版权、隐私、账号权限或企业安全限制。</div><div>不得把工具或还原结果用于与原型编辑无关的其他场景。</div></div></article></div><div class="privacy-emphasis">重点提示：PM 原型拾取器是面向 PM 的原型辅助工具，只能用于对自己产品页面进行还原，以便开展二次原型编辑与需求沟通。不得用于其他用途。</div></div></section><section class="section" id="share"><div class="container"><div class="section-head"><div class="section-kicker">Sharing</div><h2 class="section-title">产品路人乙的分享</h2><p class="section-desc">AI 原型提效、PRD 生成 Skill、像 Axure 一样标注需求。</p></div><div class="share-grid"><article class="share-card"><div class="share-cover" aria-label="视频封面"><img class="share-cover-img" src="./assets/images/ai.png" alt="视频封面"/><a class="share-play-btn" href="#watch-guide" data-open-guide="true" data-watch-title="产品经理必看: AI画原型提效30%的完整流程" data-watch-dy="./assets/images/dy01.png" data-watch-redbook="./assets/images/redbook01.png" aria-label="播放视频"><span class="share-play-pill" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8.25 5.6c0-1.08 1.17-1.75 2.11-1.2l10.2 6.4c.9.56.9 1.84 0 2.4l-10.2 6.4c-.94.59-2.11-.1-2.11-1.2V5.6Z"></path></svg></span></a></div><div class="share-body"><h3 class="share-title">产品经理必看: AI画原型提效30%的完整流程</h3><p class="share-desc">画原型&gt;生成PRD&gt;原型标注 三步走，用一个需求来完整演示我用AI画原型的全流程。用AI换原型半年了，是真的香！</p><div class="share-action-row"></div></div><div class="share-qr-col" aria-label="观看二维码"><div class="share-qr-row"><div class="share-qr-item"><img class="share-qr-img" src="./assets/images/dy01.png" alt="抖音观看二维码"/><div class="share-qr-label"><strong>抖音</strong><span>扫码观看</span></div></div><div class="share-qr-item"><img class="share-qr-img is-redbook" src="./assets/images/redbook01.png" alt="小红书观看二维码"/><div class="share-qr-label"><strong>小红书</strong><span>扫码观看</span></div></div></div></div></article><article class="share-card"><div class="share-cover" aria-label="视频封面"><img class="share-cover-img" src="./assets/images/skill.png" alt="视频封面"/><a class="share-play-btn" href="#watch-guide" data-open-guide="true" data-watch-title="产品经理定制专属PRD生成Skill" data-watch-dy="./assets/images/dy02.png" data-watch-redbook="./assets/images/redbook02.png" aria-label="播放视频"><span class="share-play-pill" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8.25 5.6c0-1.08 1.17-1.75 2.11-1.2l10.2 6.4c.9.56.9 1.84 0 2.4l-10.2 6.4c-.94.59-2.11-.1-2.11-1.2V5.6Z"></path></svg></span></a></div><div class="share-body"><h3 class="share-title">产品经理定制专属PRD生成Skill</h3><p class="share-desc">Skill是AI的技能库，产品经理需要学会定制自己专属Skill，生成符合自己要求的SKill。PRD生成Skill设计思路：读原型-&gt;匹配模板-&gt;生成PRD-&gt;自检核对。让AI按照你的思路，生成高质量、可控、结构化的PRD文档。揉碎了讲，让你也可以写出适用自己工作的PRD生成Skill！</p><div class="share-action-row"><div class="share-action-wrap"><a class="share-action-btn" href="#skill-guide" data-open-guide="true">获取PRD生成Skill</a><span class="btn-tag">免费</span></div></div></div><div class="share-qr-col" aria-label="观看二维码"><div class="share-qr-row"><div class="share-qr-item"><img class="share-qr-img" src="./assets/images/dy02.png" alt="抖音观看二维码"/><div class="share-qr-label"><strong>抖音</strong><span>扫码观看</span></div></div><div class="share-qr-item"><img class="share-qr-img is-redbook" src="./assets/images/redbook02.png" alt="小红书观看二维码"/><div class="share-qr-label"><strong>小红书</strong><span>扫码观看</span></div></div></div></div></article><article class="share-card"><div class="share-cover" aria-label="视频封面"><img class="share-cover-img" src="./assets/images/agent.png" alt="视频封面"/><a class="share-play-btn" href="#watch-guide" data-open-guide="true" data-watch-title="AI画原型像Axure一样标注需求" data-watch-dy="./assets/images/dy03.png" data-watch-redbook="./assets/images/redbook03.png" aria-label="播放视频"><span class="share-play-pill" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8.25 5.6c0-1.08 1.17-1.75 2.11-1.2l10.2 6.4c.9.56.9 1.84 0 2.4l-10.2 6.4c-.94.59-2.11-.1-2.11-1.2V5.6Z"></path></svg></span></a></div><div class="share-body"><h3 class="share-title">AI画原型像Axure一样标注需求</h3><p class="share-desc">10多个版本迭代出来的PRD标注提示词完整共享了。效率直接拉满！✨核心亮点 Axure级标注体验：自动生成交互逻辑、字段说明、异常场景，不用手动补全需求文档 零学习成本：自然语言描述需求，AI自动生成原型+标注，新手也能快速上手 全流程提效：从原型设计→PRD生成→标注交付，一站式完成，大幅缩短评审周期</p><div class="share-action-row"><div class="share-action-wrap"><button class="share-action-btn" type="button" data-copy-action="true">获取PRD标注提示词</button><span class="btn-tag">免费</span></div></div></div><div class="share-qr-col" aria-label="观看二维码"><div class="share-qr-row"><div class="share-qr-item"><img class="share-qr-img" src="./assets/images/dy03.png" alt="抖音观看二维码"/><div class="share-qr-label"><strong>抖音</strong><span>扫码观看</span></div></div><div class="share-qr-item"><img class="share-qr-img is-redbook" src="./assets/images/redbook03.png" alt="小红书观看二维码"/><div class="share-qr-label"><strong>小红书</strong><span>扫码观看</span></div></div></div></div></article></div></div></section></main><footer class="footer"><div class="container"><div class="footer-card">PM 原型拾取器官网仅提供服务包获取与使用边界说明。请在获得页面权限、确认内部合规要求后使用本工具，并确保所有还原结果仅服务于原型编辑与产品协作。</div></div></footer><div class="guide-modal" data-guide-modal="true" id="contact-guide"><div class="guide-dialog" role="dialog" aria-modal="true" aria-labelledby="guide-title"><div class="guide-dialog-inner"><div class="guide-main"><div class="guide-head"><div class="guide-head-content"><div class="guide-kicker">Get Full Package</div><h2 class="guide-title" id="guide-title">添加微信，获取完整工具包</h2><p class="guide-desc">完整工具包通过微信统一发放与答疑。添加微信后即可获取完整版本、使用说明和后续更新信息。</p></div><button class="guide-close" type="button" aria-label="关闭弹窗" data-close-guide="true">×</button></div><div class="guide-wechat-card"><div class="guide-wechat-layout"><img class="guide-qr" src="./assets/images/wx.png" alt="微信二维码"/><div class="guide-wechat-info"><h3 class="guide-wechat-title">价格：￥19.90</h3><p class="guide-wechat-text">扫码添加微信后，可获取完整工具包，并持续接收版本更新、使用建议。</p><div class="guide-highlight">建议添加后备注「PM原型拾取器」便于更快识别并发送完整资料。</div></div></div></div></div><aside class="guide-side"><div class="guide-side-header"><h3 class="guide-side-title">同步关注账号</h3><p class="guide-side-desc">抖音和小红书会持续分享产品经理干货、工具方法和实践经验。</p></div><div class="guide-social-list"><div class="guide-social-card"><img src="./assets/images/dy.png" alt="抖音账号二维码"/><div class="guide-social-info"><h4 class="guide-social-label">抖音账号</h4><p class="guide-social-text">持续分享产品经理相关干货、效率技巧与实战经验，建议扫码关注。</p></div></div><div class="guide-social-card"><img src="./assets/images/redbook.png" alt="小红书账号二维码"/><div class="guide-social-info"><h4 class="guide-social-label">小红书账号</h4><p class="guide-social-text">持续更新产品经理成长内容、工具拆解与实际案例，适合日常跟进学习。</p></div></div></div></aside></div></div></div><div class="guide-modal" data-guide-modal="true" id="skill-guide"><div class="guide-dialog" role="dialog" aria-modal="true" aria-labelledby="skill-guide-title" style="max-width:640px"><div class="guide-dialog-inner" style="grid-template-columns:1fr"><div class="guide-main" style="padding:40px"><div class="guide-head"><div class="guide-head-content"><div class="guide-kicker">Free PRD Skill</div><h2 class="guide-title" id="skill-guide-title">免费获取 PRD生成Skill</h2><p class="guide-desc">扫码添加微信，备注「PRD Skill」，可免费获取完整版 PRD 生成 Skill。</p></div><button class="guide-close" type="button" aria-label="关闭弹窗" data-close-guide="true">×</button></div><div class="guide-wechat-card" style="max-width:480px;margin:24px auto 0"><div class="guide-wechat-layout" style="gap:32px"><img class="guide-qr" src="./assets/images/wx.png" alt="微信二维码" style="width:160px;height:160px"/><div class="guide-wechat-info" style="max-width:none"><h3 class="guide-wechat-title">免费获取</h3><p class="guide-wechat-text">扫码加微信可免费获取完整版 PRD 生成 Skill。</p><div class="guide-highlight">请在添加后主动发送备注「PRD Skill」。</div></div></div></div></div></div></div></div><div class="guide-modal" data-guide-modal="true" id="watch-guide"><div class="guide-dialog" role="dialog" aria-modal="true" aria-labelledby="watch-guide-title" style="max-width:860px"><div class="guide-dialog-inner" style="grid-template-columns:1fr"><div class="guide-main" style="padding:34px 34px 30px"><div class="guide-head"><div class="guide-head-content"><div class="guide-kicker">Watch Video</div><h2 class="guide-title" id="watch-guide-title">扫码观看</h2><p class="guide-desc">选择抖音或小红书，扫码即可观看对应内容。</p></div><button class="guide-close" type="button" aria-label="关闭弹窗" data-close-guide="true">×</button></div><div class="watch-qr-grid" aria-label="扫码观看二维码"><div class="watch-qr-card"><img class="watch-qr-img" id="watch-dy-img" src="./assets/images/dy.png" alt="抖音观看二维码"/><div><h3 class="watch-qr-title">抖音</h3><p class="watch-qr-desc">打开抖音扫码观看，建议保存后再扫码更清晰。</p></div></div><div class="watch-qr-card"><img class="watch-qr-img is-redbook" id="watch-redbook-img" src="./assets/images/redbook.png" alt="小红书观看二维码"/><div><h3 class="watch-qr-title">小红书</h3><p class="watch-qr-desc">打开小红书扫码观看，获取同主题更多内容。</p></div></div></div></div></div></div></div></div><script>
-  (() => {
-    const modal = document.querySelector('[data-guide-modal]');
-    if (!modal) {
-      return;
-    }
-
-    const openers = document.querySelectorAll('[data-open-guide]');
-
-    openers.forEach((node) => {
-      node.addEventListener('click', (event) => {
-        event.preventDefault();
-        
-        const targetId = node.getAttribute('href');
-        let targetModal = modal;
-        if (targetId && targetId !== '#') {
-          const specificModal = document.querySelector(targetId);
-          if (specificModal) {
-            targetModal = specificModal;
+    <div id="root">
+      <style>
+        :root {
+          color-scheme: light;
+          --bg: #f5f9ff;
+          --bg-soft: #edf4ff;
+          --surface: rgba(255, 255, 255, 0.72);
+          --surface-strong: rgba(255, 255, 255, 0.92);
+          --border: rgba(15, 23, 42, 0.12);
+          --text: #0b1220;
+          --muted: #526079;
+          --primary: #2f6bff;
+          --primary-strong: #1d4ed8;
+          --primary-soft: rgba(47, 107, 255, 0.12);
+          --success-soft: rgba(16, 185, 129, 0.12);
+          --success-text: #047857;
+          --danger-soft: rgba(244, 63, 94, 0.12);
+          --danger-text: #be123c;
+          --shadow: 0 22px 60px rgba(15, 23, 42, 0.12);
+          --shadow-soft: 0 12px 32px rgba(15, 23, 42, 0.08);
+          font-family:
+            -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        }
+
+        * {
+          box-sizing: border-box;
+        }
+
+        html {
+          scroll-behavior: smooth;
+          scroll-padding-top: 80px;
+        }
+
+        body {
+          margin: 0;
+          background:
+            radial-gradient(
+              circle at 16% 10%,
+              rgba(47, 107, 255, 0.18),
+              transparent 48%
+            ),
+            radial-gradient(
+              circle at 84% 0%,
+              rgba(59, 130, 246, 0.12),
+              transparent 44%
+            ),
+            radial-gradient(
+              circle at 50% 72%,
+              rgba(14, 165, 233, 0.1),
+              transparent 52%
+            ),
+            linear-gradient(
+              180deg,
+              var(--bg) 0%,
+              #ffffff 68%,
+              var(--bg-soft) 100%
+            );
+          color: var(--text);
+        }
+
+        a {
+          color: inherit;
+          text-decoration: none;
+        }
+
+        .site-shell {
+          min-height: 100vh;
+          position: relative;
+          overflow-x: clip;
+        }
+
+        .site-shell::before {
+          content: "";
+          position: fixed;
+          inset: 0;
+          pointer-events: none;
+          background-image:
+            linear-gradient(rgba(15, 23, 42, 0.04) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(15, 23, 42, 0.04) 1px, transparent 1px);
+          background-size: 44px 44px;
+          mask-image: radial-gradient(
+            circle at 50% 18%,
+            rgba(0, 0, 0, 1) 0%,
+            rgba(0, 0, 0, 0) 62%
+          );
+          opacity: 0.9;
+        }
+
+        .container {
+          width: min(1120px, calc(100% - 40px));
+          margin: 0 auto;
+        }
+
+        .site-nav {
+          position: sticky;
+          top: 0;
+          z-index: 10;
+          backdrop-filter: blur(18px);
+          background: rgba(245, 249, 255, 0.72);
+          border-bottom: 1px solid rgba(15, 23, 42, 0.08);
+        }
+
+        .site-nav-inner {
+          display: grid;
+          grid-template-columns: 1fr auto 1fr;
+          align-items: center;
+          gap: 16px;
+          padding: 18px 0;
+        }
+
+        .brand {
+          display: flex;
+          align-items: center;
+          gap: 12px;
+          font-size: 15px;
+          font-weight: 700;
+          letter-spacing: 0.02em;
+        }
+
+        .brand-mark {
+          width: 38px;
+          height: 38px;
+          border-radius: 12px;
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          background: linear-gradient(
+            135deg,
+            rgba(47, 107, 255, 1) 0%,
+            rgba(14, 165, 233, 1) 100%
+          );
+          box-shadow: 0 18px 32px rgba(47, 107, 255, 0.24);
+          font-size: 18px;
+          color: #ffffff;
+        }
+
+        .nav-links {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 18px;
+          font-size: 14px;
+          color: var(--muted);
+        }
+
+        .nav-links a {
+          padding: 6px 10px;
+          border-radius: 8px;
+          transition: all 0.2s ease;
+        }
+
+        .nav-links a:hover {
+          color: var(--text);
+          background: rgba(15, 23, 42, 0.04);
+        }
+
+        .nav-links a.highlight-link {
+          color: rgba(47, 107, 255, 0.9);
+          font-weight: 600;
+          background: rgba(47, 107, 255, 0.06);
+          border: 1px solid rgba(47, 107, 255, 0.12);
+        }
+
+        .nav-links a.highlight-link:hover {
+          background: rgba(47, 107, 255, 0.1);
+          color: rgba(47, 107, 255, 1);
+        }
+
+        .nav-actions {
+          display: flex;
+          justify-content: flex-end;
+        }
+
+        .nav-cta {
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          height: 42px;
+          padding: 0 18px;
+          border-radius: 999px;
+          background: linear-gradient(
+            135deg,
+            var(--primary) 0%,
+            rgba(14, 165, 233, 1) 100%
+          );
+          box-shadow: 0 12px 26px rgba(47, 107, 255, 0.22);
+          color: #ffffff;
+          font-size: 14px;
+          font-weight: 800;
+          letter-spacing: 0.02em;
+          transition:
+            transform 0.18s ease,
+            box-shadow 0.18s ease;
+        }
+
+        .nav-cta:hover {
+          transform: translateY(-1px);
+          box-shadow: 0 14px 30px rgba(47, 107, 255, 0.26);
+        }
+
+        .hero {
+          padding: 92px 0 72px;
+          min-height: 620px;
+          display: flex;
+          align-items: center;
+        }
+
+        .hero-inner {
+          width: min(900px, 100%);
+          margin: 0 auto;
+          text-align: center;
+        }
+
+        .feature-card,
+        .feature-card,
+        .agreement-card,
+        .workflow-item {
+          border: 1px solid var(--border);
+          background: var(--surface);
+          box-shadow: var(--shadow-soft);
+        }
+
+        .eyebrow {
+          display: inline-flex;
+          align-items: center;
+          gap: 8px;
+          padding: 8px 14px;
+          border-radius: 999px;
+          background: rgba(255, 255, 255, 0.7);
+          border: 1px solid rgba(15, 23, 42, 0.1);
+          color: rgba(15, 23, 42, 0.78);
+          font-size: 13px;
+          font-weight: 800;
+          letter-spacing: 0.1em;
+          text-transform: uppercase;
+        }
+
+        .hero-title {
+          margin: 22px 0 16px;
+          font-size: clamp(34px, 5vw, 56px);
+          line-height: 1.04;
+          letter-spacing: -0.03em;
+          background: linear-gradient(
+            90deg,
+            rgba(11, 18, 32, 1) 0%,
+            rgba(29, 78, 216, 1) 46%,
+            rgba(14, 165, 233, 1) 100%
+          );
+          -webkit-background-clip: text;
+          background-clip: text;
+          color: transparent;
+        }
+
+        .hero-desc {
+          margin: 0 auto;
+          max-width: 760px;
+          font-size: 17px;
+          line-height: 1.8;
+          color: var(--muted);
+        }
+
+        .hero-actions {
+          display: flex;
+          justify-content: center;
+          flex-wrap: wrap;
+          gap: 14px;
+          margin-top: 28px;
+        }
+
+        .primary-btn,
+        .secondary-btn {
+          appearance: none;
+          border: none;
+          margin: 0;
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          min-height: 56px;
+          padding: 0 24px;
+          border-radius: 999px;
+          font-size: 16px;
+          font-weight: 700;
+          transition:
+            transform 0.18s ease,
+            box-shadow 0.18s ease,
+            background 0.18s ease;
+        }
+
+        .primary-btn {
+          min-width: 220px;
+          background: linear-gradient(
+            135deg,
+            var(--primary) 0%,
+            rgba(14, 165, 233, 1) 100%
+          );
+          color: #ffffff;
+          box-shadow: 0 18px 40px rgba(47, 107, 255, 0.26);
+        }
+
+        .primary-btn:hover,
+        .secondary-btn:hover {
+          transform: translateY(-1px);
+        }
+
+        .secondary-btn {
+          border: 1px solid rgba(15, 23, 42, 0.14);
+          background: rgba(255, 255, 255, 0.7);
+          color: var(--text);
+          cursor: pointer;
+        }
+
+        .button-note {
+          margin-top: 16px;
+          font-size: 13px;
+          color: var(--muted);
+        }
+
+        .hero-boundary {
+          width: min(900px, 100%);
+          margin: 26px auto 0;
+          padding: 14px;
+          border-radius: 22px;
+          background: rgba(255, 255, 255, 0.7);
+          border: 1px solid rgba(15, 23, 42, 0.1);
+          display: grid;
+          grid-template-columns: repeat(3, minmax(0, 1fr));
+          gap: 10px;
+          box-shadow: var(--shadow-soft);
+        }
+
+        .boundary-item {
+          padding: 14px 14px;
+          border-radius: 18px;
+          background: rgba(47, 107, 255, 0.06);
+          border: 1px solid rgba(47, 107, 255, 0.1);
+          text-align: left;
+        }
+
+        .boundary-item strong {
+          display: block;
+          font-size: 14px;
+          margin-bottom: 6px;
+          color: rgba(15, 23, 42, 0.92);
+        }
+
+        .boundary-item span {
+          display: block;
+          color: var(--muted);
+          font-size: 14px;
+          line-height: 1.7;
+        }
+
+        .section {
+          padding: 76px 0;
+        }
+
+        .section-head {
+          margin-bottom: 24px;
+          text-align: center;
+        }
+
+        .section-kicker {
+          margin: 0 0 10px;
+          font-size: 13px;
+          color: rgba(29, 78, 216, 0.78);
+          letter-spacing: 0.08em;
+          text-transform: uppercase;
+        }
+
+        .section-title {
+          margin: 0;
+          font-size: clamp(28px, 4vw, 40px);
+          letter-spacing: -0.02em;
+        }
+
+        .section-desc {
+          margin: 12px 0 0;
+          max-width: 760px;
+          color: var(--muted);
+          font-size: 16px;
+          line-height: 1.8;
+          margin-left: auto;
+          margin-right: auto;
+        }
+
+        .feature-grid,
+        .agreement-grid,
+        .workflow-grid {
+          display: grid;
+          gap: 18px;
+        }
+
+        .feature-grid {
+          grid-template-columns: repeat(3, minmax(0, 1fr));
+        }
+
+        .workflow-grid {
+          grid-template-columns: repeat(3, minmax(0, 1fr));
+        }
+
+        .agreement-grid {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+
+        .feature-card,
+        .agreement-card,
+        .workflow-item {
+          border-radius: 24px;
+          padding: 24px;
+        }
+
+        .card-index {
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          width: 40px;
+          height: 40px;
+          border-radius: 14px;
+          background: linear-gradient(
+            135deg,
+            rgba(47, 107, 255, 0.16) 0%,
+            rgba(14, 165, 233, 0.18) 100%
+          );
+          color: rgba(29, 78, 216, 0.92);
+          font-weight: 700;
+          margin-bottom: 18px;
+        }
+
+        .card-title {
+          margin: 0 0 12px;
+          font-size: 20px;
+        }
+
+        .card-text {
+          margin: 0;
+          color: var(--muted);
+          font-size: 15px;
+          line-height: 1.8;
+        }
+
+        .agreement-tag {
+          display: inline-flex;
+          align-items: center;
+          min-height: 34px;
+          padding: 0 12px;
+          border-radius: 999px;
+          margin-bottom: 16px;
+          font-size: 13px;
+          font-weight: 700;
+        }
+
+        .agreement-tag.allowed {
+          background: var(--success-soft);
+          color: var(--success-text);
+        }
+
+        .agreement-tag.restricted {
+          background: var(--danger-soft);
+          color: var(--danger-text);
+        }
+
+        .agreement-list {
+          display: grid;
+          gap: 12px;
+          margin-top: 18px;
+          color: var(--muted);
+          font-size: 15px;
+          line-height: 1.8;
+        }
+
+        .agreement-list div,
+        .workflow-note {
+          padding: 12px 14px;
+          border-radius: 16px;
+          background: rgba(15, 23, 42, 0.04);
+        }
+
+        .share-grid {
+          display: grid;
+          grid-template-columns: 1fr;
+          gap: 18px;
+        }
+
+        .share-card {
+          border: 1px solid var(--border);
+          background: var(--surface);
+          box-shadow: var(--shadow-soft);
+          border-radius: 24px;
+          display: grid;
+          grid-template-columns: 320px 1fr 240px;
+          align-items: stretch;
+          padding: 0;
+          gap: 0;
+          overflow: hidden;
+        }
+
+        .share-cover {
+          position: relative;
+          overflow: hidden;
+          background: rgba(255, 255, 255, 0.9);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+
+        .share-cover-img {
+          width: 100%;
+          height: 100%;
+          display: block;
+          object-fit: contain;
+          object-position: center;
+        }
+
+        .share-play-btn {
+          position: absolute;
+          inset: 0;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          text-decoration: none;
+          cursor: pointer;
+          background: radial-gradient(
+            circle at center,
+            rgba(0, 0, 0, 0.15) 0%,
+            rgba(0, 0, 0, 0) 60%
+          );
+          opacity: 0.9;
+          transition: opacity 0.3s ease;
+        }
+
+        .share-play-btn:hover {
+          opacity: 1;
+        }
+
+        .share-play-pill {
+          width: 60px;
+          height: 60px;
+          border-radius: 50%;
+          background: rgba(255, 255, 255, 0.6);
+          border: 1px solid rgba(255, 255, 255, 0.6);
+          box-shadow: none;
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          backdrop-filter: blur(12px);
+          transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .share-play-btn:hover .share-play-pill {
+          transform: scale(1.02);
+          background: rgba(255, 255, 255, 0.7);
+          box-shadow: none;
+        }
+
+        .share-play-pill svg {
+          width: 24px;
+          height: 24px;
+          color: var(--primary);
+          transform: translateX(2px);
+        }
+
+        .share-qr-col {
+          padding: 16px;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          gap: 12px;
+          border-left: 1px solid var(--border);
+          background: rgba(248, 250, 252, 0.5);
+        }
+
+        .share-body {
+          padding: 24px 32px;
+          display: flex;
+          flex-direction: column;
+          gap: 12px;
+          flex: 1;
+          justify-content: center;
+          border: none;
+        }
+
+        .share-title {
+          margin: 0;
+          font-size: 20px;
+          letter-spacing: -0.01em;
+          color: var(--text);
+        }
+
+        .share-desc {
+          margin: 0;
+          color: var(--muted);
+          font-size: 15px;
+          line-height: 1.7;
+          display: -webkit-box;
+          -webkit-line-clamp: 3;
+          -webkit-box-orient: vertical;
+          overflow: hidden;
+        }
+
+        .share-action-row {
+          display: flex;
+          align-items: center;
+          gap: 12px;
+          flex-wrap: wrap;
+          margin-top: auto;
+          padding-top: 12px;
+        }
+
+        .share-action-wrap {
+          position: relative;
+          display: inline-block;
+        }
+
+        .share-action-btn {
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          width: 180px;
+          min-height: 36px;
+          padding: 0 16px;
+          border-radius: 999px;
+          border: none;
+          cursor: pointer;
+          background: linear-gradient(
+            135deg,
+            var(--primary) 0%,
+            rgba(14, 165, 233, 1) 100%
+          );
+          box-shadow: 0 10px 24px rgba(47, 107, 255, 0.18);
+          color: #ffffff;
+          font-size: 14px;
+          font-weight: 800;
+          letter-spacing: 0.01em;
+          text-decoration: none;
+          transition:
+            transform 0.2s,
+            box-shadow 0.2s,
+            background 0.2s;
+        }
+
+        .share-action-btn:hover {
+          transform: translateY(-1px);
+          box-shadow: 0 12px 28px rgba(47, 107, 255, 0.22);
+        }
+
+        .share-action-wrap .btn-tag {
+          position: absolute;
+          top: -10px;
+          right: -10px;
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          height: 20px;
+          padding: 0 6px;
+          border-radius: 8px 8px 8px 0;
+          background: #ff4d4f;
+          color: #ffffff;
+          font-size: 11px;
+          font-weight: 800;
+          letter-spacing: 0.02em;
+          box-shadow: 0 4px 8px rgba(255, 77, 79, 0.3);
+          z-index: 2;
+          transform-origin: bottom left;
+          animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+        }
+
+        @keyframes popIn {
+          0% {
+            transform: scale(0.5);
+            opacity: 0;
+          }
+          100% {
+            transform: scale(1);
+            opacity: 1;
           }
         }
 
-        if (targetModal && targetModal.id === 'watch-guide') {
-          const watchTitle = node.getAttribute('data-watch-title') || '';
-          const watchDy = node.getAttribute('data-watch-dy') || '';
-          const watchRedbook = node.getAttribute('data-watch-redbook') || '';
+        .share-qr-row {
+          display: flex;
+          gap: 12px;
+          align-items: stretch;
+          flex-direction: column;
+        }
 
-          const titleEl = targetModal.querySelector('#watch-guide-title');
-          if (titleEl) {
-            titleEl.textContent = watchTitle ? '扫码观看：' + watchTitle : '扫码观看';
+        .share-qr-item {
+          width: 100%;
+          padding: 12px;
+          border-radius: 16px;
+          background: rgba(255, 255, 255, 0.9);
+          border: 1px solid rgba(15, 23, 42, 0.08);
+          display: flex;
+          align-items: center;
+          gap: 12px;
+          box-shadow: 0 2px 8px rgba(15, 23, 42, 0.02);
+        }
+
+        .share-qr-img {
+          width: 72px;
+          height: 72px;
+          aspect-ratio: 1;
+          border-radius: 12px;
+          background: #ffffff;
+          border: 1px solid rgba(15, 23, 42, 0.06);
+          display: block;
+          object-fit: cover;
+          flex: none;
+        }
+
+        .share-qr-img.is-redbook {
+          border-radius: 0;
+          object-fit: contain;
+          border: none;
+        }
+
+        .share-qr-label {
+          display: flex;
+          flex-direction: column;
+          gap: 4px;
+          flex: 1;
+        }
+
+        .share-qr-label strong {
+          font-size: 14px;
+          color: rgba(15, 23, 42, 0.92);
+        }
+
+        .share-qr-label span {
+          font-size: 12px;
+          color: var(--muted);
+          line-height: 1.5;
+        }
+
+        .privacy-emphasis {
+          margin-top: 22px;
+          padding: 18px 20px;
+          border-radius: 20px;
+          border: 1px solid rgba(244, 63, 94, 0.2);
+          background: rgba(244, 63, 94, 0.08);
+          font-size: 16px;
+          line-height: 1.8;
+          color: rgba(15, 23, 42, 0.88);
+        }
+
+        .footer {
+          padding: 0 0 52px;
+        }
+
+        .footer-card {
+          border-radius: 24px;
+          padding: 24px;
+          background: rgba(255, 255, 255, 0.72);
+          border: 1px solid rgba(15, 23, 42, 0.1);
+          color: var(--muted);
+          font-size: 14px;
+          line-height: 1.8;
+          box-shadow: var(--shadow-soft);
+        }
+
+        .guide-modal {
+          position: fixed;
+          inset: 0;
+          z-index: 40;
+          display: none;
+          align-items: center;
+          justify-content: center;
+          padding: 24px;
+          background: rgba(10, 18, 34, 0);
+          backdrop-filter: blur(0px);
+          transition:
+            background 0.3s ease,
+            backdrop-filter 0.3s ease;
+          opacity: 0;
+          pointer-events: none;
+        }
+
+        .guide-modal.is-visible {
+          display: flex;
+          background: rgba(10, 18, 34, 0.42);
+          backdrop-filter: blur(14px);
+          opacity: 1;
+          pointer-events: auto;
+        }
+
+        .guide-dialog {
+          width: min(980px, 100%);
+          border-radius: 28px;
+          overflow: hidden;
+          border: 1px solid rgba(15, 23, 42, 0.1);
+          background: rgba(255, 255, 255, 0.96);
+          box-shadow: 0 34px 80px rgba(15, 23, 42, 0.22);
+          transform: scale(0.95) translateY(10px);
+          opacity: 0;
+          transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .guide-modal.is-visible .guide-dialog {
+          transform: scale(1) translateY(0);
+          opacity: 1;
+        }
+
+        .guide-dialog-inner {
+          display: flex;
+          flex-direction: column;
+        }
+
+        .guide-main {
+          padding: 24px 34px 20px;
+          background:
+            radial-gradient(
+              circle at top,
+              rgba(47, 107, 255, 0.08),
+              transparent 36%
+            ),
+            linear-gradient(
+              180deg,
+              rgba(248, 251, 255, 1) 0%,
+              rgba(255, 255, 255, 1) 100%
+            );
+          text-align: center;
+        }
+
+        .guide-side {
+          padding: 24px 34px 34px;
+          border-top: 1px solid rgba(15, 23, 42, 0.06);
+          background: rgba(247, 250, 255, 0.6);
+        }
+
+        .guide-head {
+          display: flex;
+          align-items: flex-start;
+          justify-content: center;
+          position: relative;
+          gap: 16px;
+          margin-bottom: 16px;
+        }
+
+        .guide-head-content {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+        }
+
+        .guide-kicker {
+          display: inline-flex;
+          align-items: center;
+          min-height: 26px;
+          padding: 0 12px;
+          border-radius: 999px;
+          background: rgba(47, 107, 255, 0.1);
+          color: rgba(29, 78, 216, 0.9);
+          font-size: 12px;
+          font-weight: 800;
+          letter-spacing: 0.08em;
+          text-transform: uppercase;
+        }
+
+        .guide-title {
+          margin: 8px 0 6px;
+          font-size: clamp(24px, 4vw, 32px);
+          line-height: 1.12;
+          letter-spacing: -0.03em;
+          color: var(--text);
+        }
+
+        .guide-desc {
+          margin: 0 auto;
+          max-width: 540px;
+          color: var(--muted);
+          font-size: 14px;
+          line-height: 1.7;
+        }
+
+        .guide-close {
+          position: absolute;
+          top: -8px;
+          right: -16px;
+          appearance: none;
+          border: none;
+          width: 36px;
+          height: 36px;
+          border-radius: 999px;
+          background: rgba(15, 23, 42, 0.06);
+          color: rgba(15, 23, 42, 0.72);
+          font-size: 18px;
+          cursor: pointer;
+          flex: none;
+        }
+
+        .guide-close:hover {
+          background: rgba(15, 23, 42, 0.1);
+        }
+
+        .guide-wechat-card {
+          margin-top: 16px;
+          padding: 20px;
+          border-radius: 20px;
+          border: 1px solid rgba(47, 107, 255, 0.14);
+          background: linear-gradient(
+            180deg,
+            rgba(47, 107, 255, 0.04) 0%,
+            rgba(255, 255, 255, 0.96) 100%
+          );
+          box-shadow: var(--shadow-soft);
+          text-align: left;
+          position: relative;
+          overflow: hidden;
+        }
+
+        .guide-priority {
+          position: absolute;
+          top: 16px;
+          left: 16px;
+          display: inline-flex;
+          align-items: center;
+          min-height: 24px;
+          padding: 0 10px;
+          border-radius: 999px;
+          background: rgba(16, 185, 129, 0.12);
+          color: rgba(4, 120, 87, 0.92);
+          font-size: 12px;
+          font-weight: 800;
+        }
+
+        .guide-wechat-layout {
+          display: flex;
+          gap: 24px;
+          align-items: center;
+          justify-content: center;
+          margin-top: 12px;
+        }
+
+        .guide-qr {
+          width: 140px;
+          height: 140px;
+          aspect-ratio: 1;
+          object-fit: cover;
+          display: block;
+          border-radius: 14px;
+          background: #ffffff;
+          border: 1px solid rgba(15, 23, 42, 0.08);
+          box-shadow: 0 10px 24px rgba(15, 23, 42, 0.08);
+          flex: none;
+        }
+
+        .guide-wechat-info {
+          flex: 1;
+          max-width: 320px;
+        }
+
+        .guide-wechat-title {
+          margin: 0 0 8px;
+          font-size: 20px;
+          color: var(--text);
+        }
+
+        .guide-wechat-text {
+          margin: 0;
+          color: var(--muted);
+          font-size: 14px;
+          line-height: 1.7;
+        }
+
+        .guide-highlight {
+          margin-top: 12px;
+          padding: 10px 14px;
+          border-radius: 12px;
+          background: rgba(255, 255, 255, 0.78);
+          border: 1px solid rgba(15, 23, 42, 0.08);
+          color: rgba(15, 23, 42, 0.82);
+          font-size: 13px;
+          line-height: 1.5;
+        }
+
+        .guide-side-header {
+          margin-bottom: 24px;
+        }
+
+        .guide-side-title {
+          margin: 0;
+          font-size: 22px;
+          color: var(--text);
+        }
+
+        .guide-side-desc {
+          margin: 8px 0 0;
+          color: var(--muted);
+          font-size: 15px;
+          line-height: 1.7;
+        }
+
+        .guide-social-list {
+          display: grid;
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+          gap: 20px;
+        }
+
+        .guide-social-card {
+          display: flex;
+          align-items: center;
+          gap: 20px;
+          padding: 20px;
+          border-radius: 20px;
+          background: rgba(255, 255, 255, 0.9);
+          border: 1px solid rgba(15, 23, 42, 0.06);
+          text-align: left;
+        }
+
+        .guide-social-card img {
+          width: 100px;
+          height: 100px;
+          aspect-ratio: 1;
+          object-fit: cover;
+          display: block;
+          margin: 0;
+          border-radius: 16px;
+          background: #ffffff;
+          flex: none;
+          box-shadow: 0 10px 24px rgba(15, 23, 42, 0.04);
+        }
+
+        .guide-social-info {
+          flex: 1;
+        }
+
+        .guide-social-label {
+          margin: 0 0 8px;
+          font-size: 18px;
+          color: var(--text);
+        }
+
+        .guide-social-text {
+          margin: 0;
+          color: var(--muted);
+          font-size: 14px;
+          line-height: 1.6;
+        }
+
+        .watch-qr-grid {
+          display: grid;
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+          gap: 16px;
+          margin-top: 22px;
+        }
+
+        .watch-qr-card {
+          border-radius: 20px;
+          border: 1px solid rgba(15, 23, 42, 0.1);
+          background: rgba(255, 255, 255, 0.82);
+          padding: 18px;
+          display: grid;
+          grid-template-columns: 168px 1fr;
+          align-items: center;
+          gap: 16px;
+        }
+
+        .watch-qr-img {
+          width: 168px;
+          height: 168px;
+          border-radius: 16px;
+          background: #ffffff;
+          border: 1px solid rgba(15, 23, 42, 0.08);
+          object-fit: cover;
+          display: block;
+        }
+
+        .watch-qr-img.is-redbook {
+          border-radius: 0;
+          object-fit: contain;
+          border: none;
+        }
+
+        .watch-qr-title {
+          margin: 0 0 8px;
+          font-size: 18px;
+          color: rgba(15, 23, 42, 0.92);
+        }
+
+        .watch-qr-desc {
+          margin: 0;
+          font-size: 14px;
+          color: var(--muted);
+          line-height: 1.7;
+        }
+
+        @media (max-width: 960px) {
+          .feature-grid,
+          .workflow-grid,
+          .agreement-grid {
+            grid-template-columns: 1fr;
           }
 
-          const dyImg = targetModal.querySelector('#watch-dy-img');
-          if (dyImg && watchDy) {
-            dyImg.setAttribute('src', watchDy);
+          .share-card {
+            grid-template-columns: 1fr;
           }
 
-          const redbookImg = targetModal.querySelector('#watch-redbook-img');
-          if (redbookImg && watchRedbook) {
-            redbookImg.setAttribute('src', watchRedbook);
+          .share-qr-col {
+            border-left: none;
+            border-top: 1px solid var(--border);
+          }
+
+          .share-qr-row {
+            flex-direction: row;
+          }
+
+          .hero {
+            padding-top: 74px;
+          }
+
+          .guide-dialog-inner {
+            grid-template-columns: 1fr;
+          }
+
+          .guide-side {
+            border-left: none;
+            border-top: 1px solid rgba(15, 23, 42, 0.08);
+          }
+
+          .watch-qr-grid {
+            grid-template-columns: 1fr;
+          }
+
+          .watch-qr-card {
+            grid-template-columns: 140px 1fr;
+          }
+
+          .watch-qr-img {
+            width: 140px;
+            height: 140px;
           }
         }
-        
-        targetModal.classList.add('is-visible');
-        document.body.style.overflow = 'hidden';
-      });
-    });
 
-    const allModals = document.querySelectorAll('.guide-modal');
-    allModals.forEach(m => {
-      const closers = m.querySelectorAll('[data-close-guide]');
-      closers.forEach((node) => {
-        node.addEventListener('click', () => {
-          m.classList.remove('is-visible');
-          document.body.style.overflow = '';
-        });
-      });
-
-      m.addEventListener('click', (event) => {
-        if (event.target === m) {
-          m.classList.remove('is-visible');
-          document.body.style.overflow = '';
+        .custom-toast {
+          position: fixed;
+          top: 24px;
+          left: 50%;
+          transform: translateX(-50%) translateY(-20px) scale(0.95);
+          background: rgba(15, 23, 42, 0.85);
+          backdrop-filter: blur(8px);
+          color: #fff;
+          padding: 12px 24px;
+          border-radius: 999px;
+          font-size: 15px;
+          font-weight: 500;
+          box-shadow: 0 10px 30px rgba(15, 23, 42, 0.15);
+          z-index: 10000;
+          opacity: 0;
+          pointer-events: none;
+          transition:
+            transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+            opacity 0.4s ease;
+          display: flex;
+          align-items: center;
+          gap: 8px;
         }
-      });
-    });
 
-    window.addEventListener('keydown', (event) => {
-      if (event.key === 'Escape') {
-        allModals.forEach(m => {
-          m.classList.remove('is-visible');
-        });
-        document.body.style.overflow = '';
-      }
-    });
+        .custom-toast.show {
+          opacity: 1;
+          transform: translateX(-50%) translateY(0) scale(1);
+        }
 
-    const copyButtons = document.querySelectorAll('[data-copy-action]');
-    copyButtons.forEach(button => {
-      button.addEventListener('click', async (event) => {
-        event.preventDefault();
-        try {
-          const response = await fetch('./prd-mark.md');
-          if (!response.ok) throw new Error('Network response was not ok');
-          const text = await response.text();
-          await navigator.clipboard.writeText(text);
-          
-          const originalText = button.textContent;
-          button.textContent = '已复制！';
-          button.style.background = 'linear-gradient(135deg, var(--success-text) 0%, #10b981 100%)';
-          
-          // Custom toast notification
-          let toast = document.getElementById('custom-toast');
-          if (!toast) {
-            toast = document.createElement('div');
-            toast.id = 'custom-toast';
-            toast.className = 'custom-toast';
-            toast.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg> 完整PRD提示词已经写入剪贴板`;
-            document.body.appendChild(toast);
+        .custom-toast svg {
+          width: 18px;
+          height: 18px;
+          color: #10b981;
+        }
+
+        @media (max-width: 640px) {
+          .container {
+            width: min(100% - 24px, 1120px);
           }
-          
-          // Trigger animation
-          requestAnimationFrame(() => {
-            toast.classList.add('show');
+
+          .site-nav-inner {
+            grid-template-columns: 1fr;
+            justify-items: start;
+            padding: 14px 0;
+          }
+
+          .nav-links {
+            justify-content: flex-start;
+            gap: 14px;
+            flex-wrap: wrap;
+          }
+
+          .feature-card,
+          .agreement-card,
+          .workflow-item {
+            border-radius: 22px;
+          }
+
+          .share-card {
+            border-radius: 22px;
+            grid-template-columns: 1fr;
+          }
+
+          .share-qr-col {
+            border-left: none;
+            border-top: 1px solid var(--border);
+            padding: 20px;
+          }
+
+          .share-qr-row {
+            flex-direction: row;
+          }
+
+          .share-body {
+            padding: 20px;
+          }
+
+          .feature-card,
+          .agreement-card,
+          .workflow-item,
+          .footer-card {
+            padding: 20px;
+          }
+
+          .share-body {
+            gap: 12px;
+          }
+
+          .share-cover {
+            aspect-ratio: 16 / 9;
+          }
+
+          .share-qr-col {
+          }
+
+          .share-qr-row {
+            flex-direction: row;
+            flex-wrap: wrap;
+          }
+
+          .share-qr-item {
+            width: calc(50% - 5px);
+          }
+
+          .primary-btn,
+          .secondary-btn {
+            width: 100%;
+          }
+
+          .nav-actions {
+            width: 100%;
+            justify-content: flex-start;
+          }
+
+          .hero-boundary {
+            grid-template-columns: 1fr;
+          }
+
+          .guide-modal {
+            padding: 14px;
+          }
+
+          .guide-main,
+          .guide-side {
+            padding: 22px 20px;
+          }
+
+          .guide-wechat-layout {
+            grid-template-columns: 1fr;
+          }
+        }
+
+        .module-grid,
+        .direction-grid {
+          display: grid;
+          grid-template-columns: repeat(4, minmax(0, 1fr));
+          gap: 18px;
+        }
+
+        .direction-grid {
+          grid-template-columns: repeat(3, minmax(0, 1fr));
+        }
+
+        .module-card,
+        .direction-card {
+          position: relative;
+          min-height: 220px;
+          padding: 24px;
+          border: 1px solid rgba(15, 23, 42, 0.1);
+          border-radius: 8px;
+          background: rgba(255, 255, 255, 0.78);
+          box-shadow: var(--shadow-soft);
+        }
+
+        .direction-card span {
+          display: inline-flex;
+          align-items: center;
+          min-height: 28px;
+          margin-bottom: 18px;
+          padding: 5px 10px;
+          border-radius: 999px;
+          background: rgba(47, 107, 255, 0.1);
+          color: var(--primary-strong);
+          font-size: 12px;
+          font-weight: 900;
+        }
+
+        .final-cta {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          gap: 24px;
+          margin-top: 22px;
+          padding: 28px;
+          border: 1px solid rgba(47, 107, 255, 0.16);
+          border-radius: 8px;
+          background: linear-gradient(
+            135deg,
+            rgba(47, 107, 255, 0.11),
+            rgba(0, 143, 93, 0.1)
+          );
+        }
+
+        .final-cta h3 {
+          margin: 0 0 8px;
+          font-size: 24px;
+          line-height: 1.25;
+        }
+
+        .final-cta p {
+          margin: 0;
+          color: var(--muted);
+          line-height: 1.8;
+        }
+
+        @media (max-width: 980px) {
+          .module-grid,
+          .direction-grid {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+          }
+
+          .final-cta {
+            align-items: flex-start;
+            flex-direction: column;
+          }
+        }
+
+        @media (max-width: 640px) {
+          .module-grid,
+          .direction-grid {
+            grid-template-columns: 1fr;
+          }
+
+          .module-card,
+          .direction-card {
+            min-height: auto;
+          }
+        }
+
+        .course-hero {
+          padding-top: 76px;
+          min-height: 690px;
+        }
+
+        .course-hero .hero-inner {
+          width: min(1080px, 100%);
+        }
+
+        .course-hero .hero-title {
+          font-size: clamp(42px, 6vw, 76px);
+        }
+
+        .course-hero .hero-desc {
+          max-width: 980px;
+          font-size: clamp(18px, 2.1vw, 25px);
+          line-height: 1.75;
+        }
+
+        .course-hero .hero-note {
+          margin-top: 24px;
+          font-size: 16px;
+          font-weight: 800;
+        }
+
+        .course-hero .hero-boundary {
+          width: min(1120px, 100%);
+          margin-top: 52px;
+          padding: 0;
+          border: 0;
+          border-radius: 0;
+          background: transparent;
+          box-shadow: none;
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+          gap: 22px;
+        }
+
+        .course-hero .boundary-item {
+          min-height: 168px;
+          padding: 30px 34px;
+          border-radius: 8px;
+          border: 1px solid rgba(15, 23, 42, 0.12);
+          background: rgba(255, 255, 255, 0.76);
+          box-shadow: var(--shadow-soft);
+        }
+
+        .course-hero .boundary-item strong {
+          font-size: 22px;
+          line-height: 1.35;
+        }
+
+        .course-hero .boundary-item span {
+          margin-top: 16px;
+          font-size: 17px;
+          line-height: 1.75;
+        }
+
+        .toolkit-strip {
+          padding: 18px 0 0;
+        }
+
+        .toolkit-panel {
+          display: grid;
+          grid-template-columns: minmax(0, 1fr) 300px;
+          gap: 28px;
+          align-items: center;
+          min-height: 300px;
+          padding: 34px 38px;
+          border: 1px solid rgba(0, 143, 93, 0.18);
+          border-radius: 8px;
+          background:
+            linear-gradient(
+              135deg,
+              rgba(240, 253, 248, 0.94),
+              rgba(255, 255, 255, 0.82)
+            ),
+            linear-gradient(rgba(0, 143, 93, 0.045) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(0, 143, 93, 0.045) 1px, transparent 1px);
+          background-size:
+            auto,
+            36px 36px,
+            36px 36px;
+          box-shadow: 0 14px 36px rgba(15, 23, 42, 0.08);
+        }
+
+        .toolkit-panel .section-kicker {
+          display: inline-flex;
+          align-items: center;
+          min-height: 28px;
+          margin-bottom: 14px;
+          padding: 0 10px;
+          border-radius: 999px;
+          color: #047857;
+          background: rgba(0, 143, 93, 0.12);
+          font-size: 12px;
+          font-weight: 900;
+          letter-spacing: 0;
+          text-transform: none;
+        }
+
+        .toolkit-panel h2 {
+          max-width: 560px;
+          margin: 0 0 12px;
+          font-size: clamp(28px, 3vw, 40px);
+          line-height: 1.16;
+          letter-spacing: -0.02em;
+        }
+
+        .toolkit-panel p {
+          max-width: 640px;
+          margin: 0;
+          color: var(--muted);
+          font-size: 16px;
+          line-height: 1.78;
+        }
+
+        .toolkit-points {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 10px;
+          margin-top: 22px;
+        }
+
+        .toolkit-points span {
+          display: inline-flex;
+          align-items: center;
+          min-height: 34px;
+          padding: 0 12px;
+          border: 1px solid rgba(0, 143, 93, 0.14);
+          border-radius: 999px;
+          color: #075c45;
+          background: rgba(255, 255, 255, 0.72);
+          font-size: 13px;
+          font-weight: 900;
+        }
+
+        .toolkit-actions {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+
+        .toolkit-actions .secondary-btn {
+          width: min(280px, 100%);
+          min-height: 66px;
+          padding: 0 26px;
+          border: 0;
+          color: #ffffff;
+          background: linear-gradient(135deg, #059669 0%, #0ea5a4 100%);
+          box-shadow: 0 18px 36px rgba(5, 150, 105, 0.24);
+          font-size: 18px;
+          font-weight: 900;
+        }
+
+        .toolkit-actions .secondary-btn:hover {
+          box-shadow: 0 22px 42px rgba(5, 150, 105, 0.3);
+        }
+
+        @media (max-width: 820px) {
+          .toolkit-panel {
+            grid-template-columns: 1fr;
+            align-items: stretch;
+            min-height: auto;
+            padding: 24px;
+          }
+
+          .toolkit-actions {
+            min-width: 0;
+            min-height: auto;
+          }
+        }
+
+        @media (max-width: 720px) {
+          .course-hero {
+            padding-top: 52px;
+            min-height: auto;
+          }
+
+          .course-hero .hero-boundary {
+            grid-template-columns: 1fr;
+            gap: 14px;
+            margin-top: 34px;
+          }
+
+          .course-hero .boundary-item {
+            min-height: auto;
+            padding: 22px;
+          }
+
+          .course-hero .boundary-item strong {
+            font-size: 20px;
+          }
+
+          .course-hero .boundary-item span {
+            font-size: 16px;
+          }
+        }
+
+        .nav-links a.highlight-link {
+          color: #047857;
+          background: rgba(0, 143, 93, 0.08);
+          border-color: rgba(0, 143, 93, 0.18);
+        }
+
+        .nav-links a.highlight-link:hover {
+          color: #065f46;
+          background: rgba(0, 143, 93, 0.12);
+        }
+
+        .course-hero .primary-btn {
+          min-width: 320px;
+          font-size: 18px;
+        }
+
+        .section {
+          padding: 68px 0;
+        }
+
+        .section-head {
+          max-width: 760px;
+          margin-right: auto;
+          margin-left: auto;
+          margin-bottom: 30px;
+        }
+
+        .feature-grid {
+          grid-template-columns: repeat(4, minmax(0, 1fr));
+          gap: 14px;
+        }
+
+        .module-grid {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+          gap: 14px;
+        }
+
+        .direction-grid {
+          gap: 14px;
+        }
+
+        .feature-card,
+        .module-card,
+        .direction-card {
+          min-height: 220px;
+          padding: 22px;
+          border: 1px solid rgba(15, 23, 42, 0.12);
+          border-radius: 8px;
+          background: rgba(255, 255, 255, 0.76);
+          box-shadow: var(--shadow-soft);
+          backdrop-filter: blur(18px);
+        }
+
+        .module-card {
+          min-height: 190px;
+        }
+
+        .card-index {
+          width: auto;
+          min-width: 36px;
+          height: 28px;
+          margin-bottom: 18px;
+          padding: 0 10px;
+          border-radius: 999px;
+          font-size: 13px;
+          font-weight: 950;
+        }
+
+        .card-title {
+          margin: 0 0 10px;
+          font-size: 20px;
+          line-height: 1.35;
+        }
+
+        .card-text {
+          font-size: 15px;
+          line-height: 1.76;
+        }
+
+        @media (max-width: 1020px) {
+          .feature-grid {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+          }
+        }
+
+        @media (max-width: 720px) {
+          .course-hero .primary-btn {
+            min-width: 0;
+          }
+
+          .feature-grid,
+          .module-grid,
+          .direction-grid {
+            grid-template-columns: 1fr;
+          }
+
+          .section {
+            padding: 54px 0;
+          }
+        }
+      </style>
+      <div class="site-shell">
+        <div class="site-nav">
+          <div class="container site-nav-inner">
+            <a class="brand" href="#top"
+              ><span class="brand-mark">PL</span><span>ProtoLink 课程</span></a
+            >
+            <div class="nav-links">
+              <a href="#toolkit" class="highlight-link">工具下载</a
+              ><a href="#course">课程介绍</a
+              ><a href="#product">ProtoLink 介绍</a
+              ><a href="#modules">课程模块</a><a href="#direction">发展方向</a>
+            </div>
+            <div class="nav-actions">
+              <a class="nav-cta" href="#course-guide" data-open-guide="true"
+                >了解课程</a
+              >
+            </div>
+          </div>
+        </div>
+        <main id="top">
+          <section class="toolkit-strip" id="toolkit">
+            <div class="container">
+              <div class="toolkit-panel">
+                <div>
+                  <div class="section-kicker">工具下载</div>
+                  <h2>PM 原型拾取器本地服务包</h2>
+                  <p>
+                    专为产品经理打造的高效工具。一键拾取、智能还原、自由编辑，让原型设计告别机械性的搬运与重构。
+                  </p>
+                  <div class="toolkit-points">
+                    <span>页面拾取</span>
+                    <span>原型底稿整理</span>
+                    <span>本地服务包</span>
+                  </div>
+                </div>
+                <div class="toolkit-actions">
+                  <a
+                    class="secondary-btn"
+                    href="#contact-guide"
+                    data-open-guide="true"
+                    >获取完整工具包</a
+                  >
+                </div>
+              </div>
+            </div>
+          </section>
+          <section class="hero course-hero" id="course">
+            <div class="container">
+              <div class="hero-inner">
+                <div class="eyebrow">Product Manager VibeCoding Course</div>
+                <h1 class="hero-title">
+                  用 ProtoLink 源码学习产品经理如何和 AI 一起做工具
+                </h1>
+                <p class="hero-desc">
+                  课程围绕 ProtoLink
+                  完整源码实战，讲清楚产品经理如何描述需求、组织上下文、驱动 AI
+                  IDE 生成方案、推进原型和 PRD，并把工作流沉淀成可复用 Skill。
+                </p>
+                <div class="hero-actions">
+                  <a
+                    class="primary-btn"
+                    href="#course-guide"
+                    data-open-guide="true"
+                    >了解课程</a
+                  >
+                </div>
+                <div class="hero-note">
+                  随课获得 ProtoLink 源码、PRD 生成 Skill、需求标注
+                  Skill，可学习、复用并进行二次创造。
+                </div>
+                <div class="hero-boundary" aria-label="课程交付内容">
+                  <div class="boundary-item">
+                    <strong>VibeCoding 方法</strong
+                    ><span
+                      >把业务意图拆成 AI
+                      可执行上下文，建立产品经理自己的协作流程。</span
+                    >
+                  </div>
+                  <div class="boundary-item">
+                    <strong>ProtoLink 源码</strong
+                    ><span
+                      >围绕真实工具源码，理解产品定位、架构边界和迭代取舍。</span
+                    >
+                  </div>
+                  <div class="boundary-item">
+                    <strong>配套 Skill</strong
+                    ><span
+                      >获得 PRD 生成 Skill 和需求标注
+                      Skill，直接用于日常工作流。</span
+                    >
+                  </div>
+                  <div class="boundary-item">
+                    <strong>二次创造</strong
+                    ><span
+                      >基于源码继续改造内部工具、课程练习或新的产品化方向。</span
+                    >
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+          <section class="section" id="product">
+            <div class="container">
+              <div class="section-head">
+                <div class="section-kicker">ProtoLink Intro</div>
+                <h2 class="section-title">
+                  让产品经理把需求、标注、迭代和发布串成一条工作流
+                </h2>
+                <p class="section-desc">
+                  ProtoLink 支持 PRD
+                  生成、需求标注、迭代管理和原型发布。它不托管模型，也不替代团队流程，而是让产品经理在
+                  AI IDE
+                  中把需求文档、页面标注、迭代范围和预览链接组织成一条更稳定的工作流。
+                </p>
+              </div>
+              <div class="feature-grid">
+                <article class="feature-card">
+                  <div class="card-index">01</div>
+                  <h3 class="card-title">PRD 生成</h3>
+                  <p class="card-text">
+                    基于页面实现、规格说明和业务范围，生成结构清晰、便于团队协作的
+                    PRD。
+                  </p>
+                </article>
+                <article class="feature-card">
+                  <div class="card-index">02</div>
+                  <h3 class="card-title">需求标注</h3>
+                  <p class="card-text">
+                    把需求模块挂载到页面
+                    marker，让研发和测试在页面上直接理解范围、规则和验收点。
+                  </p>
+                </article>
+                <article class="feature-card">
+                  <div class="card-index">03</div>
+                  <h3 class="card-title">迭代管理</h3>
+                  <p class="card-text">
+                    按 iteration 组织页面范围、Ones
+                    需求、预览状态和发布链接，减少口头同步成本。
+                  </p>
+                </article>
+                <article class="feature-card">
+                  <div class="card-index">04</div>
+                  <h3 class="card-title">原型发布</h3>
+                  <p class="card-text">
+                    把本地原型预览发布为可访问链接，支持 local publish、SSH
+                    publish 和发布状态查询。
+                  </p>
+                </article>
+              </div>
+            </div>
+          </section>
+          <section class="section" id="modules">
+            <div class="container">
+              <div class="section-head">
+                <div class="section-kicker">Modules</div>
+                <h2 class="section-title">
+                  四个模块，对应产品经理的真实工作场景
+                </h2>
+              </div>
+              <div class="module-grid">
+                <article class="module-card">
+                  <div class="card-index">Module 01</div>
+                  <h3 class="card-title">产品经理 VibeCoding 方法</h3>
+                  <p class="card-text">
+                    学习如何把业务意图拆成 AI 可执行上下文，让 IDE Agent
+                    从协作者变成可验收的生产力。
+                  </p>
+                </article>
+                <article class="module-card">
+                  <div class="card-index">Module 02</div>
+                  <h3 class="card-title">ProtoLink 产品拆解</h3>
+                  <p class="card-text">
+                    从产品定位、PRD
+                    生成、需求标注、迭代管理和原型发布，理解工具型产品的真实决策。
+                  </p>
+                </article>
+                <article class="module-card">
+                  <div class="card-index">Module 03</div>
+                  <h3 class="card-title">源码阅读与二次创造</h3>
+                  <p class="card-text">
+                    围绕 CLI、本地服务、preview
+                    shell、存储和发布链路，建立能改、能扩、能上线的工程感。
+                  </p>
+                </article>
+                <article class="module-card">
+                  <div class="card-index">Module 04</div>
+                  <h3 class="card-title">Skill 工作流实战</h3>
+                  <p class="card-text">
+                    使用 PRD 生成和需求标注 Skill，把需求文档、页面 marker
+                    和有效 registry 串成闭环。
+                  </p>
+                </article>
+              </div>
+            </div>
+          </section>
+          <section class="section" id="direction">
+            <div class="container">
+              <div class="section-head">
+                <div class="section-kicker">Roadmap</div>
+                <h2 class="section-title">
+                  未来让产品经理更轻松地完成方案、交接和复盘
+                </h2>
+                <p class="section-desc">
+                  在 PRD 生成、需求标注、迭代管理和原型发布之外，ProtoLink
+                  会继续补齐方案设计、研发测试协同和项目经验沉淀，让产品工作从想法到落地更连贯。
+                </p>
+              </div>
+              <div class="direction-grid">
+                <article class="direction-card">
+                  <span>研发测试协同</span>
+                  <h3 class="card-title">交接信息更完整</h3>
+                  <p class="card-text">
+                    把实现范围、页面位置、验收标准和测试场景整理在一起，减少反复解释和遗漏。
+                  </p>
+                </article>
+                <article class="direction-card">
+                  <span>产品方案设计</span>
+                  <h3 class="card-title">从想法到可选方案</h3>
+                  <p class="card-text">
+                    结合项目背景和专业方法，快速整理多个产品方案，帮助你更快比较、取舍和决策。
+                  </p>
+                </article>
+                <article class="direction-card">
+                  <span>项目经验沉淀</span>
+                  <h3 class="card-title">让过往产出可复用</h3>
+                  <p class="card-text">
+                    把
+                    PRD、标注、发布记录和决策原因沉淀下来，后续做新需求时可以继续参考和复用。
+                  </p>
+                </article>
+              </div>
+              <div class="final-cta">
+                <div>
+                  <h3>想跟着真实项目学一遍产品经理 VibeCoding？</h3>
+                  <p>
+                    扫码添加微信，备注“ProtoLink 课程”，了解课程安排、源码交付和
+                    Skill 资料。
+                  </p>
+                </div>
+                <a
+                  class="primary-btn"
+                  href="#course-guide"
+                  data-open-guide="true"
+                  >了解课程</a
+                >
+              </div>
+            </div>
+          </section>
+        </main>
+        <footer class="footer">
+          <div class="container">
+            <div class="footer-card">
+              本页以 ProtoLink 产品经理 VibeCoding 课程推广为主；PM
+              原型拾取器工具包作为辅助下载资源保留入口。
+            </div>
+          </div>
+        </footer>
+        <div class="guide-modal" data-guide-modal="true" id="contact-guide">
+          <div
+            class="guide-dialog"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="guide-title"
+          >
+            <div class="guide-dialog-inner">
+              <div class="guide-main">
+                <div class="guide-head">
+                  <div class="guide-head-content">
+                    <div class="guide-kicker">Get Full Package</div>
+                    <h2 class="guide-title" id="guide-title">
+                      添加微信，获取完整工具包
+                    </h2>
+                    <p class="guide-desc">
+                      完整工具包通过微信统一发放与答疑。添加微信后即可获取完整版本、使用说明和后续更新信息。
+                    </p>
+                  </div>
+                  <button
+                    class="guide-close"
+                    type="button"
+                    aria-label="关闭弹窗"
+                    data-close-guide="true"
+                  >
+                    ×
+                  </button>
+                </div>
+                <div class="guide-wechat-card">
+                  <div class="guide-wechat-layout">
+                    <img
+                      class="guide-qr"
+                      src="./assets/images/wx.png"
+                      alt="微信二维码"
+                    />
+                    <div class="guide-wechat-info">
+                      <h3 class="guide-wechat-title">添加微信获取本地服务包</h3>
+                      <p class="guide-wechat-text">
+                        扫码添加微信后，可获取本地服务包、使用说明，并持续接收版本更新与使用建议。
+                      </p>
+                      <div class="guide-highlight">
+                        建议添加后备注「PM原型拾取器」便于更快识别并发送完整资料。
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <aside class="guide-side">
+                <div class="guide-side-header">
+                  <h3 class="guide-side-title">同步关注账号</h3>
+                  <p class="guide-side-desc">
+                    抖音和小红书会持续分享产品经理干货、工具方法和实践经验。
+                  </p>
+                </div>
+                <div class="guide-social-list">
+                  <div class="guide-social-card">
+                    <img src="./assets/images/dy.png" alt="抖音账号二维码" />
+                    <div class="guide-social-info">
+                      <h4 class="guide-social-label">抖音账号</h4>
+                      <p class="guide-social-text">
+                        持续分享产品经理相关干货、效率技巧与实战经验，建议扫码关注。
+                      </p>
+                    </div>
+                  </div>
+                  <div class="guide-social-card">
+                    <img
+                      src="./assets/images/redbook.png"
+                      alt="小红书账号二维码"
+                    />
+                    <div class="guide-social-info">
+                      <h4 class="guide-social-label">小红书账号</h4>
+                      <p class="guide-social-text">
+                        持续更新产品经理成长内容、工具拆解与实际案例，适合日常跟进学习。
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </aside>
+            </div>
+          </div>
+        </div>
+        <div class="guide-modal" data-guide-modal="true" id="course-guide">
+          <div
+            class="guide-dialog"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="course-guide-title"
+            style="max-width: 640px"
+          >
+            <div class="guide-dialog-inner" style="grid-template-columns: 1fr">
+              <div class="guide-main" style="padding: 40px">
+                <div class="guide-head">
+                  <div class="guide-head-content">
+                    <div class="guide-kicker">ProtoLink Course</div>
+                    <h2 class="guide-title" id="course-guide-title">
+                      ProtoLink 产品经理 VibeCoding 课程
+                    </h2>
+                    <p class="guide-desc">
+                      扫码添加微信，备注“ProtoLink
+                      课程”，可以咨询课程安排、源码交付、PRD 生成 Skill
+                      和需求标注 Skill。
+                    </p>
+                  </div>
+                  <button
+                    class="guide-close"
+                    type="button"
+                    aria-label="关闭弹窗"
+                    data-close-guide="true"
+                  >
+                    ×
+                  </button>
+                </div>
+                <div
+                  class="guide-wechat-card"
+                  style="max-width: 480px; margin: 24px auto 0"
+                >
+                  <div class="guide-wechat-layout" style="gap: 32px">
+                    <img
+                      class="guide-qr"
+                      src="./assets/images/wx.png"
+                      alt="微信二维码"
+                      style="width: 160px; height: 160px"
+                    />
+                    <div class="guide-wechat-info" style="max-width: none">
+                      <h3 class="guide-wechat-title">微信扫码咨询</h3>
+                      <p class="guide-wechat-text">
+                        添加后可了解课程安排、源码交付和配套 Skill 资料。
+                      </p>
+                      <div class="guide-highlight">
+                        请在添加后主动发送备注“ProtoLink 课程”。
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="guide-modal" data-guide-modal="true" id="skill-guide">
+          <div
+            class="guide-dialog"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="skill-guide-title"
+            style="max-width: 640px"
+          >
+            <div class="guide-dialog-inner" style="grid-template-columns: 1fr">
+              <div class="guide-main" style="padding: 40px">
+                <div class="guide-head">
+                  <div class="guide-head-content">
+                    <div class="guide-kicker">Free PRD Skill</div>
+                    <h2 class="guide-title" id="skill-guide-title">
+                      免费获取 PRD生成Skill
+                    </h2>
+                    <p class="guide-desc">
+                      扫码添加微信，备注「PRD Skill」，可免费获取完整版 PRD 生成
+                      Skill。
+                    </p>
+                  </div>
+                  <button
+                    class="guide-close"
+                    type="button"
+                    aria-label="关闭弹窗"
+                    data-close-guide="true"
+                  >
+                    ×
+                  </button>
+                </div>
+                <div
+                  class="guide-wechat-card"
+                  style="max-width: 480px; margin: 24px auto 0"
+                >
+                  <div class="guide-wechat-layout" style="gap: 32px">
+                    <img
+                      class="guide-qr"
+                      src="./assets/images/wx.png"
+                      alt="微信二维码"
+                      style="width: 160px; height: 160px"
+                    />
+                    <div class="guide-wechat-info" style="max-width: none">
+                      <h3 class="guide-wechat-title">免费获取</h3>
+                      <p class="guide-wechat-text">
+                        扫码加微信可免费获取完整版 PRD 生成 Skill。
+                      </p>
+                      <div class="guide-highlight">
+                        请在添加后主动发送备注「PRD Skill」。
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="guide-modal" data-guide-modal="true" id="watch-guide">
+          <div
+            class="guide-dialog"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="watch-guide-title"
+            style="max-width: 860px"
+          >
+            <div class="guide-dialog-inner" style="grid-template-columns: 1fr">
+              <div class="guide-main" style="padding: 34px 34px 30px">
+                <div class="guide-head">
+                  <div class="guide-head-content">
+                    <div class="guide-kicker">Watch Video</div>
+                    <h2 class="guide-title" id="watch-guide-title">扫码观看</h2>
+                    <p class="guide-desc">
+                      选择抖音或小红书，扫码即可观看对应内容。
+                    </p>
+                  </div>
+                  <button
+                    class="guide-close"
+                    type="button"
+                    aria-label="关闭弹窗"
+                    data-close-guide="true"
+                  >
+                    ×
+                  </button>
+                </div>
+                <div class="watch-qr-grid" aria-label="扫码观看二维码">
+                  <div class="watch-qr-card">
+                    <img
+                      class="watch-qr-img"
+                      id="watch-dy-img"
+                      src="./assets/images/dy.png"
+                      alt="抖音观看二维码"
+                    />
+                    <div>
+                      <h3 class="watch-qr-title">抖音</h3>
+                      <p class="watch-qr-desc">
+                        打开抖音扫码观看，建议保存后再扫码更清晰。
+                      </p>
+                    </div>
+                  </div>
+                  <div class="watch-qr-card">
+                    <img
+                      class="watch-qr-img is-redbook"
+                      id="watch-redbook-img"
+                      src="./assets/images/redbook.png"
+                      alt="小红书观看二维码"
+                    />
+                    <div>
+                      <h3 class="watch-qr-title">小红书</h3>
+                      <p class="watch-qr-desc">
+                        打开小红书扫码观看，获取同主题更多内容。
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <script>
+        (() => {
+          const modal = document.querySelector("[data-guide-modal]");
+          if (!modal) {
+            return;
+          }
+
+          const openers = document.querySelectorAll("[data-open-guide]");
+
+          openers.forEach((node) => {
+            node.addEventListener("click", (event) => {
+              event.preventDefault();
+
+              const targetId = node.getAttribute("href");
+              let targetModal = modal;
+              if (targetId && targetId !== "#") {
+                const specificModal = document.querySelector(targetId);
+                if (specificModal) {
+                  targetModal = specificModal;
+                }
+              }
+
+              if (targetModal && targetModal.id === "watch-guide") {
+                const watchTitle = node.getAttribute("data-watch-title") || "";
+                const watchDy = node.getAttribute("data-watch-dy") || "";
+                const watchRedbook =
+                  node.getAttribute("data-watch-redbook") || "";
+
+                const titleEl = targetModal.querySelector("#watch-guide-title");
+                if (titleEl) {
+                  titleEl.textContent = watchTitle
+                    ? "扫码观看：" + watchTitle
+                    : "扫码观看";
+                }
+
+                const dyImg = targetModal.querySelector("#watch-dy-img");
+                if (dyImg && watchDy) {
+                  dyImg.setAttribute("src", watchDy);
+                }
+
+                const redbookImg =
+                  targetModal.querySelector("#watch-redbook-img");
+                if (redbookImg && watchRedbook) {
+                  redbookImg.setAttribute("src", watchRedbook);
+                }
+              }
+
+              targetModal.classList.add("is-visible");
+              document.body.style.overflow = "hidden";
+            });
           });
-          
-          setTimeout(() => {
-            toast.classList.remove('show');
-            button.textContent = originalText;
-            button.style.background = '';
-          }, 3000);
-        } catch (err) {
-          console.error('Failed to copy content:', err);
-          alert('复制失败，请重试');
-        }
-      });
-    });
-  })();
-</script></div>
+
+          const allModals = document.querySelectorAll(".guide-modal");
+          allModals.forEach((m) => {
+            const closers = m.querySelectorAll("[data-close-guide]");
+            closers.forEach((node) => {
+              node.addEventListener("click", () => {
+                m.classList.remove("is-visible");
+                document.body.style.overflow = "";
+              });
+            });
+
+            m.addEventListener("click", (event) => {
+              if (event.target === m) {
+                m.classList.remove("is-visible");
+                document.body.style.overflow = "";
+              }
+            });
+          });
+
+          window.addEventListener("keydown", (event) => {
+            if (event.key === "Escape") {
+              allModals.forEach((m) => {
+                m.classList.remove("is-visible");
+              });
+              document.body.style.overflow = "";
+            }
+          });
+
+          const copyButtons = document.querySelectorAll("[data-copy-action]");
+          copyButtons.forEach((button) => {
+            button.addEventListener("click", async (event) => {
+              event.preventDefault();
+              try {
+                const response = await fetch("./prd-mark.md");
+                if (!response.ok)
+                  throw new Error("Network response was not ok");
+                const text = await response.text();
+                await navigator.clipboard.writeText(text);
+
+                const originalText = button.textContent;
+                button.textContent = "已复制！";
+                button.style.background =
+                  "linear-gradient(135deg, var(--success-text) 0%, #10b981 100%)";
+
+                // Custom toast notification
+                let toast = document.getElementById("custom-toast");
+                if (!toast) {
+                  toast = document.createElement("div");
+                  toast.id = "custom-toast";
+                  toast.className = "custom-toast";
+                  toast.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg> 完整PRD提示词已经写入剪贴板`;
+                  document.body.appendChild(toast);
+                }
+
+                // Trigger animation
+                requestAnimationFrame(() => {
+                  toast.classList.add("show");
+                });
+
+                setTimeout(() => {
+                  toast.classList.remove("show");
+                  button.textContent = originalText;
+                  button.style.background = "";
+                }, 3000);
+              } catch (err) {
+                console.error("Failed to copy content:", err);
+                alert("复制失败，请重试");
+              }
+            });
+          });
+        })();
+      </script>
+    </div>
   </body>
 </html>
